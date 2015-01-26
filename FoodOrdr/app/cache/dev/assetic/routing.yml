@@ -1,0 +1,5 @@
+_assetic:
+    resource: .
+    type: assetic
+_app:
+    resource: 'C:\Users\Bruno\Documents\GitHub\foodRestaurantThing\FoodOrdr\app/config/routing_dev.yml'
