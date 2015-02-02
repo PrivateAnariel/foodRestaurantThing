@@ -127,9 +127,54 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // homepage
-        if ($pathinfo === '/app/example') {
-            return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'homepage',);
+        // home
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'home');
+            }
+
+            return array (  'message' => NULL,  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'home',);
+        }
+
+        if (0 === strpos($pathinfo, '/log')) {
+            if (0 === strpos($pathinfo, '/login')) {
+                // login
+                if ($pathinfo === '/login') {
+                    return array (  '_controller' => 'AppBundle\\Controller\\SecurityController::loginAction',  '_route' => 'login',);
+                }
+
+                // login_check
+                if ($pathinfo === '/login_check') {
+                    return array (  '_controller' => 'AppBundle\\Controller\\SecurityController::loginCheckAction',  '_route' => 'login_check',);
+                }
+
+            }
+
+            // logout
+            if ($pathinfo === '/logout') {
+                return array (  '_controller' => 'AppBundle\\Controller\\SecurityController::logoutAction',  '_route' => 'logout',);
+            }
+
+        }
+
+        // user_registration
+        if ($pathinfo === '/RegisterUser') {
+            return array (  '_controller' => 'AppBundle\\Controller\\UserController::registerAction',  '_route' => 'user_registration',);
+        }
+
+        // user_submit
+        if (0 === strpos($pathinfo, '/User/Submit') && preg_match('#^/User/Submit/(?P<submitType>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'user_submit')), array (  '_controller' => 'AppBundle\\Controller\\UserController::submitAction',));
+        }
+
+        // display_user
+        if ($pathinfo === '/DisplayUser') {
+            return array (  '_controller' => 'AppBundle\\Controller\\UserController::displayAllAction',  '_route' => 'display_user',);
+        }
+
+        // user_modification
+        if ($pathinfo === '/ModifyUser') {
+            return array (  '_controller' => 'AppBundle\\Controller\\UserController::modifyAction',  '_route' => 'user_modification',);
         }
 
         // _welcome

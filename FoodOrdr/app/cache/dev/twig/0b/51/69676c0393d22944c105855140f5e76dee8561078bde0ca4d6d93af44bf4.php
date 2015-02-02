@@ -1,6 +1,6 @@
 <?php
 
-/* @Security/Collector/security.html.twig */
+/* SecurityBundle:Collector:security.html.twig */
 class __TwigTemplate_0b5169676c0393d22944c105855140f5e76dee8561078bde0ca4d6d93af44bf4 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -206,7 +206,8 @@ class __TwigTemplate_0b5169676c0393d22944c105855140f5e76dee8561078bde0ca4d6d93af
             // line 76
             echo "        </table>
     ";
-        } elseif ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "enabled", array())) {
+        } elseif ($this->getAttribute(        // line 77
+(isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "enabled", array())) {
             // line 78
             echo "        <p>
             <em>No token</em>
@@ -223,7 +224,7 @@ class __TwigTemplate_0b5169676c0393d22944c105855140f5e76dee8561078bde0ca4d6d93af
 
     public function getTemplateName()
     {
-        return "@Security/Collector/security.html.twig";
+        return "SecurityBundle:Collector:security.html.twig";
     }
 
     public function isTraitable()
@@ -233,6 +234,6 @@ class __TwigTemplate_0b5169676c0393d22944c105855140f5e76dee8561078bde0ca4d6d93af
 
     public function getDebugInfo()
     {
-        return array (  217 => 82,  211 => 78,  207 => 76,  201 => 73,  197 => 71,  195 => 70,  190 => 68,  184 => 64,  181 => 63,  176 => 62,  172 => 60,  170 => 59,  162 => 54,  157 => 51,  155 => 50,  152 => 49,  149 => 48,  141 => 42,  138 => 41,  133 => 38,  130 => 37,  124 => 36,  120 => 35,  117 => 34,  114 => 33,  111 => 32,  107 => 30,  103 => 28,  100 => 27,  94 => 24,  90 => 22,  88 => 21,  81 => 19,  72 => 15,  68 => 13,  65 => 12,  62 => 11,  59 => 10,  56 => 9,  53 => 8,  50 => 7,  47 => 6,  44 => 5,  41 => 4,  38 => 3,  11 => 1,);
+        return array (  218 => 82,  212 => 78,  210 => 77,  207 => 76,  201 => 73,  197 => 71,  195 => 70,  190 => 68,  184 => 64,  181 => 63,  176 => 62,  172 => 60,  170 => 59,  162 => 54,  157 => 51,  155 => 50,  152 => 49,  149 => 48,  141 => 42,  138 => 41,  133 => 38,  130 => 37,  124 => 36,  120 => 35,  117 => 34,  114 => 33,  111 => 32,  107 => 30,  103 => 28,  100 => 27,  94 => 24,  90 => 22,  88 => 21,  81 => 19,  72 => 15,  68 => 13,  65 => 12,  62 => 11,  59 => 10,  56 => 9,  53 => 8,  50 => 7,  47 => 6,  44 => 5,  41 => 4,  38 => 3,  11 => 1,);
     }
 }

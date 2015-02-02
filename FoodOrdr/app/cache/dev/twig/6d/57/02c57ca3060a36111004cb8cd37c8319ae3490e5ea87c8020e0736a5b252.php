@@ -1,6 +1,6 @@
 <?php
 
-/* @Doctrine/Collector/db.html.twig */
+/* DoctrineBundle:Collector:db.html.twig */
 class __TwigTemplate_6d5702c57ca3060a36111004cb8cd37c8319ae3490e5ea87c8020e0736a5b252 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -165,7 +165,10 @@ class __TwigTemplate_6d5702c57ca3060a36111004cb8cd37c8319ae3490e5ea87c8020e0736a
         if (("explain" == (isset($context["page"]) ? $context["page"] : $this->getContext($context, "page")))) {
             // line 61
             echo "        ";
-            echo $this->env->getExtension('http_kernel')->renderFragment($this->env->getExtension('http_kernel')->controller("DoctrineBundle:Profiler:explain", array("token" => (isset($context["token"]) ? $context["token"] : $this->getContext($context, "token")), "panel" => "db", "connectionName" => $this->getAttribute($this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "request", array()), "query", array()), "get", array(0 => "connection"), "method"), "query" => $this->getAttribute($this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "request", array()), "query", array()), "get", array(0 => "query"), "method"))));
+            echo $this->env->getExtension('http_kernel')->renderFragment($this->env->getExtension('http_kernel')->controller("DoctrineBundle:Profiler:explain", array("token" =>             // line 62
+(isset($context["token"]) ? $context["token"] : $this->getContext($context, "token")), "panel" => "db", "connectionName" => $this->getAttribute($this->getAttribute($this->getAttribute(            // line 64
+(isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "request", array()), "query", array()), "get", array(0 => "connection"), "method"), "query" => $this->getAttribute($this->getAttribute($this->getAttribute(            // line 65
+(isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "request", array()), "query", array()), "get", array(0 => "query"), "method"))));
             // line 66
             echo "
     ";
@@ -758,7 +761,7 @@ class __TwigTemplate_6d5702c57ca3060a36111004cb8cd37c8319ae3490e5ea87c8020e0736a
 
     public function getTemplateName()
     {
-        return "@Doctrine/Collector/db.html.twig";
+        return "DoctrineBundle:Collector:db.html.twig";
     }
 
     public function isTraitable()
@@ -768,6 +771,6 @@ class __TwigTemplate_6d5702c57ca3060a36111004cb8cd37c8319ae3490e5ea87c8020e0736a
 
     public function getDebugInfo()
     {
-        return array (  597 => 225,  591 => 224,  586 => 221,  578 => 218,  574 => 216,  570 => 214,  561 => 212,  557 => 211,  554 => 210,  552 => 209,  547 => 207,  544 => 206,  540 => 205,  530 => 197,  526 => 195,  524 => 194,  519 => 193,  515 => 192,  510 => 189,  504 => 185,  501 => 184,  498 => 183,  496 => 182,  493 => 181,  491 => 180,  488 => 179,  485 => 178,  483 => 177,  480 => 176,  478 => 175,  475 => 174,  472 => 173,  470 => 172,  467 => 171,  465 => 170,  462 => 169,  459 => 168,  457 => 167,  452 => 164,  446 => 160,  443 => 159,  440 => 158,  438 => 157,  433 => 154,  427 => 150,  424 => 149,  421 => 148,  419 => 147,  414 => 144,  400 => 143,  395 => 140,  379 => 137,  371 => 135,  369 => 134,  366 => 133,  362 => 131,  348 => 125,  346 => 124,  334 => 121,  330 => 120,  324 => 117,  318 => 116,  313 => 114,  307 => 113,  301 => 110,  295 => 109,  286 => 105,  281 => 103,  277 => 102,  268 => 101,  251 => 100,  247 => 99,  240 => 95,  236 => 94,  230 => 91,  219 => 82,  213 => 78,  211 => 77,  206 => 76,  189 => 75,  185 => 73,  182 => 72,  174 => 68,  170 => 66,  167 => 61,  164 => 60,  161 => 59,  153 => 54,  149 => 53,  143 => 49,  140 => 48,  135 => 45,  132 => 44,  124 => 41,  115 => 37,  108 => 33,  104 => 31,  102 => 30,  95 => 28,  88 => 24,  81 => 20,  77 => 18,  74 => 17,  71 => 16,  67 => 14,  64 => 13,  58 => 11,  55 => 10,  49 => 8,  47 => 7,  39 => 6,  36 => 5,  33 => 4,  30 => 3,  21 => 1,);
+        return array (  600 => 225,  594 => 224,  589 => 221,  581 => 218,  577 => 216,  573 => 214,  564 => 212,  560 => 211,  557 => 210,  555 => 209,  550 => 207,  547 => 206,  543 => 205,  533 => 197,  529 => 195,  527 => 194,  522 => 193,  518 => 192,  513 => 189,  507 => 185,  504 => 184,  501 => 183,  499 => 182,  496 => 181,  494 => 180,  491 => 179,  488 => 178,  486 => 177,  483 => 176,  481 => 175,  478 => 174,  475 => 173,  473 => 172,  470 => 171,  468 => 170,  465 => 169,  462 => 168,  460 => 167,  455 => 164,  449 => 160,  446 => 159,  443 => 158,  441 => 157,  436 => 154,  430 => 150,  427 => 149,  424 => 148,  422 => 147,  417 => 144,  403 => 143,  398 => 140,  382 => 137,  374 => 135,  372 => 134,  369 => 133,  365 => 131,  351 => 125,  349 => 124,  337 => 121,  333 => 120,  327 => 117,  321 => 116,  316 => 114,  310 => 113,  304 => 110,  298 => 109,  289 => 105,  284 => 103,  280 => 102,  271 => 101,  254 => 100,  250 => 99,  243 => 95,  239 => 94,  233 => 91,  222 => 82,  216 => 78,  214 => 77,  209 => 76,  192 => 75,  188 => 73,  185 => 72,  177 => 68,  173 => 66,  171 => 65,  170 => 64,  169 => 62,  167 => 61,  164 => 60,  161 => 59,  153 => 54,  149 => 53,  143 => 49,  140 => 48,  135 => 45,  132 => 44,  124 => 41,  115 => 37,  108 => 33,  104 => 31,  102 => 30,  95 => 28,  88 => 24,  81 => 20,  77 => 18,  74 => 17,  71 => 16,  67 => 14,  64 => 13,  58 => 11,  55 => 10,  49 => 8,  47 => 7,  39 => 6,  36 => 5,  33 => 4,  30 => 3,  21 => 1,);
     }
 }

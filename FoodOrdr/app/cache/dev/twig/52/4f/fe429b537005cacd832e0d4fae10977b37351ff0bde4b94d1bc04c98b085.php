@@ -1,6 +1,6 @@
 <?php
 
-/* @WebProfiler/Collector/request.html.twig */
+/* WebProfilerBundle:Collector:request.html.twig */
 class __TwigTemplate_524ffe429b537005cacd832e0d4fae10977b37351ff0bde4b94d1bc04c98b085 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -280,7 +280,8 @@ class __TwigTemplate_524ffe429b537005cacd832e0d4fae10977b37351ff0bde4b94d1bc04c9
             // line 105
             echo "        <p><em>Request content not available (it was retrieved as a resource).</em></p>
     ";
-        } elseif ($this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "content", array())) {
+        } elseif ($this->getAttribute(        // line 106
+(isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "content", array())) {
             // line 107
             echo "        <pre>";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["collector"]) ? $context["collector"] : $this->getContext($context, "collector")), "content", array()), "html", null, true);
@@ -418,7 +419,7 @@ class __TwigTemplate_524ffe429b537005cacd832e0d4fae10977b37351ff0bde4b94d1bc04c9
 
     public function getTemplateName()
     {
-        return "@WebProfiler/Collector/request.html.twig";
+        return "WebProfilerBundle:Collector:request.html.twig";
     }
 
     public function isTraitable()
@@ -428,6 +429,6 @@ class __TwigTemplate_524ffe429b537005cacd832e0d4fae10977b37351ff0bde4b94d1bc04c9
 
     public function getDebugInfo()
     {
-        return array (  415 => 164,  412 => 163,  406 => 162,  404 => 161,  397 => 160,  393 => 159,  389 => 157,  387 => 156,  384 => 155,  381 => 154,  379 => 153,  371 => 151,  369 => 150,  366 => 149,  360 => 145,  357 => 144,  354 => 143,  352 => 142,  347 => 139,  341 => 135,  338 => 134,  335 => 133,  333 => 132,  328 => 129,  322 => 125,  319 => 124,  316 => 123,  314 => 122,  309 => 119,  307 => 118,  302 => 115,  300 => 114,  295 => 111,  291 => 109,  285 => 107,  281 => 105,  279 => 104,  274 => 101,  272 => 100,  267 => 97,  261 => 93,  258 => 92,  255 => 91,  253 => 90,  248 => 87,  242 => 83,  239 => 82,  236 => 81,  234 => 80,  229 => 77,  223 => 73,  220 => 72,  217 => 71,  215 => 70,  210 => 67,  204 => 63,  201 => 62,  198 => 61,  196 => 60,  192 => 58,  189 => 57,  181 => 51,  178 => 50,  173 => 47,  170 => 46,  160 => 43,  153 => 39,  146 => 35,  135 => 31,  131 => 29,  128 => 28,  125 => 27,  120 => 25,  116 => 24,  108 => 23,  105 => 22,  102 => 21,  99 => 20,  96 => 19,  93 => 18,  87 => 16,  84 => 15,  72 => 13,  66 => 10,  58 => 9,  53 => 8,  50 => 7,  47 => 6,  44 => 5,  41 => 4,  38 => 3,  11 => 1,);
+        return array (  416 => 164,  413 => 163,  407 => 162,  405 => 161,  398 => 160,  394 => 159,  390 => 157,  388 => 156,  385 => 155,  382 => 154,  380 => 153,  372 => 151,  370 => 150,  367 => 149,  361 => 145,  358 => 144,  355 => 143,  353 => 142,  348 => 139,  342 => 135,  339 => 134,  336 => 133,  334 => 132,  329 => 129,  323 => 125,  320 => 124,  317 => 123,  315 => 122,  310 => 119,  308 => 118,  303 => 115,  301 => 114,  296 => 111,  292 => 109,  286 => 107,  284 => 106,  281 => 105,  279 => 104,  274 => 101,  272 => 100,  267 => 97,  261 => 93,  258 => 92,  255 => 91,  253 => 90,  248 => 87,  242 => 83,  239 => 82,  236 => 81,  234 => 80,  229 => 77,  223 => 73,  220 => 72,  217 => 71,  215 => 70,  210 => 67,  204 => 63,  201 => 62,  198 => 61,  196 => 60,  192 => 58,  189 => 57,  181 => 51,  178 => 50,  173 => 47,  170 => 46,  160 => 43,  153 => 39,  146 => 35,  135 => 31,  131 => 29,  128 => 28,  125 => 27,  120 => 25,  116 => 24,  108 => 23,  105 => 22,  102 => 21,  99 => 20,  96 => 19,  93 => 18,  87 => 16,  84 => 15,  72 => 13,  66 => 10,  58 => 9,  53 => 8,  50 => 7,  47 => 6,  44 => 5,  41 => 4,  38 => 3,  11 => 1,);
     }
 }

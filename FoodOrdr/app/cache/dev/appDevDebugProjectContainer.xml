@@ -17,6 +17,7 @@
       <parameter key="DoctrineBundle">Doctrine\Bundle\DoctrineBundle\DoctrineBundle</parameter>
       <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
       <parameter key="AppBundle">AppBundle\AppBundle</parameter>
+      <parameter key="DoctrineMongoDBBundle">Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle</parameter>
       <parameter key="DebugBundle">Symfony\Bundle\DebugBundle\DebugBundle</parameter>
       <parameter key="AcmeDemoBundle">Acme\DemoBundle\AcmeDemoBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
@@ -36,7 +37,7 @@
     <parameter key="mailer_user">null</parameter>
     <parameter key="mailer_password">null</parameter>
     <parameter key="locale">en</parameter>
-    <parameter key="secret">49cfc03d0326070edebdae122510525ffcccfdda</parameter>
+    <parameter key="secret">14e984a2a42a6cd575f2174aa1e2e723d74398b9</parameter>
     <parameter key="controller_resolver.class">Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver</parameter>
     <parameter key="controller_name_converter.class">Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser</parameter>
     <parameter key="response_listener.class">Symfony\Component\HttpKernel\EventListener\ResponseListener</parameter>
@@ -85,7 +86,7 @@
     <parameter key="translation.extractor.class">Symfony\Component\Translation\Extractor\ChainExtractor</parameter>
     <parameter key="translation.writer.class">Symfony\Component\Translation\Writer\TranslationWriter</parameter>
     <parameter key="property_accessor.class">Symfony\Component\PropertyAccess\PropertyAccessor</parameter>
-    <parameter key="kernel.secret">49cfc03d0326070edebdae122510525ffcccfdda</parameter>
+    <parameter key="kernel.secret">14e984a2a42a6cd575f2174aa1e2e723d74398b9</parameter>
     <parameter key="kernel.http_method_override">true</parameter>
     <parameter key="kernel.trusted_hosts" type="collection"/>
     <parameter key="kernel.trusted_proxies" type="collection"/>
@@ -579,6 +580,54 @@
     <parameter key="sensio_framework_extra.converter.doctrine.class">Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConverter</parameter>
     <parameter key="sensio_framework_extra.converter.datetime.class">Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DateTimeParamConverter</parameter>
     <parameter key="sensio_framework_extra.view.listener.class">Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener</parameter>
+    <parameter key="doctrine_mongodb.odm.connection.class">Doctrine\MongoDB\Connection</parameter>
+    <parameter key="doctrine_mongodb.odm.configuration.class">Doctrine\ODM\MongoDB\Configuration</parameter>
+    <parameter key="doctrine_mongodb.odm.document_manager.class">Doctrine\ODM\MongoDB\DocumentManager</parameter>
+    <parameter key="doctrine_mongodb.odm.manager_configurator.class">Doctrine\Bundle\MongoDBBundle\ManagerConfigurator</parameter>
+    <parameter key="doctrine_mongodb.odm.logger.class">Doctrine\Bundle\MongoDBBundle\Logger\Logger</parameter>
+    <parameter key="doctrine_mongodb.odm.logger.aggregate.class">Doctrine\Bundle\MongoDBBundle\Logger\AggregateLogger</parameter>
+    <parameter key="doctrine_mongodb.odm.data_collector.standard.class">Doctrine\Bundle\MongoDBBundle\DataCollector\StandardDataCollector</parameter>
+    <parameter key="doctrine_mongodb.odm.data_collector.pretty.class">Doctrine\Bundle\MongoDBBundle\DataCollector\PrettyDataCollector</parameter>
+    <parameter key="doctrine_mongodb.odm.event_manager.class">Symfony\Bridge\Doctrine\ContainerAwareEventManager</parameter>
+    <parameter key="doctrine_odm.mongodb.validator_initializer.class">Symfony\Bridge\Doctrine\Validator\DoctrineInitializer</parameter>
+    <parameter key="doctrine_odm.mongodb.validator.unique.class">Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntityValidator</parameter>
+    <parameter key="doctrine_mongodb.odm.class">Doctrine\Bundle\MongoDBBundle\ManagerRegistry</parameter>
+    <parameter key="doctrine_mongodb.odm.security.user.provider.class">Symfony\Bridge\Doctrine\Security\User\EntityUserProvider</parameter>
+    <parameter key="doctrine_mongodb.odm.proxy_cache_warmer.class">Doctrine\Bundle\MongoDBBundle\CacheWarmer\ProxyCacheWarmer</parameter>
+    <parameter key="doctrine_mongodb.odm.hydrator_cache_warmer.class">Doctrine\Bundle\MongoDBBundle\CacheWarmer\HydratorCacheWarmer</parameter>
+    <parameter key="doctrine_mongodb.odm.cache.array.class">Doctrine\Common\Cache\ArrayCache</parameter>
+    <parameter key="doctrine_mongodb.odm.cache.apc.class">Doctrine\Common\Cache\ApcCache</parameter>
+    <parameter key="doctrine_mongodb.odm.cache.memcache.class">Doctrine\Common\Cache\MemcacheCache</parameter>
+    <parameter key="doctrine_mongodb.odm.cache.memcache_host">localhost</parameter>
+    <parameter key="doctrine_mongodb.odm.cache.memcache_port">11211</parameter>
+    <parameter key="doctrine_mongodb.odm.cache.memcache_instance.class">Memcache</parameter>
+    <parameter key="doctrine_mongodb.odm.cache.xcache.class">Doctrine\Common\Cache\XcacheCache</parameter>
+    <parameter key="doctrine_mongodb.odm.metadata.driver_chain.class">Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain</parameter>
+    <parameter key="doctrine_mongodb.odm.metadata.annotation.class">Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver</parameter>
+    <parameter key="doctrine_mongodb.odm.metadata.xml.class">Doctrine\Bundle\MongoDBBundle\Mapping\Driver\XmlDriver</parameter>
+    <parameter key="doctrine_mongodb.odm.metadata.yml.class">Doctrine\Bundle\MongoDBBundle\Mapping\Driver\YamlDriver</parameter>
+    <parameter key="doctrine_mongodb.odm.mapping_dirs" type="collection"/>
+    <parameter key="doctrine_mongodb.odm.xml_mapping_dirs" type="collection"/>
+    <parameter key="doctrine_mongodb.odm.yml_mapping_dirs" type="collection"/>
+    <parameter key="doctrine_mongodb.odm.document_dirs" type="collection"/>
+    <parameter key="doctrine_mongodb.odm.fixtures_dirs" type="collection"/>
+    <parameter key="doctrine_mongodb.odm.logger.batch_insert_threshold">4</parameter>
+    <parameter key="doctrine_mongodb.odm.listeners.resolve_target_document.class">Doctrine\ODM\MongoDB\Tools\ResolveTargetDocumentListener</parameter>
+    <parameter key="doctrine_mongodb.odm.default_connection">default</parameter>
+    <parameter key="doctrine_mongodb.odm.default_document_manager">default</parameter>
+    <parameter key="doctrine_mongodb.odm.proxy_namespace">MongoDBODMProxies</parameter>
+    <parameter key="doctrine_mongodb.odm.proxy_dir">C:\Users\Bruno\Documents\GitHub\foodRestaurantThing\FoodOrdr\app\cache\dev/doctrine/odm/mongodb/Proxies</parameter>
+    <parameter key="doctrine_mongodb.odm.auto_generate_proxy_classes">false</parameter>
+    <parameter key="doctrine_mongodb.odm.hydrator_namespace">Hydrators</parameter>
+    <parameter key="doctrine_mongodb.odm.hydrator_dir">C:\Users\Bruno\Documents\GitHub\foodRestaurantThing\FoodOrdr\app\cache\dev/doctrine/odm/mongodb/Hydrators</parameter>
+    <parameter key="doctrine_mongodb.odm.auto_generate_hydrator_classes">true</parameter>
+    <parameter key="doctrine_mongodb.odm.default_commit_options" type="collection"/>
+    <parameter key="doctrine_mongodb.odm.connections" type="collection">
+      <parameter key="default">doctrine_mongodb.odm.default_connection</parameter>
+    </parameter>
+    <parameter key="doctrine_mongodb.odm.document_managers" type="collection">
+      <parameter key="default">doctrine_mongodb.odm.default_document_manager</parameter>
+    </parameter>
     <parameter key="web_profiler.controller.profiler.class">Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController</parameter>
     <parameter key="web_profiler.controller.router.class">Symfony\Bundle\WebProfilerBundle\Controller\RouterController</parameter>
     <parameter key="web_profiler.controller.exception.class">Symfony\Bundle\WebProfilerBundle\Controller\ExceptionController</parameter>
@@ -645,6 +694,10 @@
         <parameter>db</parameter>
         <parameter>@Doctrine/Collector/db.html.twig</parameter>
       </parameter>
+      <parameter key="doctrine_mongodb.odm.data_collector.pretty" type="collection">
+        <parameter>mongodb</parameter>
+        <parameter>DoctrineMongoDBBundle:Collector:mongodb</parameter>
+      </parameter>
       <parameter key="data_collector.dump" type="collection">
         <parameter>dump</parameter>
         <parameter>@Debug/Profiler/dump.html.twig</parameter>
@@ -686,6 +739,18 @@
     <service id="request_stack" class="Symfony\Component\HttpFoundation\RequestStack"/>
     <service id="cache_warmer" class="Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerAggregate">
       <argument type="collection">
+        <argument type="service">
+          <service class="Doctrine\Bundle\MongoDBBundle\CacheWarmer\ProxyCacheWarmer" public="false">
+            <tag name="kernel.cache_warmer" priority="25"/>
+            <argument type="service" id="service_container"/>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="Doctrine\Bundle\MongoDBBundle\CacheWarmer\HydratorCacheWarmer" public="false">
+            <tag name="kernel.cache_warmer" priority="25"/>
+            <argument type="service" id="service_container"/>
+          </service>
+        </argument>
         <argument type="service">
           <service class="Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplatePathsCacheWarmer" public="false">
             <tag name="kernel.cache_warmer" priority="20"/>
@@ -744,7 +809,7 @@
       <argument>C:\Users\Bruno\Documents\GitHub\foodRestaurantThing\FoodOrdr\app/Resources</argument>
     </service>
     <service id="uri_signer" class="Symfony\Component\HttpKernel\UriSigner">
-      <argument>49cfc03d0326070edebdae122510525ffcccfdda</argument>
+      <argument>14e984a2a42a6cd575f2174aa1e2e723d74398b9</argument>
     </service>
     <service id="fragment.handler" class="Symfony\Component\HttpKernel\Fragment\FragmentHandler">
       <argument type="collection"/>
@@ -1097,6 +1162,7 @@
               <argument key="reset">form.type.reset</argument>
               <argument key="currency">form.type.currency</argument>
               <argument key="entity">form.type.entity</argument>
+              <argument key="document">form.type.mongodb_document</argument>
             </argument>
             <argument type="collection">
               <argument key="form" type="collection">
@@ -1115,6 +1181,7 @@
             <argument type="collection">
               <argument>form.type_guesser.validator</argument>
               <argument>form.type_guesser.doctrine</argument>
+              <argument>form.type_guesser.doctrine.mongodb</argument>
             </argument>
           </service>
         </argument>
@@ -1346,6 +1413,7 @@
               <argument key="Symfony\Component\Validator\Constraints\EmailValidator">validator.email</argument>
               <argument key="security.validator.user_password">security.validator.user_password</argument>
               <argument key="doctrine.orm.validator.unique">doctrine.orm.validator.unique</argument>
+              <argument key="doctrine_odm.mongodb.unique">doctrine_odm.mongodb.validator.unique</argument>
             </argument>
           </service>
         </argument>
@@ -1373,6 +1441,7 @@
       <call method="addObjectInitializers">
         <argument type="collection">
           <argument type="service" id="doctrine.orm.validator_initializer"/>
+          <argument type="service" id="doctrine_odm.mongodb.validator_initializer"/>
         </argument>
       </call>
       <factory class="%validator.builder.factory.class%" method="createValidatorBuilder"/>
@@ -1498,6 +1567,9 @@
             </call>
           </service>
         </argument>
+      </call>
+      <call method="add">
+        <argument type="service" id="doctrine_mongodb.odm.data_collector.pretty"/>
       </call>
       <call method="add">
         <argument type="service" id="data_collector.dump"/>
@@ -1785,13 +1857,18 @@
       <argument type="collection">
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider" public="false">
-            <argument type="service" id="security.user.provider.concrete.in_memory"/>
+            <argument type="service" id="security.user.provider.concrete.user_db"/>
             <argument type="service">
               <service class="Symfony\Component\Security\Core\User\UserChecker" public="false"/>
             </argument>
-            <argument>demo_secured_area</argument>
+            <argument>default</argument>
             <argument type="service" id="security.encoder_factory"/>
             <argument>true</argument>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
+            <argument>54cff76ede5ad</argument>
           </service>
         </argument>
       </argument>
@@ -1854,19 +1931,15 @@
         <service class="Symfony\Bundle\SecurityBundle\Security\FirewallMap" public="false">
           <argument type="service" id="service_container"/>
           <argument type="collection">
+            <argument key="security.firewall.map.context.default">null</argument>
             <argument key="security.firewall.map.context.dev" type="service">
               <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
                 <argument>^/(_(profiler|wdt)|css|images|js)/</argument>
               </service>
             </argument>
-            <argument key="security.firewall.map.context.demo_login" type="service">
+            <argument key="security.firewall.map.context.login" type="service">
               <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-                <argument>^/demo/secured/login$</argument>
-              </service>
-            </argument>
-            <argument key="security.firewall.map.context.demo_secured_area" type="service">
-              <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-                <argument>^/demo/secured/</argument>
+                <argument>^/login$</argument>
               </service>
             </argument>
           </argument>
@@ -1887,8 +1960,8 @@
       <argument type="service" id="service_container"/>
       <argument type="service" id="router"/>
       <call method="registerListener">
-        <argument>demo_secured_area</argument>
-        <argument>_demo_logout</argument>
+        <argument>default</argument>
+        <argument>/logout</argument>
         <argument>logout</argument>
         <argument>_csrf_token</argument>
         <argument>null</argument>
@@ -1898,45 +1971,75 @@
       <tag name="templating.helper" alias="security"/>
       <argument type="service" id="security.context" on-invalid="ignore"/>
     </service>
-    <service id="security.user.provider.concrete.in_memory" class="Symfony\Component\Security\Core\User\InMemoryUserProvider" public="false">
-      <call method="createUser">
-        <argument type="service">
-          <service class="Symfony\Component\Security\Core\User\User" public="false">
-            <argument>user</argument>
-            <argument>userpass</argument>
-            <argument type="collection">
-              <argument>ROLE_USER</argument>
-            </argument>
-          </service>
-        </argument>
-      </call>
-      <call method="createUser">
-        <argument type="service">
-          <service class="Symfony\Component\Security\Core\User\User" public="false">
-            <argument>admin</argument>
-            <argument>adminpass</argument>
-            <argument type="collection">
-              <argument>ROLE_ADMIN</argument>
-            </argument>
-          </service>
-        </argument>
-      </call>
-    </service>
-    <service id="security.firewall.map.context.dev" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext">
-      <argument type="collection"/>
+    <service id="security.user.provider.concrete.user_db" class="Symfony\Bridge\Doctrine\Security\User\EntityUserProvider" public="false">
+      <argument type="service" id="doctrine_mongodb"/>
+      <argument>AppBundle\Document\User</argument>
+      <argument>username</argument>
       <argument>null</argument>
     </service>
-    <service id="security.firewall.map.context.demo_login" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext">
-      <argument type="collection"/>
-      <argument>null</argument>
-    </service>
-    <service id="security.firewall.map.context.demo_secured_area" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext">
+    <service id="security.firewall.map.context.default" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext">
       <argument type="collection">
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\ChannelListener" public="false">
             <tag name="monolog.logger" channel="security"/>
             <argument type="service">
-              <service class="Symfony\Component\Security\Http\AccessMap" public="false"/>
+              <service class="Symfony\Component\Security\Http\AccessMap" public="false">
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/RegisterUser</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/DisplayUser</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/login</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/User/Submit/</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>ROLE_USER</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+              </service>
             </argument>
             <argument type="service">
               <service class="Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint" public="false">
@@ -1951,9 +2054,35 @@
           <service class="Symfony\Component\Security\Http\Firewall\ContextListener" public="false">
             <argument type="service" id="security.context"/>
             <argument type="collection">
-              <argument type="service" id="security.user.provider.concrete.in_memory"/>
+              <argument type="service" id="security.user.provider.concrete.user_db"/>
+              <argument type="service">
+                <service class="Symfony\Component\Security\Core\User\InMemoryUserProvider" public="false">
+                  <call method="createUser">
+                    <argument type="service">
+                      <service class="Symfony\Component\Security\Core\User\User" public="false">
+                        <argument>user</argument>
+                        <argument>userpass</argument>
+                        <argument type="collection">
+                          <argument>ROLE_USER</argument>
+                        </argument>
+                      </service>
+                    </argument>
+                  </call>
+                  <call method="createUser">
+                    <argument type="service">
+                      <service class="Symfony\Component\Security\Core\User\User" public="false">
+                        <argument>admin</argument>
+                        <argument>adminpass</argument>
+                        <argument type="collection">
+                          <argument>ROLE_ADMIN</argument>
+                        </argument>
+                      </service>
+                    </argument>
+                  </call>
+                </service>
+              </argument>
             </argument>
-            <argument>demo_secured_area</argument>
+            <argument>default</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
           </service>
@@ -1975,13 +2104,13 @@
                     <argument type="service" id="router" on-invalid="null"/>
                   </service>
                 </argument>
-                <argument>_demo</argument>
+                <argument>/</argument>
               </service>
             </argument>
             <argument type="collection">
               <argument key="csrf_parameter">_csrf_token</argument>
               <argument key="intention">logout</argument>
-              <argument key="logout_path">_demo_logout</argument>
+              <argument key="logout_path">/logout</argument>
             </argument>
             <call method="addHandler">
               <argument type="service">
@@ -1992,7 +2121,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener" public="false">
-            <tag name="security.remember_me_aware" id="demo_secured_area" provider="security.user.provider.concrete.in_memory"/>
+            <tag name="security.remember_me_aware" id="default" provider="security.user.provider.concrete.user_db"/>
             <argument type="service" id="security.context"/>
             <argument type="service" id="security.authentication.manager"/>
             <argument type="service">
@@ -2006,7 +2135,7 @@
                 <argument type="service" id="router" on-invalid="null"/>
               </service>
             </argument>
-            <argument>demo_secured_area</argument>
+            <argument>default</argument>
             <argument type="service">
               <service class="Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler" public="false">
                 <argument type="service">
@@ -2018,15 +2147,15 @@
                 <argument type="collection"/>
                 <call method="setOptions">
                   <argument type="collection">
-                    <argument key="login_path">_demo_login</argument>
-                    <argument key="always_use_default_target_path">false</argument>
-                    <argument key="default_target_path">/</argument>
+                    <argument key="login_path">/login</argument>
+                    <argument key="default_target_path">home</argument>
+                    <argument key="always_use_default_target_path">true</argument>
                     <argument key="target_path_parameter">_target_path</argument>
                     <argument key="use_referer">false</argument>
                   </argument>
                 </call>
                 <call method="setProviderKey">
-                  <argument>demo_secured_area</argument>
+                  <argument>default</argument>
                 </call>
               </service>
             </argument>
@@ -2043,7 +2172,7 @@
                 <argument type="service" id="monolog.logger.security" on-invalid="null"/>
                 <call method="setOptions">
                   <argument type="collection">
-                    <argument key="login_path">_demo_login</argument>
+                    <argument key="login_path">/login</argument>
                     <argument key="failure_path">null</argument>
                     <argument key="failure_forward">false</argument>
                     <argument key="failure_path_parameter">_failure_path</argument>
@@ -2052,7 +2181,7 @@
               </service>
             </argument>
             <argument type="collection">
-              <argument key="check_path">_demo_security_check</argument>
+              <argument key="check_path">/login_check</argument>
               <argument key="use_forward">false</argument>
               <argument key="require_previous_session">true</argument>
               <argument key="username_parameter">_username</argument>
@@ -2067,12 +2196,97 @@
           </service>
         </argument>
         <argument type="service">
+          <service class="Symfony\Component\Security\Http\Firewall\BasicAuthenticationListener" public="false">
+            <argument type="service" id="security.context"/>
+            <argument type="service" id="security.authentication.manager"/>
+            <argument>default</argument>
+            <argument type="service">
+              <service class="Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint" public="false">
+                <argument type="service" id="http_kernel"/>
+                <argument type="service">
+                  <service class="Symfony\Component\Security\Http\HttpUtils" public="false">
+                    <argument type="service" id="router" on-invalid="null"/>
+                    <argument type="service" id="router" on-invalid="null"/>
+                  </service>
+                </argument>
+                <argument>/login</argument>
+                <argument>false</argument>
+              </service>
+            </argument>
+            <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
+            <argument type="service" id="security.context"/>
+            <argument>54cff76ede5ad</argument>
+            <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+            <argument type="service" id="security.authentication.manager"/>
+          </service>
+        </argument>
+        <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AccessListener" public="false">
             <tag name="monolog.logger" channel="security"/>
             <argument type="service" id="security.context"/>
             <argument type="service" id="security.access.decision_manager"/>
             <argument type="service">
-              <service class="Symfony\Component\Security\Http\AccessMap" public="false"/>
+              <service class="Symfony\Component\Security\Http\AccessMap" public="false">
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/RegisterUser</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/DisplayUser</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/login</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/User/Submit/</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>ROLE_USER</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+              </service>
             </argument>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -2088,7 +2302,7 @@
               <argument type="service" id="router" on-invalid="null"/>
             </service>
           </argument>
-          <argument>demo_secured_area</argument>
+          <argument>default</argument>
           <argument type="service">
             <service class="Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint" public="false">
               <argument type="service" id="http_kernel"/>
@@ -2098,7 +2312,7 @@
                   <argument type="service" id="router" on-invalid="null"/>
                 </service>
               </argument>
-              <argument>_demo_login</argument>
+              <argument>/login</argument>
               <argument>false</argument>
             </service>
           </argument>
@@ -2107,6 +2321,14 @@
           <argument type="service" id="monolog.logger.security" on-invalid="null"/>
         </service>
       </argument>
+    </service>
+    <service id="security.firewall.map.context.dev" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext">
+      <argument type="collection"/>
+      <argument>null</argument>
+    </service>
+    <service id="security.firewall.map.context.login" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext">
+      <argument type="collection"/>
+      <argument>null</argument>
     </service>
     <service id="twig" class="Twig_Environment">
       <argument type="service" id="twig.loader"/>
@@ -2395,7 +2617,9 @@
       <argument type="service" id="kernel"/>
       <argument type="service" id="service_container"/>
       <argument type="service">
-        <service class="Symfony\Component\DependencyInjection\ParameterBag\ParameterBag" factory-method="getParameterBag" factory-service="service_container" public="false"/>
+        <service class="Symfony\Component\DependencyInjection\ParameterBag\ParameterBag" public="false">
+          <factory service="service_container" method="getParameterBag"/>
+        </service>
       </argument>
       <argument>C:\Users\Bruno\Documents\GitHub\foodRestaurantThing\FoodOrdr\app/../web</argument>
       <argument>true</argument>
@@ -2609,6 +2833,158 @@
       <argument type="service" id="security.authentication.trust_resolver" on-invalid="null"/>
       <argument type="service" id="security.role_hierarchy" on-invalid="null"/>
     </service>
+    <service id="form.type.mongodb_document" class="Doctrine\Bundle\MongoDBBundle\Form\Type\DocumentType">
+      <tag name="form.type" alias="document"/>
+      <argument type="service" id="doctrine_mongodb"/>
+    </service>
+    <service id="form.type_guesser.doctrine.mongodb" class="Doctrine\Bundle\MongoDBBundle\Form\DoctrineMongoDBTypeGuesser">
+      <tag name="form.type_guesser"/>
+      <argument type="service" id="doctrine_mongodb"/>
+    </service>
+    <service id="doctrine_mongodb.odm.metadata.chain" class="Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain"/>
+    <service id="doctrine_mongodb.odm.metadata.annotation" class="Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver">
+      <argument type="service" id="annotation_reader"/>
+      <argument type="collection"/>
+    </service>
+    <service id="doctrine_mongodb.odm.metadata.xml" class="Doctrine\Bundle\MongoDBBundle\Mapping\Driver\XmlDriver">
+      <argument type="collection"/>
+    </service>
+    <service id="doctrine_mongodb.odm.metadata.yml" class="Doctrine\Bundle\MongoDBBundle\Mapping\Driver\YamlDriver">
+      <argument type="collection"/>
+    </service>
+    <service id="doctrine_mongodb.odm.cache.array" class="Doctrine\Common\Cache\ArrayCache"/>
+    <service id="doctrine_mongodb.odm.data_collector.pretty" class="Doctrine\Bundle\MongoDBBundle\DataCollector\PrettyDataCollector" public="false">
+      <tag name="data_collector" id="mongodb" template="DoctrineMongoDBBundle:Collector:mongodb"/>
+      <call method="setBatchInsertThreshold">
+        <argument>4</argument>
+      </call>
+    </service>
+    <service id="doctrine_odm.mongodb.validator.unique" class="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntityValidator">
+      <tag name="validator.constraint_validator" alias="doctrine_odm.mongodb.unique"/>
+      <argument type="service" id="doctrine_mongodb"/>
+    </service>
+    <service id="doctrine_odm.mongodb.validator_initializer" class="Symfony\Bridge\Doctrine\Validator\DoctrineInitializer">
+      <tag name="validator.initializer"/>
+      <argument type="service" id="doctrine_mongodb"/>
+    </service>
+    <service id="doctrine_mongodb" class="Doctrine\Bundle\MongoDBBundle\ManagerRegistry">
+      <argument>MongoDB</argument>
+      <argument type="collection">
+        <argument key="default">doctrine_mongodb.odm.default_connection</argument>
+      </argument>
+      <argument type="collection">
+        <argument key="default">doctrine_mongodb.odm.default_document_manager</argument>
+      </argument>
+      <argument>default</argument>
+      <argument>default</argument>
+      <argument>Doctrine\ODM\MongoDB\Proxy\Proxy</argument>
+      <call method="setContainer">
+        <argument type="service" id="service_container"/>
+      </call>
+    </service>
+    <service id="doctrine_mongodb.odm.default_connection" class="Doctrine\MongoDB\Connection">
+      <argument>mongodb://localhost:27017</argument>
+      <argument type="collection">
+        <argument key="username">root</argument>
+        <argument key="password">root</argument>
+      </argument>
+      <argument type="service" id="doctrine_mongodb.odm.default_configuration"/>
+      <argument type="service" id="doctrine_mongodb.odm.event_manager"/>
+    </service>
+    <service id="doctrine_mongodb.odm.default_configuration" class="Doctrine\ODM\MongoDB\Configuration">
+      <call method="setDocumentNamespaces">
+        <argument type="collection">
+          <argument key="AppBundle">AppBundle\Document</argument>
+        </argument>
+      </call>
+      <call method="setMetadataCacheImpl">
+        <argument type="service">
+          <service class="Doctrine\Common\Cache\ArrayCache" public="false">
+            <call method="setNamespace">
+              <argument>sf2mongodb_default_ab14e7098b19a04c5a57111d5ea62cc848152855cfc896e55e45264b9451caaf</argument>
+            </call>
+          </service>
+        </argument>
+      </call>
+      <call method="setMetadataDriverImpl">
+        <argument type="service">
+          <service class="Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain" public="false">
+            <call method="addDriver">
+              <argument type="service">
+                <service class="Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver" public="false">
+                  <argument type="service" id="annotation_reader"/>
+                  <argument type="collection">
+                    <argument>C:\Users\Bruno\Documents\GitHub\foodRestaurantThing\FoodOrdr\src\AppBundle\Document</argument>
+                  </argument>
+                </service>
+              </argument>
+              <argument>AppBundle\Document</argument>
+            </call>
+          </service>
+        </argument>
+      </call>
+      <call method="setProxyDir">
+        <argument>C:\Users\Bruno\Documents\GitHub\foodRestaurantThing\FoodOrdr\app\cache\dev/doctrine/odm/mongodb/Proxies</argument>
+      </call>
+      <call method="setProxyNamespace">
+        <argument>MongoDBODMProxies</argument>
+      </call>
+      <call method="setAutoGenerateProxyClasses">
+        <argument>false</argument>
+      </call>
+      <call method="setHydratorDir">
+        <argument>C:\Users\Bruno\Documents\GitHub\foodRestaurantThing\FoodOrdr\app\cache\dev/doctrine/odm/mongodb/Hydrators</argument>
+      </call>
+      <call method="setHydratorNamespace">
+        <argument>Hydrators</argument>
+      </call>
+      <call method="setAutoGenerateHydratorClasses">
+        <argument>true</argument>
+      </call>
+      <call method="setDefaultDB">
+        <argument>test_database</argument>
+      </call>
+      <call method="setDefaultCommitOptions">
+        <argument type="collection"/>
+      </call>
+      <call method="setRetryConnect">
+        <argument>0</argument>
+      </call>
+      <call method="setRetryQuery">
+        <argument>0</argument>
+      </call>
+      <call method="setLoggerCallable">
+        <argument type="collection">
+          <argument type="service">
+            <service class="Doctrine\Bundle\MongoDBBundle\Logger\AggregateLogger" public="false">
+              <argument type="collection">
+                <argument type="service">
+                  <service class="Doctrine\Bundle\MongoDBBundle\Logger\Logger" public="false">
+                    <tag name="monolog.logger" channel="doctrine"/>
+                    <argument type="service" id="monolog.logger.doctrine" on-invalid="null"/>
+                    <call method="setBatchInsertThreshold">
+                      <argument>4</argument>
+                    </call>
+                  </service>
+                </argument>
+                <argument type="service" id="doctrine_mongodb.odm.data_collector.pretty"/>
+              </argument>
+            </service>
+          </argument>
+          <argument>logQuery</argument>
+        </argument>
+      </call>
+    </service>
+    <service id="doctrine_mongodb.odm.default_manager_configurator" class="Doctrine\Bundle\MongoDBBundle\ManagerConfigurator">
+      <argument type="collection"/>
+    </service>
+    <service id="doctrine_mongodb.odm.default_document_manager" class="Doctrine\ODM\MongoDB\DocumentManager" factory-method="create" factory-class="%doctrine_mongodb.odm.document_manager.class%">
+      <tag name="doctrine_mongodb.odm.document_manager"/>
+      <argument type="service" id="doctrine_mongodb.odm.default_connection"/>
+      <argument type="service" id="doctrine_mongodb.odm.default_configuration"/>
+      <argument type="service" id="doctrine_mongodb.odm.event_manager"/>
+      <configurator service="doctrine_mongodb.odm.default_manager_configurator" method="configure"/>
+    </service>
     <service id="data_collector.dump" class="Symfony\Component\HttpKernel\DataCollector\DumpDataCollector">
       <tag name="data_collector" id="dump" template="@Debug/Profiler/dump.html.twig"/>
       <argument type="service" id="debug.stopwatch" on-invalid="ignore"/>
@@ -2691,6 +3067,10 @@
         <argument key="data_collector.doctrine" type="collection">
           <argument>db</argument>
           <argument>@Doctrine/Collector/db.html.twig</argument>
+        </argument>
+        <argument key="doctrine_mongodb.odm.data_collector.pretty" type="collection">
+          <argument>mongodb</argument>
+          <argument>DoctrineMongoDBBundle:Collector:mongodb</argument>
         </argument>
         <argument key="data_collector.dump" type="collection">
           <argument>dump</argument>
@@ -2937,7 +3317,7 @@
     </service>
     <service id="security.encoder_factory" class="Symfony\Component\Security\Core\Encoder\EncoderFactory">
       <argument type="collection">
-        <argument key="Symfony\Component\Security\Core\User\User" type="collection">
+        <argument key="AppBundle\Document\User" type="collection">
           <argument key="class">%security.encoder.plain.class%</argument>
           <argument key="arguments" type="collection">
             <argument>false</argument>
@@ -2971,6 +3351,10 @@
       <call method="addPath">
         <argument>C:\Users\Bruno\Documents\GitHub\foodRestaurantThing\FoodOrdr\vendor\doctrine\doctrine-bundle/Resources/views</argument>
         <argument>Doctrine</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\Users\Bruno\Documents\GitHub\foodRestaurantThing\FoodOrdr\vendor\doctrine\mongodb-odm-bundle\Doctrine\Bundle\MongoDBBundle/Resources/views</argument>
+        <argument>DoctrineMongoDB</argument>
       </call>
       <call method="addPath">
         <argument>C:\Users\Bruno\Documents\GitHub\foodRestaurantThing\FoodOrdr\vendor\symfony\symfony\src\Symfony\Bundle\DebugBundle/Resources/views</argument>
@@ -3066,6 +3450,9 @@
         <argument>null</argument>
       </call>
     </service>
+    <service id="doctrine_mongodb.odm.event_manager" class="Symfony\Bridge\Doctrine\ContainerAwareEventManager">
+      <argument type="service" id="service_container"/>
+    </service>
     <service id="session.storage" alias="session.storage.native"/>
     <service id="event_dispatcher" alias="debug.event_dispatcher"/>
     <service id="debug.templating.engine.twig" alias="templating"/>
@@ -3080,6 +3467,10 @@
     <service id="doctrine.orm.default_metadata_cache" alias="doctrine_cache.providers.doctrine.orm.default_metadata_cache"/>
     <service id="doctrine.orm.default_result_cache" alias="doctrine_cache.providers.doctrine.orm.default_result_cache"/>
     <service id="doctrine.orm.default_query_cache" alias="doctrine_cache.providers.doctrine.orm.default_query_cache"/>
+    <service id="doctrine_mongodb.odm.cache" alias="doctrine_mongodb.odm.cache.array"/>
+    <service id="doctrine_mongodb.odm.metadata.annotation_reader" alias="annotation_reader"/>
+    <service id="doctrine_mongodb.odm.document_manager" alias="doctrine_mongodb.odm.default_document_manager"/>
+    <service id="doctrine.odm.mongodb.document_manager" alias="doctrine_mongodb.odm.default_document_manager"/>
     <service id="sensio.distribution.webconfigurator" alias="sensio_distribution.webconfigurator"/>
     <service id="console.command.sensiolabs_security_command_securitycheckercommand" alias="sensio_distribution.security_checker.command"/>
   </services>

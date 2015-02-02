@@ -44,6 +44,22 @@ assetic:
         #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
 
 # Doctrine Configuration
+
+doctrine_mongodb:
+    auto_generate_hydrator_classes: true 
+    default_database: test_database
+    connections:
+        default:
+            server: mongodb://localhost:27017
+            options: 
+                username: root
+                password: root
+    document_managers:
+        default:
+            auto_mapping: true
+            mappings:
+                AppBundle: ~
+
 doctrine:
     dbal:
         driver:   "%database_driver%"

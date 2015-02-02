@@ -9,5 +9,15 @@
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+		<br/><br/>
+		
+		{% if authenticated is defined %}
+			<a href="{{ path('logout') }}">Logout</a><br/>
+		{% else %}
+			<div id="sidebar">
+				{{ render(controller('AppBundle:Security:login')) }}
+			</div>
+			<a href="{{ path('user_registration') }}">Register a new user</a><br/>	
+		{% endif %}
     </body>
 </html>
