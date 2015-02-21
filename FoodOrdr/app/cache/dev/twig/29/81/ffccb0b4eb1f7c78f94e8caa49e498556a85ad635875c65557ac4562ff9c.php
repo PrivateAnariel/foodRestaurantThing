@@ -28,7 +28,7 @@ class __TwigTemplate_2981ffccb0b4eb1f7c78f94e8caa49e498556a85ad635875c65557ac456
         <label for=\"ip\">IP</label>
         <input type=\"text\" name=\"ip\" id=\"ip\" value=\"";
         // line 8
-        echo twig_escape_filter($this->env, (isset($context["ip"]) ? $context["ip"] : $this->getContext($context, "ip")), "html", null, true);
+        echo twig_escape_filter($this->env, (isset($context["ip"]) ? $context["ip"] : null), "html", null, true);
         echo "\" placeholder=\"e.g. 127.0.0.1\">
         <div class=\"clear-fix\"></div>
         <label for=\"method\">Method</label>
@@ -40,7 +40,7 @@ class __TwigTemplate_2981ffccb0b4eb1f7c78f94e8caa49e498556a85ad635875c65557ac456
         foreach ($context['_seq'] as $context["_key"] => $context["m"]) {
             // line 13
             echo "                <option";
-            echo ((($context["m"] == (isset($context["method"]) ? $context["method"] : $this->getContext($context, "method")))) ? (" selected=\"selected\"") : (""));
+            echo ((($context["m"] == (isset($context["method"]) ? $context["method"] : null))) ? (" selected=\"selected\"") : (""));
             echo ">";
             echo twig_escape_filter($this->env, $context["m"], "html", null, true);
             echo "</option>
@@ -55,21 +55,21 @@ class __TwigTemplate_2981ffccb0b4eb1f7c78f94e8caa49e498556a85ad635875c65557ac456
         <label for=\"url\">URL</label>
         <input type=\"url\" name=\"url\" id=\"url\" value=\"";
         // line 18
-        echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : $this->getContext($context, "url")), "html", null, true);
+        echo twig_escape_filter($this->env, (isset($context["url"]) ? $context["url"] : null), "html", null, true);
         echo "\" placeholder=\"e.g. ";
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["request"]) ? $context["request"] : $this->getContext($context, "request")), "baseUrl", array()), "html", null, true);
+        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["request"]) ? $context["request"] : null), "baseUrl", array()), "html", null, true);
         echo "\">
         <div class=\"clear-fix\"></div>
         <label for=\"token\">Token</label>
         <input type=\"text\" name=\"token\" id=\"token\" value=\"";
         // line 21
-        echo twig_escape_filter($this->env, (isset($context["token"]) ? $context["token"] : $this->getContext($context, "token")), "html", null, true);
+        echo twig_escape_filter($this->env, (isset($context["token"]) ? $context["token"] : null), "html", null, true);
         echo "\" placeholder=\"e.g. 1f321b\">
         <div class=\"clear-fix\"></div>
         <label for=\"start\">From</label>
         <input type=\"date\" name=\"start\" id=\"start\" value=\"";
         // line 24
-        echo twig_escape_filter($this->env, (isset($context["start"]) ? $context["start"] : $this->getContext($context, "start")), "html", null, true);
+        echo twig_escape_filter($this->env, (isset($context["start"]) ? $context["start"] : null), "html", null, true);
         echo "\" placeholder=\"e.g. ";
         echo twig_escape_filter($this->env, twig_date_format_filter($this->env, "-2days", "d.m.Y"), "html", null, true);
         echo "\">
@@ -77,7 +77,7 @@ class __TwigTemplate_2981ffccb0b4eb1f7c78f94e8caa49e498556a85ad635875c65557ac456
         <label for=\"end\">Until</label>
         <input type=\"date\" name=\"end\" id=\"end\" value=\"";
         // line 27
-        echo twig_escape_filter($this->env, (isset($context["end"]) ? $context["end"] : $this->getContext($context, "end")), "html", null, true);
+        echo twig_escape_filter($this->env, (isset($context["end"]) ? $context["end"] : null), "html", null, true);
         echo "\" placeholder=\"e.g. ";
         echo twig_escape_filter($this->env, twig_date_format_filter($this->env, "now", "d.m.Y"), "html", null, true);
         echo "\">
@@ -91,7 +91,7 @@ class __TwigTemplate_2981ffccb0b4eb1f7c78f94e8caa49e498556a85ad635875c65557ac456
         foreach ($context['_seq'] as $context["_key"] => $context["l"]) {
             // line 32
             echo "                <option";
-            echo ((($context["l"] == (isset($context["limit"]) ? $context["limit"] : $this->getContext($context, "limit")))) ? (" selected=\"selected\"") : (""));
+            echo ((($context["l"] == (isset($context["limit"]) ? $context["limit"] : null))) ? (" selected=\"selected\"") : (""));
             echo ">";
             echo twig_escape_filter($this->env, $context["l"], "html", null, true);
             echo "</option>

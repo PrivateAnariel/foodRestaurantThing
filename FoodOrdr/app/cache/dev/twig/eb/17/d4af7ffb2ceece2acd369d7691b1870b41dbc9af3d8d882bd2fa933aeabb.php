@@ -21,9 +21,9 @@ class __TwigTemplate_eb17d4af7ffb2ceece2acd369d7691b1870b41dbc9af3d8d882bd2fa933
 
 The server returned a \"";
         // line 4
-        echo (isset($context["status_code"]) ? $context["status_code"] : $this->getContext($context, "status_code"));
+        echo (isset($context["status_code"]) ? $context["status_code"] : null);
         echo " ";
-        echo (isset($context["status_text"]) ? $context["status_text"] : $this->getContext($context, "status_text"));
+        echo (isset($context["status_text"]) ? $context["status_text"] : null);
         echo "\".
 
 Something is broken. Please let us know what you were doing when this error occurred.

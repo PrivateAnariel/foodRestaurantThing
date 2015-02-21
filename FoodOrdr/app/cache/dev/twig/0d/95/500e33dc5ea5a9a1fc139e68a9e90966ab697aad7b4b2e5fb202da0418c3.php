@@ -19,7 +19,7 @@ class __TwigTemplate_0d95500e33dc5ea5a9a1fc139e68a9e90966ab697aad7b4b2e5fb202da0
         echo "<table ";
         if (array_key_exists("class", $context)) {
             echo "class='";
-            echo twig_escape_filter($this->env, (isset($context["class"]) ? $context["class"] : $this->getContext($context, "class")), "html", null, true);
+            echo twig_escape_filter($this->env, (isset($context["class"]) ? $context["class"] : null), "html", null, true);
             echo "'";
         }
         echo " >
@@ -33,7 +33,7 @@ class __TwigTemplate_0d95500e33dc5ea5a9a1fc139e68a9e90966ab697aad7b4b2e5fb202da0
         ";
         // line 9
         $context['_parent'] = (array) $context;
-        $context['_seq'] = twig_ensure_traversable(twig_sort_filter(twig_get_array_keys_filter((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")))));
+        $context['_seq'] = twig_ensure_traversable(twig_sort_filter(twig_get_array_keys_filter((isset($context["data"]) ? $context["data"] : null))));
         foreach ($context['_seq'] as $context["_key"] => $context["key"]) {
             // line 10
             echo "            <tr>
@@ -43,7 +43,7 @@ class __TwigTemplate_0d95500e33dc5ea5a9a1fc139e68a9e90966ab697aad7b4b2e5fb202da0
             echo "</th>
                 <td><pre>";
             // line 12
-            echo twig_escape_filter($this->env, $this->env->getExtension('profiler')->dumpValue($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), $context["key"], array(), "array")), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('profiler')->dumpValue($this->getAttribute((isset($context["data"]) ? $context["data"] : null), $context["key"], array(), "array")), "html", null, true);
             echo "</pre></td>
             </tr>
         ";

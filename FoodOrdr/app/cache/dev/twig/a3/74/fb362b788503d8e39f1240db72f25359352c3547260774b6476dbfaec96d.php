@@ -17,16 +17,16 @@ class __TwigTemplate_a374fb362b788503d8e39f1240db72f25359352c3547260774b6476dbfa
     {
         // line 1
         echo "[exception] ";
-        echo (((((isset($context["status_code"]) ? $context["status_code"] : $this->getContext($context, "status_code")) . " | ") . (isset($context["status_text"]) ? $context["status_text"] : $this->getContext($context, "status_text"))) . " | ") . $this->getAttribute((isset($context["exception"]) ? $context["exception"] : $this->getContext($context, "exception")), "class", array()));
+        echo (((((isset($context["status_code"]) ? $context["status_code"] : null) . " | ") . (isset($context["status_text"]) ? $context["status_text"] : null)) . " | ") . $this->getAttribute((isset($context["exception"]) ? $context["exception"] : null), "class", array()));
         echo "
 [message] ";
         // line 2
-        echo $this->getAttribute((isset($context["exception"]) ? $context["exception"] : $this->getContext($context, "exception")), "message", array());
+        echo $this->getAttribute((isset($context["exception"]) ? $context["exception"] : null), "message", array());
         echo "
 ";
         // line 3
         $context['_parent'] = (array) $context;
-        $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["exception"]) ? $context["exception"] : $this->getContext($context, "exception")), "toarray", array()));
+        $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["exception"]) ? $context["exception"] : null), "toarray", array()));
         foreach ($context['_seq'] as $context["i"] => $context["e"]) {
             // line 4
             echo "[";

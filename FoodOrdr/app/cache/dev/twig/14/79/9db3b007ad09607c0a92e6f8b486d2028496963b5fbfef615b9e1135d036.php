@@ -44,13 +44,13 @@ class __TwigTemplate_14799db3b007ad09607c0a92e6f8b486d2028496963b5fbfef615b9e113
     {
         // line 6
         echo "    ";
-        $this->env->getExtension('form')->renderer->setTheme((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), array(0 => "SensioDistributionBundle::Configurator/form.html.twig"));
+        $this->env->getExtension('form')->renderer->setTheme((isset($context["form"]) ? $context["form"] : null), array(0 => "SensioDistributionBundle::Configurator/form.html.twig"));
         // line 7
         echo "
     <div class=\"step\">
         ";
         // line 9
-        $this->env->loadTemplate("SensioDistributionBundle::Configurator/steps.html.twig")->display(array_merge($context, array("index" => (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")), "count" => (isset($context["count"]) ? $context["count"] : $this->getContext($context, "count")))));
+        $this->env->loadTemplate("SensioDistributionBundle::Configurator/steps.html.twig")->display(array_merge($context, array("index" => (isset($context["index"]) ? $context["index"] : null), "count" => (isset($context["count"]) ? $context["count"] : null))));
         // line 10
         echo "
         <h1>Global Secret</h1>
@@ -59,22 +59,22 @@ class __TwigTemplate_14799db3b007ad09607c0a92e6f8b486d2028496963b5fbfef615b9e113
         <div class=\"symfony-form-errors\">
             ";
         // line 15
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'errors');
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["form"]) ? $context["form"] : null), 'errors');
         echo "
         </div>
         <form action=\"";
         // line 17
-        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("_configurator_step", array("index" => (isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")))), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("_configurator_step", array("index" => (isset($context["index"]) ? $context["index"] : null))), "html", null, true);
         echo " \" method=\"POST\">
             <div class=\"symfony-form-row\">
                 ";
         // line 19
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "secret", array()), 'label');
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "secret", array()), 'label');
         echo "
                 <div class=\"symfony-form-field\">
                     ";
         // line 21
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "secret", array()), 'widget');
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "secret", array()), 'widget');
         echo "
                     <a href=\"#\" onclick=\"generateSecret(); return false;\" class=\"sf-button\">
                         <span class=\"border-l\">
@@ -86,7 +86,7 @@ class __TwigTemplate_14799db3b007ad09607c0a92e6f8b486d2028496963b5fbfef615b9e113
                     <div class=\"symfony-form-errors\">
                         ";
         // line 30
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "secret", array()), 'errors');
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : null), "secret", array()), 'errors');
         echo "
                     </div>
                 </div>
@@ -94,7 +94,7 @@ class __TwigTemplate_14799db3b007ad09607c0a92e6f8b486d2028496963b5fbfef615b9e113
 
             ";
         // line 35
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'rest');
+        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["form"]) ? $context["form"] : null), 'rest');
         echo "
 
             <div class=\"symfony-form-footer\">

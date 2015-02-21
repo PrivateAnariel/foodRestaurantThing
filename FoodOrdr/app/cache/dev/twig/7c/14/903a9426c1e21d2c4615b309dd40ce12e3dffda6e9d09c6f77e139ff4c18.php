@@ -16,12 +16,12 @@ class __TwigTemplate_7c14903a9426c1e21d2c4615b309dd40ce12e3dffda6e9d09c6f77e139f
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1
-        if ($this->getAttribute((isset($context["trace"]) ? $context["trace"] : $this->getContext($context, "trace")), "function", array())) {
+        if ($this->getAttribute((isset($context["trace"]) ? $context["trace"] : null), "function", array())) {
             // line 2
             echo "    at ";
-            echo (($this->getAttribute((isset($context["trace"]) ? $context["trace"] : $this->getContext($context, "trace")), "class", array()) . $this->getAttribute((isset($context["trace"]) ? $context["trace"] : $this->getContext($context, "trace")), "type", array())) . $this->getAttribute((isset($context["trace"]) ? $context["trace"] : $this->getContext($context, "trace")), "function", array()));
+            echo (($this->getAttribute((isset($context["trace"]) ? $context["trace"] : null), "class", array()) . $this->getAttribute((isset($context["trace"]) ? $context["trace"] : null), "type", array())) . $this->getAttribute((isset($context["trace"]) ? $context["trace"] : null), "function", array()));
             echo "(";
-            echo $this->env->getExtension('code')->formatArgsAsText($this->getAttribute((isset($context["trace"]) ? $context["trace"] : $this->getContext($context, "trace")), "args", array()));
+            echo $this->env->getExtension('code')->formatArgsAsText($this->getAttribute((isset($context["trace"]) ? $context["trace"] : null), "args", array()));
             echo ")
 ";
         } else {
@@ -33,9 +33,9 @@ class __TwigTemplate_7c14903a9426c1e21d2c4615b309dd40ce12e3dffda6e9d09c6f77e139f
         if (($this->getAttribute((isset($context["trace"]) ? $context["trace"] : null), "file", array(), "any", true, true) && $this->getAttribute((isset($context["trace"]) ? $context["trace"] : null), "line", array(), "any", true, true))) {
             // line 7
             echo "        in ";
-            echo $this->getAttribute((isset($context["trace"]) ? $context["trace"] : $this->getContext($context, "trace")), "file", array());
+            echo $this->getAttribute((isset($context["trace"]) ? $context["trace"] : null), "file", array());
             echo " line ";
-            echo $this->getAttribute((isset($context["trace"]) ? $context["trace"] : $this->getContext($context, "trace")), "line", array());
+            echo $this->getAttribute((isset($context["trace"]) ? $context["trace"] : null), "line", array());
             echo "
 ";
         }

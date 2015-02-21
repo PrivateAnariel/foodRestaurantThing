@@ -24,7 +24,7 @@ class __TwigTemplate_5dcde7b836c9f817a68590105ed1a9773f5e9b819db41ada5f8600a45b0
             ";
         // line 6
         $context['_parent'] = (array) $context;
-        $context['_seq'] = twig_ensure_traversable(twig_get_array_keys_filter($this->getAttribute((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")), 0, array(), "array")));
+        $context['_seq'] = twig_ensure_traversable(twig_get_array_keys_filter($this->getAttribute((isset($context["data"]) ? $context["data"] : null), 0, array(), "array")));
         foreach ($context['_seq'] as $context["_key"] => $context["label"]) {
             // line 7
             echo "                <th>";
@@ -42,7 +42,7 @@ class __TwigTemplate_5dcde7b836c9f817a68590105ed1a9773f5e9b819db41ada5f8600a45b0
         ";
         // line 12
         $context['_parent'] = (array) $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["data"]) ? $context["data"] : $this->getContext($context, "data")));
+        $context['_seq'] = twig_ensure_traversable((isset($context["data"]) ? $context["data"] : null));
         foreach ($context['_seq'] as $context["_key"] => $context["row"]) {
             // line 13
             echo "        <tr>

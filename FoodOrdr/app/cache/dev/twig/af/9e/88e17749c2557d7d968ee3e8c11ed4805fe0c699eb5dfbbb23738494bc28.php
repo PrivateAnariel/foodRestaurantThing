@@ -162,7 +162,7 @@ class __TwigTemplate_af9e88e17749c2557d7d968ee3e8c11ed4805fe0c699eb5dfbbb2373849
                         tbody.appendChild(rows);
 
                         if (infoSpan) {
-                            var text = requestStack.length + ' calls';
+                            var text = requestStack.length + ' call' + (requestStack.length > 1 ? 's' : '');
                             infoSpan.textContent = text;
                         }
                     } else {
@@ -201,7 +201,7 @@ class __TwigTemplate_af9e88e17749c2557d7d968ee3e8c11ed4805fe0c699eb5dfbbb2373849
                 /* prevent logging AJAX calls to static and inline files, like templates */
                 if (url.substr(0, 1) === '/' && !url.match(new RegExp(\"";
             // line 181
-            echo twig_escape_filter($this->env, (isset($context["excluded_ajax_paths"]) ? $context["excluded_ajax_paths"] : $this->getContext($context, "excluded_ajax_paths")), "html", null, true);
+            echo twig_escape_filter($this->env, (isset($context["excluded_ajax_paths"]) ? $context["excluded_ajax_paths"] : null), "html", null, true);
             echo "\"))) {
                     var stackElement = {
                         loading: true,

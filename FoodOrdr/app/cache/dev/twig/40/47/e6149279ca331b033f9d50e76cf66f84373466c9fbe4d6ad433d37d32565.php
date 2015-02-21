@@ -16,7 +16,7 @@ class __TwigTemplate_4047e6149279ca331b033f9d50e76cf66f84373466c9fbe4d6ad433d37d
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1
-        if ( !twig_test_empty((isset($context["token"]) ? $context["token"] : $this->getContext($context, "token")))) {
+        if ( !twig_test_empty((isset($context["token"]) ? $context["token"] : null))) {
             // line 2
             echo "    <div class=\"search import clearfix\" id=\"adminBar\">
         <h3>
@@ -26,7 +26,7 @@ class __TwigTemplate_4047e6149279ca331b033f9d50e76cf66f84373466c9fbe4d6ad433d37d
 
         <div style=\"margin-bottom: 10px\">&#187;&#160;<a href=\"";
             // line 8
-            echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("_profiler_purge", array("token" => (isset($context["token"]) ? $context["token"] : $this->getContext($context, "token")))), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("_profiler_purge", array("token" => (isset($context["token"]) ? $context["token"] : null))), "html", null, true);
             echo "\">Purge</a></div>
     </div>
 ";

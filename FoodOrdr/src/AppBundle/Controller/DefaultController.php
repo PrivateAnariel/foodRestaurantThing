@@ -4,29 +4,19 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class DefaultController extends Controller
 {
     /**
      * @Route("/", name="home")
      */
-    public function indexAction($message = null)
+    public function indexAction()
     {
-		$params = array();
-		$securityContext = $this->container->get('security.context');
-		if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $params['authenticated'] = true;
-		}
-		$userToken = $this->get('security.token_storage')->getToken()->getUser();
-		$repository = $this->get('doctrine_mongodb')
-			->getRepository('AppBundle:User');
-		$user = $repository->find($userToken->getId());
-		$params['name'] = $user->getFirstName();
-		
-		if($message)
-		{
-			$params['message'] = $message;
-		}
+		$clientRepository = $this->get('doctrine')->getRepository('AppBundle:Client');
+		$clients = $clientRepository->findAll();
+		$name = $clients[0]->getCourriel()." ".$clients[0]->getMdp();
+		$params = array("hello" => $name);
         return $this->render('default/index.html.twig', $params);
     }
 }

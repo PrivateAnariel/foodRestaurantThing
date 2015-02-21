@@ -16,15 +16,15 @@ class __TwigTemplate_0220586f5d3eed1416483eb01477b36ca45eab5eede496c020c6a8d5d9e
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1
-        if ((isset($context["link"]) ? $context["link"] : $this->getContext($context, "link"))) {
+        if ((isset($context["link"]) ? $context["link"] : null)) {
             // line 2
             echo "    ";
             ob_start();
             // line 3
             echo "        <a href=\"";
-            echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("_profiler", array("token" => (isset($context["token"]) ? $context["token"] : $this->getContext($context, "token")), "panel" => (isset($context["name"]) ? $context["name"] : $this->getContext($context, "name")))), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("_profiler", array("token" => (isset($context["token"]) ? $context["token"] : null), "panel" => (isset($context["name"]) ? $context["name"] : null))), "html", null, true);
             echo "\">";
-            echo twig_escape_filter($this->env, (isset($context["icon"]) ? $context["icon"] : $this->getContext($context, "icon")), "html", null, true);
+            echo twig_escape_filter($this->env, (isset($context["icon"]) ? $context["icon"] : null), "html", null, true);
             echo "</a>
     ";
             $context["icon"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
@@ -33,11 +33,11 @@ class __TwigTemplate_0220586f5d3eed1416483eb01477b36ca45eab5eede496c020c6a8d5d9e
         echo "<div class=\"sf-toolbar-block\">
      <div class=\"sf-toolbar-icon\">";
         // line 7
-        echo twig_escape_filter($this->env, ((array_key_exists("icon", $context)) ? (_twig_default_filter((isset($context["icon"]) ? $context["icon"] : $this->getContext($context, "icon")), "")) : ("")), "html", null, true);
+        echo twig_escape_filter($this->env, ((array_key_exists("icon", $context)) ? (_twig_default_filter((isset($context["icon"]) ? $context["icon"] : null), "")) : ("")), "html", null, true);
         echo "</div>
      <div class=\"sf-toolbar-info\">";
         // line 8
-        echo twig_escape_filter($this->env, ((array_key_exists("text", $context)) ? (_twig_default_filter((isset($context["text"]) ? $context["text"] : $this->getContext($context, "text")), "")) : ("")), "html", null, true);
+        echo twig_escape_filter($this->env, ((array_key_exists("text", $context)) ? (_twig_default_filter((isset($context["text"]) ? $context["text"] : null), "")) : ("")), "html", null, true);
         echo "</div>
 </div>
 ";

@@ -20,13 +20,13 @@ class __TwigTemplate_20524c97841f3988f95d02be8fe1627992c30ff5670e8fc74405ef0e02a
     ";
         // line 2
         $context['_parent'] = (array) $context;
-        $context['_seq'] = twig_ensure_traversable(range(1, (isset($context["count"]) ? $context["count"] : $this->getContext($context, "count"))));
+        $context['_seq'] = twig_ensure_traversable(range(1, (isset($context["count"]) ? $context["count"] : null)));
         foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
             // line 3
             echo "
       ";
             // line 4
-            if (($context["i"] == ((isset($context["index"]) ? $context["index"] : $this->getContext($context, "index")) + 1))) {
+            if (($context["i"] == ((isset($context["index"]) ? $context["index"] : null) + 1))) {
                 // line 5
                 echo "          <span class=\"selected\">Step ";
                 echo twig_escape_filter($this->env, $context["i"], "html", null, true);
@@ -43,7 +43,7 @@ class __TwigTemplate_20524c97841f3988f95d02be8fe1627992c30ff5670e8fc74405ef0e02a
             echo "
       ";
             // line 10
-            if (($context["i"] != (isset($context["count"]) ? $context["count"] : $this->getContext($context, "count")))) {
+            if (($context["i"] != (isset($context["count"]) ? $context["count"] : null))) {
                 // line 11
                 echo "        &gt;
       ";

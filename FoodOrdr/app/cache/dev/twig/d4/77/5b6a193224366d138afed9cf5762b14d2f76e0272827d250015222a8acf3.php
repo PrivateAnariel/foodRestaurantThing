@@ -17,7 +17,7 @@ class __TwigTemplate_d4775b6a193224366d138afed9cf5762b14d2f76e0272827d250015222a
     {
         // line 1
         echo "<h2>Routing for \"";
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["request"]) ? $context["request"] : $this->getContext($context, "request")), "pathinfo", array()), "html", null, true);
+        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["request"]) ? $context["request"] : null), "pathinfo", array()), "html", null, true);
         echo "\"</h2>
 
 <ul>
@@ -25,10 +25,10 @@ class __TwigTemplate_d4775b6a193224366d138afed9cf5762b14d2f76e0272827d250015222a
         <strong>Route:&nbsp;</strong>
         ";
         // line 6
-        if ($this->getAttribute((isset($context["request"]) ? $context["request"] : $this->getContext($context, "request")), "route", array())) {
+        if ($this->getAttribute((isset($context["request"]) ? $context["request"] : null), "route", array())) {
             // line 7
             echo "            ";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["request"]) ? $context["request"] : $this->getContext($context, "request")), "route", array()), "html", null, true);
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["request"]) ? $context["request"] : null), "route", array()), "html", null, true);
             echo "
         ";
         } else {
@@ -42,10 +42,10 @@ class __TwigTemplate_d4775b6a193224366d138afed9cf5762b14d2f76e0272827d250015222a
         <strong>Route parameters:&nbsp;</strong>
         ";
         // line 14
-        if (twig_length_filter($this->env, $this->getAttribute((isset($context["request"]) ? $context["request"] : $this->getContext($context, "request")), "routeParams", array()))) {
+        if (twig_length_filter($this->env, $this->getAttribute((isset($context["request"]) ? $context["request"] : null), "routeParams", array()))) {
             // line 15
             echo "            ";
-            $this->env->loadTemplate("@WebProfiler/Profiler/table.html.twig")->display(array("data" => $this->getAttribute((isset($context["request"]) ? $context["request"] : $this->getContext($context, "request")), "routeParams", array()), "class" => "inline"));
+            $this->env->loadTemplate("@WebProfiler/Profiler/table.html.twig")->display(array("data" => $this->getAttribute((isset($context["request"]) ? $context["request"] : null), "routeParams", array()), "class" => "inline"));
             // line 16
             echo "        ";
         } else {
@@ -57,16 +57,16 @@ class __TwigTemplate_d4775b6a193224366d138afed9cf5762b14d2f76e0272827d250015222a
         echo "    </li>
     ";
         // line 20
-        if ($this->getAttribute((isset($context["router"]) ? $context["router"] : $this->getContext($context, "router")), "redirect", array())) {
+        if ($this->getAttribute((isset($context["router"]) ? $context["router"] : null), "redirect", array())) {
             // line 21
             echo "    <li>
         <strong>Redirecting to:&nbsp;</strong> \"";
             // line 22
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["router"]) ? $context["router"] : $this->getContext($context, "router")), "targetUrl", array()), "html", null, true);
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["router"]) ? $context["router"] : null), "targetUrl", array()), "html", null, true);
             echo "\" ";
-            if ($this->getAttribute((isset($context["router"]) ? $context["router"] : $this->getContext($context, "router")), "targetRoute", array())) {
+            if ($this->getAttribute((isset($context["router"]) ? $context["router"] : null), "targetRoute", array())) {
                 echo "(route: \"";
-                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["router"]) ? $context["router"] : $this->getContext($context, "router")), "targetRoute", array()), "html", null, true);
+                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["router"]) ? $context["router"] : null), "targetRoute", array()), "html", null, true);
                 echo "\")";
             }
             // line 23
@@ -85,7 +85,7 @@ class __TwigTemplate_d4775b6a193224366d138afed9cf5762b14d2f76e0272827d250015222a
             ";
         // line 33
         $context['_parent'] = (array) $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["traces"]) ? $context["traces"] : $this->getContext($context, "traces")));
+        $context['_seq'] = twig_ensure_traversable((isset($context["traces"]) ? $context["traces"] : null));
         foreach ($context['_seq'] as $context["_key"] => $context["trace"]) {
             // line 34
             echo "                <tr class=\"";

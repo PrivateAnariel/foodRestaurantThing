@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-Welcome, {{ name }}<br/><br/>
+<div style="color:red;">{{hello}}</div>
+
+
+{#Welcome, {{ name }}<br/><br/>
 {% if message is defined %}
 	{{ message }}<br/><br/>
 {% endif %}
 <a href="{{ path('user_registration') }}">Register a new user</a><br/>
 <a href="{{ path('user_modification') }}">Modify Current User</a><br/>
-<a href="{{ path('display_user') }}">Display all users</a><br/>
+<a href="{{ path('display_user') }}">Display all users</a><br/>#}
 
 {% endblock %}

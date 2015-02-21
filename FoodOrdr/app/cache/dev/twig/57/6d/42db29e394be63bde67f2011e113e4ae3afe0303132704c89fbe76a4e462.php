@@ -37,38 +37,16 @@ class __TwigTemplate_576d42db29e394be63bde67f2011e113e4ae3afe0303132704c89fbe76a
         echo "\" />
     </head>
     <body>
-        ";
+\t\t";
         // line 10
-        $this->displayBlock('body', $context, $blocks);
+        $this->env->loadTemplate("include/header.html.twig")->display($context);
         // line 11
         echo "        ";
-        $this->displayBlock('javascripts', $context, $blocks);
+        $this->displayBlock('body', $context, $blocks);
         // line 12
-        echo "\t\t<br/><br/>
-\t\t
-\t\t";
-        // line 14
-        if (array_key_exists("authenticated", $context)) {
-            // line 15
-            echo "\t\t\t<a href=\"";
-            echo $this->env->getExtension('routing')->getPath("logout");
-            echo "\">Logout</a><br/>
-\t\t";
-        } else {
-            // line 17
-            echo "\t\t\t<div id=\"sidebar\">
-\t\t\t\t";
-            // line 18
-            echo $this->env->getExtension('http_kernel')->renderFragment($this->env->getExtension('http_kernel')->controller("AppBundle:Security:login"));
-            echo "
-\t\t\t</div>
-\t\t\t<a href=\"";
-            // line 20
-            echo $this->env->getExtension('routing')->getPath("user_registration");
-            echo "\">Register a new user</a><br/>\t
-\t\t";
-        }
-        // line 22
+        echo "        ";
+        $this->displayBlock('javascripts', $context, $blocks);
+        // line 13
         echo "    </body>
 </html>
 ";
@@ -85,12 +63,12 @@ class __TwigTemplate_576d42db29e394be63bde67f2011e113e4ae3afe0303132704c89fbe76a
     {
     }
 
-    // line 10
+    // line 11
     public function block_body($context, array $blocks = array())
     {
     }
 
-    // line 11
+    // line 12
     public function block_javascripts($context, array $blocks = array())
     {
     }
@@ -107,6 +85,6 @@ class __TwigTemplate_576d42db29e394be63bde67f2011e113e4ae3afe0303132704c89fbe76a
 
     public function getDebugInfo()
     {
-        return array (  94 => 11,  89 => 10,  84 => 6,  78 => 5,  72 => 22,  67 => 20,  62 => 18,  59 => 17,  53 => 15,  51 => 14,  47 => 12,  44 => 11,  42 => 10,  35 => 7,  33 => 6,  29 => 5,  23 => 1,);
+        return array (  72 => 12,  67 => 11,  62 => 6,  56 => 5,  50 => 13,  47 => 12,  44 => 11,  42 => 10,  35 => 7,  33 => 6,  29 => 5,  23 => 1,);
     }
 }

@@ -48,7 +48,6 @@ class __TwigTemplate_72b6185770315bcc1a38048927817227d2a313d6f4cc7b4e90e9893e476
     background-color: #f7f7f7;
     left: 0;
     right: 0;
-    height: 38px;
     margin: 0;
     padding: 0 40px 0 0;
     z-index: 6000000;
@@ -106,6 +105,7 @@ class __TwigTemplate_72b6185770315bcc1a38048927817227d2a313d6f4cc7b4e90e9893e476
     color: #2f2f2f;
     display: block;
     min-height: 28px;
+    border-bottom: 1px solid #e4e4e4;
     border-right: 1px solid #e4e4e4;
     padding: 0;
     float: left;
@@ -166,10 +166,6 @@ class __TwigTemplate_72b6185770315bcc1a38048927817227d2a313d6f4cc7b4e90e9893e476
     border-bottom-width: 0;
     border-bottom: 1px solid #bbb;
     border-radius: 4px 4px 0 0;
-}
-
-.sf-toolbarreset > div:last-of-type .sf-toolbar-info {
-    right: -1px;
 }
 
 .sf-toolbar-block .sf-toolbar-info:empty {
@@ -368,9 +364,9 @@ class __TwigTemplate_72b6185770315bcc1a38048927817227d2a313d6f4cc7b4e90e9893e476
 
 /***** Override the setting when the toolbar is on the top *****/
 ";
-        // line 352
-        if (((isset($context["position"]) ? $context["position"] : $this->getContext($context, "position")) == "top")) {
-            // line 353
+        // line 348
+        if (((isset($context["position"]) ? $context["position"] : null) == "top")) {
+            // line 349
             echo "    .sf-minitoolbar {
         top: 0;
         bottom: auto;
@@ -412,12 +408,12 @@ class __TwigTemplate_72b6185770315bcc1a38048927817227d2a313d6f4cc7b4e90e9893e476
     }
 ";
         }
-        // line 393
+        // line 389
         echo "
 ";
-        // line 394
-        if ( !(isset($context["floatable"]) ? $context["floatable"] : $this->getContext($context, "floatable"))) {
-            // line 395
+        // line 390
+        if ( !(isset($context["floatable"]) ? $context["floatable"] : null)) {
+            // line 391
             echo "    .sf-toolbarreset {
         position: static;
         background: #cbcbcb;
@@ -429,7 +425,7 @@ class __TwigTemplate_72b6185770315bcc1a38048927817227d2a313d6f4cc7b4e90e9893e476
     }
 ";
         }
-        // line 405
+        // line 401
         echo "
 /***** Media query *****/
 @media screen and (max-width: 779px) {
@@ -489,6 +485,6 @@ class __TwigTemplate_72b6185770315bcc1a38048927817227d2a313d6f4cc7b4e90e9893e476
 
     public function getDebugInfo()
     {
-        return array (  433 => 405,  421 => 395,  419 => 394,  416 => 393,  374 => 353,  372 => 352,  19 => 1,);
+        return array (  429 => 401,  417 => 391,  415 => 390,  412 => 389,  370 => 349,  368 => 348,  19 => 1,);
     }
 }

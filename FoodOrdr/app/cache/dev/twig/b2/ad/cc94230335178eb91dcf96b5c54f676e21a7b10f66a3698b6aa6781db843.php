@@ -40,7 +40,7 @@ class __TwigTemplate_b2adcc94230335178eb91dcf96b5c54f676e21a7b10f66a3698b6aa6781
 
     ";
         // line 6
-        if ((isset($context["tokens"]) ? $context["tokens"] : $this->getContext($context, "tokens"))) {
+        if ((isset($context["tokens"]) ? $context["tokens"] : null)) {
             // line 7
             echo "        <table>
             <thead>
@@ -56,7 +56,7 @@ class __TwigTemplate_b2adcc94230335178eb91dcf96b5c54f676e21a7b10f66a3698b6aa6781
                 ";
             // line 18
             $context['_parent'] = (array) $context;
-            $context['_seq'] = twig_ensure_traversable((isset($context["tokens"]) ? $context["tokens"] : $this->getContext($context, "tokens")));
+            $context['_seq'] = twig_ensure_traversable((isset($context["tokens"]) ? $context["tokens"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["elements"]) {
                 // line 19
                 echo "                    <tr>

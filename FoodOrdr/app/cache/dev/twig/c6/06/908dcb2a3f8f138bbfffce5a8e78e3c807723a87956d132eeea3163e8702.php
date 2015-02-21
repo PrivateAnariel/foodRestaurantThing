@@ -37,13 +37,16 @@ class __TwigTemplate_c606908dcb2a3f8f138bbfffce5a8e78e3c807723a87956d132eeea3163
         echo "\" />
     </head>
     <body>
-        ";
+\t\t";
         // line 10
-        $this->displayBlock('body', $context, $blocks);
+        $this->env->loadTemplate("include/header.html.twig")->display($context);
         // line 11
         echo "        ";
-        $this->displayBlock('javascripts', $context, $blocks);
+        $this->displayBlock('body', $context, $blocks);
         // line 12
+        echo "        ";
+        $this->displayBlock('javascripts', $context, $blocks);
+        // line 13
         echo "    </body>
 </html>
 ";
@@ -60,12 +63,12 @@ class __TwigTemplate_c606908dcb2a3f8f138bbfffce5a8e78e3c807723a87956d132eeea3163
     {
     }
 
-    // line 10
+    // line 11
     public function block_body($context, array $blocks = array())
     {
     }
 
-    // line 11
+    // line 12
     public function block_javascripts($context, array $blocks = array())
     {
     }
@@ -82,6 +85,6 @@ class __TwigTemplate_c606908dcb2a3f8f138bbfffce5a8e78e3c807723a87956d132eeea3163
 
     public function getDebugInfo()
     {
-        return array (  69 => 11,  64 => 10,  59 => 6,  53 => 5,  47 => 12,  44 => 11,  42 => 10,  35 => 7,  33 => 6,  29 => 5,  23 => 1,);
+        return array (  72 => 12,  67 => 11,  62 => 6,  56 => 5,  50 => 13,  47 => 12,  44 => 11,  42 => 10,  35 => 7,  33 => 6,  29 => 5,  23 => 1,);
     }
 }
