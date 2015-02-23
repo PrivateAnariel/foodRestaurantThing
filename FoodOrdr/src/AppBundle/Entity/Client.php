@@ -244,7 +244,7 @@ class Client implements UserInterface, \Serializable
         return $this->idClient;
     }
 	
-	    /**
+    /**
      * @inheritDoc
      */
     public function getUsername()

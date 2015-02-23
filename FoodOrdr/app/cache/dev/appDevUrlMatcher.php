@@ -127,6 +127,41 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        if (0 === strpos($pathinfo, '/Client')) {
+            // client_registration
+            if ($pathinfo === '/Client/Inscription') {
+                return array (  '_controller' => 'AppBundle\\Controller\\ClientController::registerAction',  '_route' => 'client_registration',);
+            }
+
+            // create_client
+            if ($pathinfo === '/Client/Create') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_create_client;
+                }
+
+                return array (  '_controller' => 'AppBundle\\Controller\\ClientController::createAction',  '_route' => 'create_client',);
+            }
+            not_create_client:
+
+            // edit_client
+            if ($pathinfo === '/Client/Edit') {
+                return array (  '_controller' => 'AppBundle\\Controller\\ClientController::editAction',  '_route' => 'edit_client',);
+            }
+
+            // update_client
+            if ($pathinfo === '/Client/Update') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_update_client;
+                }
+
+                return array (  '_controller' => 'AppBundle\\Controller\\ClientController::updateAction',  '_route' => 'update_client',);
+            }
+            not_update_client:
+
+        }
+
         // home
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {
@@ -155,6 +190,26 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array (  '_controller' => 'AppBundle\\Controller\\SecurityController::logoutAction',  '_route' => 'logout',);
             }
 
+        }
+
+        // user_registration
+        if ($pathinfo === '/RegisterUser') {
+            return array (  '_controller' => 'AppBundle\\Controller\\UserController::registerAction',  '_route' => 'user_registration',);
+        }
+
+        // user_submit
+        if (0 === strpos($pathinfo, '/User/Submit') && preg_match('#^/User/Submit/(?P<submitType>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'user_submit')), array (  '_controller' => 'AppBundle\\Controller\\UserController::submitAction',));
+        }
+
+        // display_user
+        if ($pathinfo === '/DisplayUser') {
+            return array (  '_controller' => 'AppBundle\\Controller\\UserController::displayAllAction',  '_route' => 'display_user',);
+        }
+
+        // user_modification
+        if ($pathinfo === '/ModifyUser') {
+            return array (  '_controller' => 'AppBundle\\Controller\\UserController::modifyAction',  '_route' => 'user_modification',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

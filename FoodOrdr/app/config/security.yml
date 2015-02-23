@@ -1,7 +1,4 @@
-# you can read more about security in the related section of the documentation
-# http://symfony.com/doc/current/book/security.html
 security:
-    # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
     encoders:
         AppBundle\Entity\Client: 
             algorithm: plaintext
@@ -13,14 +10,12 @@ security:
             algorithm: plaintext
             ignore_case: false
 
-    # http://symfony.com/doc/current/book/security.html#hierarchical-roles
     role_hierarchy:
         ROLE_REST:     ROLE_USER
         ROLE_ENT:       ROLE_REST
         ROLE_ADMIN:   ROLE_ENT
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         chain_provider:
             chain:
@@ -32,8 +27,6 @@ security:
         ent_db:
             entity: {class: AppBundle\Entity\Entrepreneur, property: courriel}
 
-    # the main part of the security, where you can set up firewalls
-    # for specific sections of your app
     firewalls:
         default:
             anonymous: ~
@@ -47,13 +40,9 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        # the login page has to be accessible for everybody
         login:
             pattern:  ^/login$
             security: false
 
-    # with these settings you can restrict or allow access for different parts
-    # of your application based on roles, ip, host or methods
-    # http://symfony.com/doc/current/cookbook/security/access_control.html
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
