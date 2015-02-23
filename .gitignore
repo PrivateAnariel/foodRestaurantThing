@@ -41,3 +41,5 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+FoodOrdr/app/cache/dev/twig/
+FoodOrdr/app/logs/
