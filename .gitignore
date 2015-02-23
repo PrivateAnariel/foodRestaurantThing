@@ -43,3 +43,4 @@ Temporary Items
 .apdisk
 FoodOrdr/app/cache/dev/twig/
 FoodOrdr/app/logs/
+FoodOrdr/app/cache/dev/*
