@@ -1,7 +1,6 @@
 <?php
 
 namespace AppBundle\Entity;
-
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -65,11 +64,11 @@ class Restaurateur implements UserInterface, \Serializable
     private $idRestaurateur;
 
     /**
-     * @var \AppBundle\Entity\Client
+     * @var \AppBundle\Entity\Entrepreneur
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Client")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Entrepreneur")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ID_ENTREPRENEUR", referencedColumnName="ID_CLIENT")
+     *   @ORM\JoinColumn(name="ID_ENTREPRENEUR", referencedColumnName="ID_ENTREPRENEUR")
      * })
      */
     private $idEntrepreneur;
@@ -227,10 +226,10 @@ class Restaurateur implements UserInterface, \Serializable
     /**
      * Set idEntrepreneur
      *
-     * @param \AppBundle\Entity\Client $idEntrepreneur
+     * @param \AppBundle\Entity\Entrepreneur $idEntrepreneur
      * @return Restaurateur
      */
-    public function setIdEntrepreneur(\AppBundle\Entity\Client $idEntrepreneur = null)
+    public function setIdEntrepreneur(\AppBundle\Entity\Entrepreneur $idEntrepreneur = null)
     {
         $this->idEntrepreneur = $idEntrepreneur;
 
@@ -240,14 +239,14 @@ class Restaurateur implements UserInterface, \Serializable
     /**
      * Get idEntrepreneur
      *
-     * @return \AppBundle\Entity\Client 
+     * @return \AppBundle\Entity\Entrepreneur 
      */
     public function getIdEntrepreneur()
     {
         return $this->idEntrepreneur;
     }
-	
-			    /**
+
+                    /**
      * @inheritDoc
      */
     public function getUsername()

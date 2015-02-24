@@ -2,8 +2,8 @@
 
 namespace AppBundle\Entity;
 
-use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Entrepreneur
@@ -183,8 +183,7 @@ class Entrepreneur implements UserInterface, \Serializable
     {
         return $this->idEntrepreneur;
     }
-	
-		    /**
+                /**
      * @inheritDoc
      */
     public function getUsername()

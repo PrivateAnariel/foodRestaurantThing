@@ -36,11 +36,11 @@ class Restaurant
     private $idRestaurant;
 
     /**
-     * @var \AppBundle\Entity\Client
+     * @var \AppBundle\Entity\Entrepreneur
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Client")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Entrepreneur")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ID_ENTREPRENEUR", referencedColumnName="ID_CLIENT")
+     *   @ORM\JoinColumn(name="ID_ENTREPRENEUR", referencedColumnName="ID_ENTREPRENEUR")
      * })
      */
     private $idEntrepreneur;
@@ -106,10 +106,10 @@ class Restaurant
     /**
      * Set idEntrepreneur
      *
-     * @param \AppBundle\Entity\Client $idEntrepreneur
+     * @param \AppBundle\Entity\Entrepreneur $idEntrepreneur
      * @return Restaurant
      */
-    public function setIdEntrepreneur(\AppBundle\Entity\Client $idEntrepreneur = null)
+    public function setIdEntrepreneur(\AppBundle\Entity\Entrepreneur $idEntrepreneur = null)
     {
         $this->idEntrepreneur = $idEntrepreneur;
 
@@ -119,7 +119,7 @@ class Restaurant
     /**
      * Get idEntrepreneur
      *
-     * @return \AppBundle\Entity\Client 
+     * @return \AppBundle\Entity\Entrepreneur 
      */
     public function getIdEntrepreneur()
     {

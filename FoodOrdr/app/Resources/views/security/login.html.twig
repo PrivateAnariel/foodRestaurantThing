@@ -4,6 +4,9 @@
 
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 	Logged in as {{ app.user.username }}</br>
+	{% if is_granted('ROLE_USER') %}
+	<a href="{{ path('edit_client') }}"> modifier client </a>
+	{% endif %}
 	<a href="{{ path('logout') }}">logout</a>
 {% else %}
 	<form action="{{ path('login_check') }}" method="post">

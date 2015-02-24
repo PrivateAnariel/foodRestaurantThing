@@ -1,1 +1,5 @@
 {{ render(controller('AppBundle:Security:login')) }}
+
+{% if is_granted('ROLE_ENT') %}
+	<a href="{{ path('register_restaurateur') }}"> Ajouter restaurateur </a>
+{% endif %}
