@@ -3,3 +3,10 @@
 {% if is_granted('ROLE_ENT') %}
 	<a href="{{ path('register_restaurateur') }}"> Ajouter restaurateur </a>
 {% endif %}
+{% if is_granted('ROLE_ENT') %}
+	<a href="{{ path('edit_client') }}"> Modifier entrepreneur (NOT DONE YET) </a>
+{% elseif is_granted('ROLE_REST') %}
+	<a href="{{ path('edit_restaurateur') }}"> Modifier restaurateur (NOT DONE YET) </a>
+{% elseif is_granted('ROLE_USER') %}
+	<a href="{{ path('edit_client') }}"> Modifier client </a>
+{% endif %}

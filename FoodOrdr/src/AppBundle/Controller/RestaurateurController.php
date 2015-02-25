@@ -29,8 +29,11 @@ class RestaurateurController extends Controller
 		$restaurateur = new Restaurateur();
 		
 		$restaurateurRepo = $this->get('doctrine')->getRepository('AppBundle:Restaurateur');
+		$ent = $this->get('security.context')->getToken()->getUser();
 
-		$form = $this->createForm(new RestaurateurType(), $restaurateur);
+		$em = $this->getDoctrine()->getManager();
+
+		$form = $this->createForm(new RestaurateurType($ent, $em), $restaurateur);
 
 		$form->handleRequest($this->getRequest());
 
