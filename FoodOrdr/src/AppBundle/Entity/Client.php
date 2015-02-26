@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,7 +52,7 @@ class Client implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="COURRIEL", type="string", length=75, nullable=false, unique=true)
+     * @ORM\Column(name="COURRIEL", type="string", length=75, nullable=false)
      */
     private $courriel;
 
@@ -243,8 +244,8 @@ class Client implements UserInterface, \Serializable
     {
         return $this->idClient;
     }
-	
-    /**
+
+                        /**
      * @inheritDoc
      */
     public function getUsername()

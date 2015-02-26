@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+Email: {{user.email}}<br/>
+Name: {{user.firstName}} {{user.lastName}}<br/>
+Phone Number: {{user.telephone}}<br/>
+
+
+{{ form_start(form) }}
+<div style="visibility:hidden;">
+	{{ form_widget(form) }}
+</div>
+<input type="submit" value="Confirm">
+{{ form_end(form) }}
+
+{% endblock %}
