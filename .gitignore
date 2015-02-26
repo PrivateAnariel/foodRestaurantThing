@@ -81,3 +81,4 @@ Temporary Items
 
 # Composer PHAR
 /composer.phar
+FoodOrdr/app/cache/dev/
