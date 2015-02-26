@@ -79,9 +79,6 @@ class ClientController extends Controller
 		$client = $this->get('security.context')->getToken()->getUser();
 		$form = $this->createForm(new ClientType(), $client);
 		$form->remove('courriel');
-		$form->remove('nom');
-		$form->remove('prenom');
-		$form->remove('datenaissance');
 		$form->add('courriel', 'hidden');
 		$form->handleRequest($this->getRequest());
 
