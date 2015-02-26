@@ -33,7 +33,7 @@ class RestaurateurController extends Controller
 
 		$em = $this->getDoctrine()->getManager();
 
-		$form = $this->createForm(new RestaurateurType($ent, $em), $restaurateur);
+		$form = $this->createForm(new RestaurateurType(), $restaurateur);
 		
 		$form->handleRequest($this->getRequest());
 
@@ -69,6 +69,52 @@ class RestaurateurController extends Controller
 			
 			$token = new UsernamePasswordToken($restaurateur, null, 'main', $restaurateur->getRoles());
 			$this->get('security.token_storage')->setToken($token);
+		}
+        return $this->redirect($this->generateUrl('home'));
+    }
+    	/**
+     * @Route("/Edit", name="edit_restaurateur")
+	 * @Security("has_role('ROLE_REST')")
+     */
+    public function editAction()
+    {
+		$restaurateur = $this->get('security.context')->getToken()->getUser();
+		$form = $this->createForm(new RestaurateurType(), $restaurateur);
+		$form->remove('courriel');;
+		$form->add('courriel', 'hidden');
+		$form->handleRequest($this->getRequest());
+
+		if ($form->isValid()) {
+			$restaurateur = $form->getData();
+			$form = $this->createForm(new ConfirmRestaurateurType(), $restaurateur, array( 'action' => '/Restaurateur/Update'));
+			$form->remove('courriel');
+		}
+        $params['form'] = $form->createView();
+        return $this->render('AppBundle:Restaurateur:Registration.html.twig', $params);
+    }
+	
+	/**
+     * @Route("/Update", name="update_restaurateur")
+	 * @Security("has_role('ROLE_REST')")
+	 * @Method("POST")
+     */
+    public function updateAction()
+    {
+		$restaurateur = $this->get('security.context')->getToken()->getUser();
+		$form = $this->createForm(new ConfirmRestaurateurType());
+		$form->handleRequest($this->getRequest());
+
+		if ($form->isValid()) {
+			$restaurateur_edit = $form->getData();
+			
+			$restaurateur->setNom($restaurateur_edit->getNom())
+					 ->setPrenom($restaurateur_edit->getPrenom())
+					 ->setTelephone($restaurateur_edit->getTelephone())
+					 ->setMdp($restaurateur_edit->getMdp());
+			
+			$em = $this->getDoctrine()->getManager();	
+			$em->persist($restaurateur);
+			$em->flush();
 		}
         return $this->redirect($this->generateUrl('home'));
     }

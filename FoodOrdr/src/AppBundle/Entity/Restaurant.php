@@ -27,6 +27,13 @@ class Restaurant
     private $telephone;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="ADRESSE", type="string", length=50, nullable=false)
+     */
+    private $adresse;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="ID_RESTAURANT", type="integer")
@@ -94,6 +101,29 @@ class Restaurant
     }
 
     /**
+     * Set adresse
+     *
+     * @param string $adresse
+     * @return Restaurant
+     */
+    public function setAdresse($adresse)
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * Get adresse
+     *
+     * @return string 
+     */
+    public function getAdresse()
+    {
+        return $this->adresse;
+    }
+
+    /**
      * Get idRestaurant
      *
      * @return integer 
@@ -126,7 +156,7 @@ class Restaurant
         return $this->idEntrepreneur;
     }
 
-       /**
+           /**
      * Override toString() method to return the name of the restaurant
      * @return string name
      */

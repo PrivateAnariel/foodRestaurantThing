@@ -8,12 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RestaurateurType extends AbstractType
 {
-    private $resto;
 
-    public function __construct($ent, $em)
-{
-    // $this->resto = $ent->getRestos($em);
-}
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('courriel', 'email');
@@ -25,7 +20,7 @@ class RestaurateurType extends AbstractType
 		$builder->add('prenom','text',array('max_length'=>20));
 		$builder->add('nom','text',array('max_length'=>20));
 		$builder->add('telephone','text', array('max_length'=>10));
-        $builder->add('idrestaurant');
+        $builder->add('idRestaurant', 'entity', array( 'class' => 'AppBundle:Restaurant'));
 		$builder->add('submit', 'submit');
 	}
 
