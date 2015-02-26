@@ -171,22 +171,44 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'home',);
         }
 
-        if (0 === strpos($pathinfo, '/Restaurateur')) {
-            // register_restaurateur
-            if ($pathinfo === '/Restaurateur/Inscription') {
-                return array (  '_controller' => 'AppBundle\\Controller\\RestaurateurController::registerAction',  '_route' => 'register_restaurateur',);
-            }
-
-            // create_restaurateur
-            if ($pathinfo === '/Restaurateur/Create') {
-                if ($this->context->getMethod() != 'POST') {
-                    $allow[] = 'POST';
-                    goto not_create_restaurateur;
+        if (0 === strpos($pathinfo, '/Restaura')) {
+            if (0 === strpos($pathinfo, '/Restaurant')) {
+                // register_restaurant
+                if ($pathinfo === '/Restaurant/Inscription') {
+                    return array (  '_controller' => 'AppBundle\\Controller\\RestaurantController::registerAction',  '_route' => 'register_restaurant',);
                 }
 
-                return array (  '_controller' => 'AppBundle\\Controller\\RestaurateurController::createAction',  '_route' => 'create_restaurateur',);
+                // create_restaurant
+                if ($pathinfo === '/Restaurant/Create') {
+                    if ($this->context->getMethod() != 'POST') {
+                        $allow[] = 'POST';
+                        goto not_create_restaurant;
+                    }
+
+                    return array (  '_controller' => 'AppBundle\\Controller\\RestaurantController::createAction',  '_route' => 'create_restaurant',);
+                }
+                not_create_restaurant:
+
             }
-            not_create_restaurateur:
+
+            if (0 === strpos($pathinfo, '/Restaurateur')) {
+                // register_restaurateur
+                if ($pathinfo === '/Restaurateur/Inscription') {
+                    return array (  '_controller' => 'AppBundle\\Controller\\RestaurateurController::registerAction',  '_route' => 'register_restaurateur',);
+                }
+
+                // create_restaurateur
+                if ($pathinfo === '/Restaurateur/Create') {
+                    if ($this->context->getMethod() != 'POST') {
+                        $allow[] = 'POST';
+                        goto not_create_restaurateur;
+                    }
+
+                    return array (  '_controller' => 'AppBundle\\Controller\\RestaurateurController::createAction',  '_route' => 'create_restaurateur',);
+                }
+                not_create_restaurateur:
+
+            }
 
         }
 

@@ -34,7 +34,7 @@ class RestaurateurController extends Controller
 		$em = $this->getDoctrine()->getManager();
 
 		$form = $this->createForm(new RestaurateurType($ent, $em), $restaurateur);
-
+		
 		$form->handleRequest($this->getRequest());
 
 		if ($form->isValid()) {

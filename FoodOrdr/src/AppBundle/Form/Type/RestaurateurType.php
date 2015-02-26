@@ -12,7 +12,7 @@ class RestaurateurType extends AbstractType
 
     public function __construct($ent, $em)
 {
-    $this->$resto = $ent->getRestos($em);
+    // $this->resto = $ent->getRestos($em);
 }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -25,9 +25,7 @@ class RestaurateurType extends AbstractType
 		$builder->add('prenom','text',array('max_length'=>20));
 		$builder->add('nom','text',array('max_length'=>20));
 		$builder->add('telephone','text', array('max_length'=>10));
-        $builder->add('idRestaurant','choice',  array(
-        'restaurants' => $this->resto,
-));
+        $builder->add('idrestaurant');
 		$builder->add('submit', 'submit');
 	}
 

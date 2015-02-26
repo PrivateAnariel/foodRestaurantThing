@@ -3,6 +3,7 @@
   <entity name="AppBundle\Entity\Restaurateur" table="RESTAURATEUR">
     <indexes>
       <index name="FK_ID_ENTREPRENEUR" columns="ID_ENTREPRENEUR"/>
+      <index name="FK_ID_RESTAURANT" columns="ID_RESTAURANT"/>
     </indexes>
     <unique-constraints>
       <unique-constraint name="COURRIEL" columns="COURRIEL"/>
@@ -11,12 +12,16 @@
     <id name="idRestaurateur" type="integer" column="ID_RESTAURATEUR">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="idRestaurant" type="integer" column="ID_RESTAURANT" nullable="true"/>
     <field name="nom" type="string" column="NOM" length="25" nullable="false"/>
     <field name="prenom" type="string" column="PRENOM" length="25" nullable="false"/>
     <field name="telephone" type="string" column="TELEPHONE" length="25" nullable="false"/>
     <field name="courriel" type="string" column="COURRIEL" length="75" nullable="false"/>
     <field name="mdp" type="string" column="MDP" length="100" nullable="false"/>
+    <many-to-one field="idRestaurant" target-entity="Restaurant">
+      <join-columns>
+        <join-column name="ID_RESTAURANT" referenced-column-name="ID_RESTAURANT"/>
+      </join-columns>
+    </many-to-one>
     <many-to-one field="idEntrepreneur" target-entity="Entrepreneur">
       <join-columns>
         <join-column name="ID_ENTREPRENEUR" referenced-column-name="ID_ENTREPRENEUR"/>

@@ -7,18 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Restaurateur
  *
- * @ORM\Table(name="RESTAURATEUR", uniqueConstraints={@ORM\UniqueConstraint(name="COURRIEL", columns={"COURRIEL"}), @ORM\UniqueConstraint(name="ID_RESTAURATEUR", columns={"ID_RESTAURATEUR"})}, indexes={@ORM\Index(name="FK_ID_ENTREPRENEUR", columns={"ID_ENTREPRENEUR"})})
+ * @ORM\Table(name="RESTAURATEUR", uniqueConstraints={@ORM\UniqueConstraint(name="COURRIEL", columns={"COURRIEL"}), @ORM\UniqueConstraint(name="ID_RESTAURATEUR", columns={"ID_RESTAURATEUR"})}, indexes={@ORM\Index(name="FK_ID_ENTREPRENEUR", columns={"ID_ENTREPRENEUR"}), @ORM\Index(name="FK_ID_RESTAURANT", columns={"ID_RESTAURANT"})})
  * @ORM\Entity
  */
 class Restaurateur implements UserInterface, \Serializable
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="ID_RESTAURANT", type="integer", nullable=true)
-     */
-    private $idRestaurant;
-
     /**
      * @var string
      *
@@ -64,6 +57,16 @@ class Restaurateur implements UserInterface, \Serializable
     private $idRestaurateur;
 
     /**
+     * @var \AppBundle\Entity\Restaurant
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Restaurant")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ID_RESTAURANT", referencedColumnName="ID_RESTAURANT")
+     * })
+     */
+    private $idRestaurant;
+
+    /**
      * @var \AppBundle\Entity\Entrepreneur
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Entrepreneur")
@@ -74,29 +77,6 @@ class Restaurateur implements UserInterface, \Serializable
     private $idEntrepreneur;
 
 
-
-    /**
-     * Set idRestaurant
-     *
-     * @param integer $idRestaurant
-     * @return Restaurateur
-     */
-    public function setIdRestaurant($idRestaurant)
-    {
-        $this->idRestaurant = $idRestaurant;
-
-        return $this;
-    }
-
-    /**
-     * Get idRestaurant
-     *
-     * @return integer 
-     */
-    public function getIdRestaurant()
-    {
-        return $this->idRestaurant;
-    }
 
     /**
      * Set nom
@@ -224,6 +204,29 @@ class Restaurateur implements UserInterface, \Serializable
     }
 
     /**
+     * Set idRestaurant
+     *
+     * @param \AppBundle\Entity\Restaurant $idRestaurant
+     * @return Restaurateur
+     */
+    public function setIdRestaurant(\AppBundle\Entity\Restaurant $idRestaurant = null)
+    {
+        $this->idRestaurant = $idRestaurant;
+
+        return $this;
+    }
+
+    /**
+     * Get idRestaurant
+     *
+     * @return \AppBundle\Entity\Restaurant 
+     */
+    public function getIdRestaurant()
+    {
+        return $this->idRestaurant;
+    }
+
+    /**
      * Set idEntrepreneur
      *
      * @param \AppBundle\Entity\Entrepreneur $idEntrepreneur
@@ -245,8 +248,7 @@ class Restaurateur implements UserInterface, \Serializable
     {
         return $this->idEntrepreneur;
     }
-
-                    /**
+                        /**
      * @inheritDoc
      */
     public function getUsername()

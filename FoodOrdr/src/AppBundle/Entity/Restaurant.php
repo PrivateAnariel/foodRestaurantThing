@@ -125,4 +125,13 @@ class Restaurant
     {
         return $this->idEntrepreneur;
     }
+
+       /**
+     * Override toString() method to return the name of the restaurant
+     * @return string name
+     */
+    public function __toString()
+    {
+        return $this->nom;
+    }
 }
