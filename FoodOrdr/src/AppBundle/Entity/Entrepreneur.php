@@ -245,18 +245,4 @@ class Entrepreneur implements UserInterface, \Serializable
             $this->mdp,
         ) = unserialize($serialized);
     }
-    /**
-     * @inheritDoc
-     */
-    public function getRestos($em) {
-
-        $query = $em->createQuery(
-        'SELECT r
-        FROM AppBundle:Restaurant r
-        WHERE  r.idEntrepreneur = :id'
-        )->setParameter('id',$this->idEntrepreneur);
-
-        $restos = $query->getResult();
-        return $restos;
-    }
 }
