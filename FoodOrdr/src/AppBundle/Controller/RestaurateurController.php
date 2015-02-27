@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use AppBundle\Entity\Restaurateur;
 use AppBundle\Form\Type\RestaurateurType;
 use AppBundle\Form\Type\ConfirmRestaurateurType;
+use AppBundle\Form\Type\RestaurateurSelect;
 
 /**
  * @Route("/Restaurateur", name="restaurateur_controller")
@@ -72,9 +73,10 @@ class RestaurateurController extends Controller
 		}
         return $this->redirect($this->generateUrl('home'));
     }
-    	/**
+
+    /**
      * @Route("/Edit", name="edit_restaurateur")
-	 * @Security("has_role('ROLE_REST')")
+	 * @Security("has_role('ROLE_ENT')")
      */
     public function editAction()
     {
@@ -95,7 +97,7 @@ class RestaurateurController extends Controller
 	
 	/**
      * @Route("/Update", name="update_restaurateur")
-	 * @Security("has_role('ROLE_REST')")
+	 * @Security("has_role('ROLE_ENT')")
 	 * @Method("POST")
      */
     public function updateAction()

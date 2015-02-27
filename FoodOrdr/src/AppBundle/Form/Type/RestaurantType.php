@@ -11,9 +11,12 @@ class RestaurantType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-		$builder->add('nom','text',array('max_length'=>20));
+        $builder->add('idRestaurant','hidden');
+		$builder->add('nom','text',array('max_length'=>20));      
 		$builder->add('telephone','text', array('max_length'=>10));
+        $builder->add('adresse','text',array('max_length'=>100));
 		$builder->add('submit', 'submit');
+   
 	}
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

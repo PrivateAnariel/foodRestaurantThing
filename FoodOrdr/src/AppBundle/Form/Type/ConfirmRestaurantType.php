@@ -12,6 +12,7 @@ class ConfirmRestaurantType extends AbstractType
     {
 		$builder->add('nom','text',array('read_only' => true));
 		$builder->add('telephone','text', array('read_only' => true));
+        $builder->add('adresse','text',array('read_only' => true));
 		$builder->add('Confirmer', 'submit');
 	}
 
