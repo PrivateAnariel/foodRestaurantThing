@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+<table>
+	<tr>
+		<th>Nom</th>
+		<th> Téléphone </th>
+		<th>Adresse </th>
+	</tr>
+    {% for restaurant in ListeRestaurant %}
+       <tr>
+       		<td> {{restaurant.nom}}   </td>
+			<td> {{restaurant.telephone}}   </td>
+			<td> {{restaurant.adresse}}   </td>
+			<td><a href="{{path("edit_restaurant",{'id':restaurant.idRestaurant})}}"> Modifier</a></td>
+       </tr>
+
+    {% endfor %}
+</table>
+{% endblock %}

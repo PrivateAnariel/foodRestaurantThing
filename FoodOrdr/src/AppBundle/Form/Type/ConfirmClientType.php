@@ -10,6 +10,7 @@ class ConfirmClientType extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
     {
+    	  $builder->add('idClient', 'hidden');
         $builder->add('courriel', 'email', array('read_only' => true));
 		$builder->add('prenom','text',array('read_only' => true));
 		$builder->add('nom','text',array('read_only' => true));

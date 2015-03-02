@@ -71,4 +71,49 @@ class RestaurantController extends Controller
 		}
         return $this->redirect($this->generateUrl('home'));
     }
+
+	/**
+     * @Route("/Edit/{id}", name="edit_restaurant")
+	 * @Security("has_role('ROLE_ENT')")
+     */
+    public function editAction($id)
+    {	
+    	$restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+    	$restaurant = $restaurantRepository->findOneBy(array('idRestaurant' => $id ));	
+    	$form=$this->createForm(new RestaurantType(),$restaurant);
+
+		$form->handleRequest($this->getRequest());
+
+		if ($form->isValid()) {
+			$client = $form->getData();
+			$form = $this->createForm(new ConfirmClientType(), $client, array( 'action' => '/Client/Update'));
+			$form->remove('courriel');
+		}
+        $params['form'] = $form->createView();
+        return $this->render('AppBundle:Client:Registration.html.twig', $params);
+
+
+
+    }
+	/**
+     * @Route("/Show", name="show_restaurants")
+	 * @Security("has_role('ROLE_REST')")
+     */
+    public function showAction()
+    {
+    	$restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+		$user = $this->get('security.context')->getToken()->getUser();
+		if ($this->get('security.authorization_checker')->isGranted('ROLE_ENT'))
+		{
+			$option=array('idEntrepreneur'=>$user->getIdEntrepreneur());
+			
+		}
+		else
+		{
+			$option=array('idRestaurant'=>$user->getIdRestaurant());
+		}
+
+		$restaurants = $restaurantRepository->findBy($option);	
+		 return $this->render('AppBundle:Restaurant:Listrestaurant.html.twig',  array('ListeRestaurant' =>$restaurants) );
+    }
  }
