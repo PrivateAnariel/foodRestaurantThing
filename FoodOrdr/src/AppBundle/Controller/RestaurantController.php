@@ -85,16 +85,13 @@ class RestaurantController extends Controller
 		$form->handleRequest($this->getRequest());
 
 		if ($form->isValid()) {
-			$client = $form->getData();
-			$form = $this->createForm(new ConfirmClientType(), $client, array( 'action' => '/Client/Update'));
-			$form->remove('courriel');
+			$restaurant = $form->getData();
+			$form = $this->createForm(new ConfirmRestaurantType(), $restaurant, array( 'action' => '/Restaurant/Update'));
 		}
         $params['form'] = $form->createView();
-        return $this->render('AppBundle:Client:Registration.html.twig', $params);
-
-
-
+        return $this->render('AppBundle:Restaurant:Registration.html.twig', $params);
     }
+
 	/**
      * @Route("/Show", name="show_restaurants")
 	 * @Security("has_role('ROLE_REST')")
@@ -115,5 +112,29 @@ class RestaurantController extends Controller
 
 		$restaurants = $restaurantRepository->findBy($option);	
 		 return $this->render('AppBundle:Restaurant:Listrestaurant.html.twig',  array('ListeRestaurant' =>$restaurants) );
+    }
+
+    	/**
+     * @Route("/Update", name="update_restaurant")
+	 * @Security("has_role('ROLE_ENT')")
+	 * @Method("POST")
+     */
+    public function updateAction()
+    {
+		$form = $this->createForm(new ConfirmRestaurantType());
+		$form->handleRequest($this->getRequest());
+
+		if ($form->isValid()) {
+			$restaurant_edit = $form->getData();
+			
+			$restaurant->setNom($restaurant_edit->getNom())
+					 ->setAdresse($restaurant_edit->getAdresse())
+					 ->setTelephone($restaurant_edit->getTelephone());
+			
+			$em = $this->getDoctrine()->getManager();	
+			$em->persist($restaurant);
+			$em->flush();
+		}
+        return $this->redirect($this->generateUrl('home'));
     }
  }

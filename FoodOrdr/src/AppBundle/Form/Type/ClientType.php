@@ -10,8 +10,8 @@ class ClientType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        
-         $builder->add('idClient', 'hidden');
+
+     
         $builder->add('courriel', 'email');
         $builder->add('mdp', 'repeated', array(
            'first_name' => 'mdp',

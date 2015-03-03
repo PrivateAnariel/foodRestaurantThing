@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use AppBundle\Entity\Restaurateur;
 use AppBundle\Form\Type\RestaurateurType;
 use AppBundle\Form\Type\ConfirmRestaurateurType;
+use AppBundle\Form\Type\RestaurateurSelect;
 
 /**
  * @Route("/Restaurateur", name="restaurateur_controller")
@@ -72,15 +73,16 @@ class RestaurateurController extends Controller
 		}
         return $this->redirect($this->generateUrl('home'));
     }
-    	/**
+
+    /**
      * @Route("/Edit", name="edit_restaurateur")
-	 * @Security("has_role('ROLE_REST')")
+	 * @Security("has_role('ROLE_ENT')")
      */
     public function editAction()
     {
 		$restaurateur = $this->get('security.context')->getToken()->getUser();
 		$form = $this->createForm(new RestaurateurType(), $restaurateur);
-		$form->remove('courriel');;
+		$form->remove('courriel');
 		$form->add('courriel', 'hidden');
 		$form->handleRequest($this->getRequest());
 
@@ -95,22 +97,24 @@ class RestaurateurController extends Controller
 	
 	/**
      * @Route("/Update", name="update_restaurateur")
-	 * @Security("has_role('ROLE_REST')")
+	 * @Security("has_role('ROLE_ENT')")
 	 * @Method("POST")
      */
     public function updateAction()
     {
-		$restaurateur = $this->get('security.context')->getToken()->getUser();
 		$form = $this->createForm(new ConfirmRestaurateurType());
 		$form->handleRequest($this->getRequest());
 
 		if ($form->isValid()) {
 			$restaurateur_edit = $form->getData();
 			
+			$restoRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+			$resto = $restoRepository->findById($restaurateur_edit->getIdRestaurant());
 			$restaurateur->setNom($restaurateur_edit->getNom())
 					 ->setPrenom($restaurateur_edit->getPrenom())
 					 ->setTelephone($restaurateur_edit->getTelephone())
-					 ->setMdp($restaurateur_edit->getMdp());
+					 ->setMdp($restaurateur_edit->getMdp())
+					 ->setIdRestaurant($resto);
 			
 			$em = $this->getDoctrine()->getManager();	
 			$em->persist($restaurateur);
