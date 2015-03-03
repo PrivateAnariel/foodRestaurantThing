@@ -5,7 +5,9 @@
 }
 
 body{
-	background-color:black;
+    background-image: url('../images/log210sweg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 header{
