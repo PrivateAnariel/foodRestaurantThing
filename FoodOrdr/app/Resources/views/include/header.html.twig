@@ -1,13 +1,38 @@
-{{ render(controller('AppBundle:Security:login')) }}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Accueil</title>
+	<meta charset="utf-8" />  
+	{% block stylesheets %}
+		 <link rel="stylesheet" href="{{ asset('bundles/framework/css/index.css') }}" />
+    {% endblock %}
+</head>
+<body>
+	<header>
+		<div id="titre">
+			<h1> Pret-a-livrer </h1>
+		</div>
+	
+		<div id="login">
+			<!-- appelle le template LOGIN -->
+			{{ render(controller('AppBundle:Security:login')) }}
+		</div>
+		<?php 
+			}
+			 ?>
+		<div class="clearboth"></div>
+	</header>
+	<div class="menu">
+			{% if is_granted('ROLE_ENT') %}
+				<a href="{{ path('register_restaurateur') }}"> Ajouter restaurateur </a>
+				<a href="{{ path('register_restaurant') }}"> Ajouter restaurant </a>
+				<a href="{{ path('show_restaurants') }}"> Modifier restaurants </a>
+			{% elseif is_granted('ROLE_REST') %}
 
-{% if is_granted('ROLE_ENT') %}
-	<a href="{{ path('register_restaurateur') }}"> Ajouter restaurateur </a>
-	<a href="{{ path('register_restaurant') }}"> Ajouter restaurant </a>
-	<a href="{{ path('show_restaurants') }}"> Modifier restaurants </a>
-{% elseif is_granted('ROLE_REST') %}
-
-{% elseif is_granted('ROLE_USER') %}
-	<a href="{{ path('edit_client') }}"> Modifier client </a>
-{% else %}
-	<a href="{{ path('client_registration') }}"> Inscrivez-vous!!!! :D </a>
-{% endif %}
+			{% elseif is_granted('ROLE_USER') %}
+				<a href="{{ path('edit_client') }}"> Modifier client </a>
+			{% else %}
+				<a href="{{ path('client_registration') }}"> Inscrivez-vous!!!! :D </a>
+			{% endif %}
+	</div>
+	<div id="main">
