@@ -67,23 +67,45 @@ class RestaurateurController extends Controller
 			//$em->persist($compte);
 			
 			$em->flush();
-			
-			$token = new UsernamePasswordToken($restaurateur, null, 'main', $restaurateur->getRoles());
-			$this->get('security.token_storage')->setToken($token);
 		}
         return $this->redirect($this->generateUrl('home'));
     }
 
-    /**
-     * @Route("/Edit", name="edit_restaurateur")
+	/**
+     * @Route("/Show", name="show_restaurateurs")
 	 * @Security("has_role('ROLE_ENT')")
      */
-    public function editAction()
+    public function showAction()
     {
-		$restaurateur = $this->get('security.context')->getToken()->getUser();
+    	$restaurateurRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurateur');
+		$user = $this->get('security.context')->getToken()->getUser();
+		if ($this->get('security.authorization_checker')->isGranted('ROLE_ENT'))
+		{
+			$option=array('idEntrepreneur'=>$user->getIdEntrepreneur());
+			
+		}
+		else
+		{
+			$option=array('idRestaurateur'=>$user->getIdRestaurateur());
+		}
+
+		$restaurateurs = $restaurateurRepository->findBy($option);	
+		 return $this->render('AppBundle:Restaurateur:ListeRestaurateurs.html.twig',  array('ListeRestaurateurs' =>$restaurateurs) );
+    }
+
+    /**
+     * @Route("/Edit/{id}", name="edit_restaurateur")
+	 * @Security("has_role('ROLE_ENT')")
+     */
+    public function editAction($id)
+    {
+		$restaurateurRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurateur');
+		$restaurateur = $restaurateurRepository->findOneBy(array('idRestaurateur' => $id));
 		$form = $this->createForm(new RestaurateurType(), $restaurateur);
 		$form->remove('courriel');
 		$form->add('courriel', 'hidden');
+		$form->remove('courriel');
+		$form->add('mdp', 'hidden');
 		$form->handleRequest($this->getRequest());
 
 		if ($form->isValid()) {
@@ -102,6 +124,7 @@ class RestaurateurController extends Controller
      */
     public function updateAction()
     {
+
 		$form = $this->createForm(new ConfirmRestaurateurType());
 		$form->handleRequest($this->getRequest());
 
@@ -109,7 +132,7 @@ class RestaurateurController extends Controller
 			$restaurateur_edit = $form->getData();
 			
 			$restoRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
-			$resto = $restoRepository->findById($restaurateur_edit->getIdRestaurant());
+			$resto = $restoRepository->findOneBy(array('idRestaurant' => $restaurateur_edit->getIdRestaurant()));
 			$restaurateur->setNom($restaurateur_edit->getNom())
 					 ->setPrenom($restaurateur_edit->getPrenom())
 					 ->setTelephone($restaurateur_edit->getTelephone())
