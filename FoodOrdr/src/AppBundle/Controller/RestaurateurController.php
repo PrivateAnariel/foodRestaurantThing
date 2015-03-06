@@ -110,7 +110,7 @@ class RestaurateurController extends Controller
 
 		if ($form->isValid()) {
 			$restaurateur = $form->getData();
-			$form = $this->createForm(new ConfirmRestaurateurType(), $restaurateur, array( 'action' => '/Restaurateur/Update'));
+			$form = $this->createForm(new ConfirmRestaurateurType(), $restaurateur, array( 'action' => '/Restaurateur/Update/'.$id.' '));
 			$form->remove('courriel');
 		}
         $params['form'] = $form->createView();
@@ -124,7 +124,7 @@ class RestaurateurController extends Controller
      */
     public function updateAction()
     {
-
+    	$restaurateur = $restaurateurRepository->findOneBy(array('idRestaurateur' => $id));
 		$form = $this->createForm(new ConfirmRestaurateurType());
 		$form->handleRequest($this->getRequest());
 
