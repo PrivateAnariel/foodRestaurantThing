@@ -126,7 +126,7 @@ class RestaurantController extends Controller
 
 		if ($form->isValid()) {
 			$restaurant_edit = $form->getData();
-			
+			$restaurant = new Restaurant();
 			$restaurant->setNom($restaurant_edit->getNom())
 					 ->setAdresse($restaurant_edit->getAdresse())
 					 ->setTelephone($restaurant_edit->getTelephone());
