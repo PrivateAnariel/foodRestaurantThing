@@ -38,11 +38,16 @@ class RestaurateurController extends Controller
 		
 		$form->handleRequest($this->getRequest());
 
+		$message = " ";
 		if ($form->isValid()) {
 			$restaurateur = $form->getData();
-			$form = $this->createForm(new ConfirmRestaurateurType(), $restaurateur, array( 'action' => '/Restaurateur/Create'));
+			if ($restaurateur->getIdRestaurant() == null){
+				$message = "** Le restaurateur n'a pas de restaurant associé **";
+			}
+			$form = $this->createForm(new ConfirmRestaurateurType, $restaurateur, array( 'action' => '/Restaurateur/Create'));
 		}
         $params['form'] = $form->createView();
+        $params['message'] = $message;
         return $this->render('AppBundle:Restaurateur:Registration.html.twig', $params);
     }
 
@@ -113,6 +118,8 @@ class RestaurateurController extends Controller
 			$form = $this->createForm(new ConfirmRestaurateurType(), $restaurateur, array( 'action' => '/Restaurateur/Update/'.$id.' '));
 			$form->remove('courriel');
 		}
+		$message = "**  **";
+		$params['message'] = $message;
         $params['form'] = $form->createView();
         return $this->render('AppBundle:Restaurateur:Registration.html.twig', $params);
     }
@@ -124,6 +131,7 @@ class RestaurateurController extends Controller
      */
     public function updateAction($id)
     {
+    	$restaurateurRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurateur');
     	$restaurateur = $restaurateurRepository->findOneBy(array('idRestaurateur' => $id));
 		$form = $this->createForm(new ConfirmRestaurateurType());
 		$form->handleRequest($this->getRequest());
@@ -143,6 +151,62 @@ class RestaurateurController extends Controller
 			$em->persist($restaurateur);
 			$em->flush();
 		}
+        return $this->redirect($this->generateUrl('home'));
+    }
+
+    // ==================================================================================
+    // --------------------------------SUPPRESSION---------------------------------------
+
+     /**
+     * @Route("/Suppression/{id}", name="delete_restaurateur")
+	 * @Security("has_role('ROLE_ENT')")
+     */
+    public function deleteAction($id)
+    {
+		$restaurateurRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurateur');
+		$restaurateur = $restaurateurRepository->findOneBy(array('idRestaurateur' => $id));
+		$form = $this->createForm(new RestaurateurType(), $restaurateur);
+		$form->remove('courriel');
+		$form->add('courriel', 'hidden');
+		$form->remove('courriel');
+		$form->add('mdp', 'hidden');
+		$form->handleRequest($this->getRequest());
+
+		if ($form->isValid()) {
+			$restaurateur = $form->getData();
+			$form = $this->createForm(new ConfirmRestaurateurType(), $restaurateur, array( 'action' => '/Restaurateur/SuppConfirmation/'.$id.' '));
+			$form->remove('courriel');
+		}
+		$message = "** Voulez-vous vraiment supprimer ce restaurateur? **";
+		$params['message'] = $message;
+        $params['form'] = $form->createView();
+        return $this->render('AppBundle:Restaurateur:Registration.html.twig', $params);
+    }
+
+    /**
+     * @Route("/SuppConfirmation/{id}", name="deleteC_restaurateur")
+	 * @Security("has_role('ROLE_ENT')")
+	 * @Method("POST")
+     */
+    public function deleteCAction($id)
+    {
+    	$restaurateurRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurateur');
+    	$restaurateur = $restaurateurRepository->findOneBy(array('idRestaurateur' => $id));
+		$form = $this->createForm(new ConfirmRestaurateurType());
+		$form->handleRequest($this->getRequest());
+
+		if ($form->isValid()) {
+			$restaurateur_edit = $form->getData();
+			
+			$restoRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+			$resto = $restoRepository->findOneBy(array('idRestaurant' => $restaurateur_edit->getIdRestaurant()));
+			
+			
+			$em = $this->getDoctrine()->getManager();	
+			$em->remove($restaurateur);
+			$em->flush();
+		}
+
         return $this->redirect($this->generateUrl('home'));
     }
  }

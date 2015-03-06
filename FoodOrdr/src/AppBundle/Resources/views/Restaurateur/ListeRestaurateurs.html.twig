@@ -13,7 +13,7 @@
        		<td> {{restaurateur.prenom}}   </td>
 			<td> {{restaurateur.nom}}   </td>
 			<td><a href="{{path("edit_restaurateur",{'id':restaurateur.idRestaurateur})}}"> Modifier</a></td>
-			<td> Supprimer </td>
+			<td><a href="{{path("delete_restaurateur",{'id':restaurateur.idRestaurateur})}}"> Supprimer</a></td>
        </tr>
 
     {% endfor %}

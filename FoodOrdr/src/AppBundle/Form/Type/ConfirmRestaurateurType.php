@@ -17,7 +17,7 @@ class ConfirmRestaurateurType extends AbstractType
 		$builder->add('mdp','hidden');
         $builder->add('idRestaurant','entity', array(
     'class' => 'AppBundle:Restaurant',
-    'property' => 'nom',
+    'property' => 'nom','empty_value' => ' ','required' => false
 ));
 		$builder->add('Confirmer', 'submit');
 	}
