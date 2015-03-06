@@ -118,11 +118,11 @@ class RestaurateurController extends Controller
     }
 	
 	/**
-     * @Route("/Update", name="update_restaurateur")
+     * @Route("/Update/{id}", name="update_restaurateur")
 	 * @Security("has_role('ROLE_ENT')")
 	 * @Method("POST")
      */
-    public function updateAction()
+    public function updateAction($id)
     {
     	$restaurateur = $restaurateurRepository->findOneBy(array('idRestaurateur' => $id));
 		$form = $this->createForm(new ConfirmRestaurateurType());
