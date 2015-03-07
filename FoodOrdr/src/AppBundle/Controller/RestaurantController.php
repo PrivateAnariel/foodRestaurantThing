@@ -123,10 +123,10 @@ class RestaurantController extends Controller
     {
 		$form = $this->createForm(new ConfirmRestaurantType());
 		$form->handleRequest($this->getRequest());
-
+		$restaurant = new Restaurant();
 		if ($form->isValid()) {
 			$restaurant_edit = $form->getData();
-			$restaurant = new Restaurant();
+			
 			$restaurant->setNom($restaurant_edit->getNom())
 					 ->setAdresse($restaurant_edit->getAdresse())
 					 ->setTelephone($restaurant_edit->getTelephone());
@@ -135,6 +135,61 @@ class RestaurantController extends Controller
 			$em->persist($restaurant);
 			$em->flush();
 		}
+        return $this->redirect($this->generateUrl('home'));
+    }
+
+
+
+     /**
+     * @Route("/Suppression/{id}", name="delete_restaurant")
+	 * @Security("has_role('ROLE_ENT')")
+     */
+        public function deleteAction($id)
+    {
+		$restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+		$restaurant = $restaurantRepository->findOneBy(array('idRestaurant' => $id));
+		$form = $this->createForm(new RestaurantType(), $restaurant);
+		//$form->remove('courriel');
+		$form->add('nom', 'hidden');
+		$form->add('adresse', 'hidden');
+		$form->handleRequest($this->getRequest());
+
+		if ($form->isValid()) {
+			$restaurant = $form->getData();
+			$form = $this->createForm(new ConfirmRestaurantType(), $restaurant, array( 'action' => '/Restaurant/SuppConfirmation/'.$id.' '));
+			$form->remove('nom');
+		}
+		$message = "** Voulez-vous vraiment supprimer ce restaurant? **";
+		$params['message'] = $message;
+        $params['form'] = $form->createView();
+        return $this->render('AppBundle:Restaurant:Registration.html.twig', $params);
+    }
+
+
+       /**
+     * @Route("/SuppConfirmation/{id}", name="deleteC_restaurant")
+	 * @Security("has_role('ROLE_ENT')")
+	 * @Method("POST")
+     */
+    public function deleteCAction($id)
+    {
+    	$restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+    	$restaurant = $restaurantRepository->findOneBy(array('idRestaurant' => $id));
+		$form = $this->createForm(new ConfirmRestaurantType());
+		$form->handleRequest($this->getRequest());
+
+		if ($form->isValid()) {
+			$restaurant_edit = $form->getData();
+			
+			$restoRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+			$resto = $restoRepository->findOneBy(array('idRestaurant' => $restaurant_edit->getIdRestaurant()));
+			
+			
+			$em = $this->getDoctrine()->getManager();	
+			$em->remove($restaurant);
+			$em->flush();
+		}
+
         return $this->redirect($this->generateUrl('home'));
     }
  }

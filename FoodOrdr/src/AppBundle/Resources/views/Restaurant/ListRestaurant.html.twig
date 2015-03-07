@@ -15,6 +15,10 @@
 			<td> {{restaurant.telephone}}   </td>
 			<td> {{restaurant.adresse}}   </td>
 			<td><a href="{{path("edit_restaurant",{'id':restaurant.idRestaurant})}}"> Modifier</a></td>
+
+
+			<td><a href="{{path("delete_restaurant",{'id':restaurant.idRestaurant})}}"> Supprimer</a></td>
+
        </tr>
 
     {% endfor %}
