@@ -6,16 +6,21 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+use AppBundle\Form\DataTransformer\EntToIdTransformer;
+
 class RestaurantType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-       
-		$builder->add('nom','text',array('max_length'=>20));      
+        $entityManager = $options['em'];
+        $transformer = new EntToIdTransformer($entityManager);
+		
+        $builder->add('nom','text',array('max_length'=>20));      
 		$builder->add('telephone','text', array('max_length'=>10));
         $builder->add('adresse','text',array('max_length'=>100));
-        $builder->add('idEntrepreneur','hidden');
+        $builder->add($builder->create('idEntrepreneur','hidden')
+                              ->addModelTransformer($transformer));
 		$builder->add('submit', 'submit');
    
 	}
@@ -24,11 +29,17 @@ class RestaurantType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Restaurant',
-        ));
+        ))
+        ->setRequired(array(
+            'em',
+        ))
+        ->setAllowedTypes(array(
+            'em' => 'Doctrine\Common\Persistence\ObjectManager',
+        ));;
     }
 
     public function getName()
     {
-        return 'confirm_restaurant';
+        return 'restaurant';
     }
 }

@@ -87,7 +87,6 @@ class RestaurateurController extends Controller
 		if ($this->get('security.authorization_checker')->isGranted('ROLE_ENT'))
 		{
 			$option=array('idEntrepreneur'=>$user->getIdEntrepreneur());
-			
 		}
 		else
 		{
@@ -95,7 +94,7 @@ class RestaurateurController extends Controller
 		}
 
 		$restaurateurs = $restaurateurRepository->findBy($option);	
-		 return $this->render('AppBundle:Restaurateur:ListeRestaurateurs.html.twig',  array('ListeRestaurateurs' =>$restaurateurs) );
+		return $this->render('AppBundle:Restaurateur:ListeRestaurateurs.html.twig',  array('ListeRestaurateurs' =>$restaurateurs) );
     }
 
     /**
@@ -109,7 +108,7 @@ class RestaurateurController extends Controller
 		$form = $this->createForm(new RestaurateurType(), $restaurateur);
 		$form->remove('courriel');
 		$form->add('courriel', 'hidden');
-		$form->remove('courriel');
+		$form->remove('mdp');
 		$form->add('mdp', 'hidden');
 		$form->handleRequest($this->getRequest());
 

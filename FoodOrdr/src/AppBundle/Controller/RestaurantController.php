@@ -31,13 +31,18 @@ class RestaurantController extends Controller
 		$restaurantRepo = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
 		$ent = $this->get('security.context')->getToken()->getUser();
 
-		$form = $this->createForm(new RestaurantType(), $restaurant);
+		$form = $this->createForm(new RestaurantType(), $restaurantarray, array(
+																			'em' => $this->getDoctrine()->getManager(),
+																			));
 		
 		$form->handleRequest($this->getRequest());
 
 		if ($form->isValid()) {
 			$restaurant = $form->getData();
-			$form = $this->createForm(new ConfirmRestaurantType(), $restaurant, array( 'action' => '/Restaurant/Create'));
+			$form = $this->createForm(new ConfirmRestaurantType(), $restaurant, array( 
+																					'action' => '/Restaurant/Create',
+																					'em' => $this->getDoctrine()->getManager(),
+																				));
 		}
         $params['form'] = $form->createView();
         return $this->render('AppBundle:Restaurant:Registration.html.twig', $params);
@@ -51,7 +56,9 @@ class RestaurantController extends Controller
     public function createAction()
     {
 		$restaurant = new Restaurant();
-		$form = $this->createForm(new ConfirmRestaurantType(), $restaurant);
+		$form = $this->createForm(new ConfirmRestaurantType(), $restaurant, array( 
+																				'em' => $this->getDoctrine()->getManager(),
+																			));
 		$form->handleRequest($this->getRequest());
 
 		if ($form->isValid()) {
@@ -61,13 +68,8 @@ class RestaurantController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			
 			$em->persist($restaurant);
-			//$compte->setIdRestaurateur($restaurateur);
-			//$em->persist($compte);
 			
 			$em->flush();
-			
-			// $token = new UsernamePasswordToken($restaurant, null, 'main', $restaurant->getRoles());
-			// $this->get('security.token_storage')->setToken($token);
 		}
         return $this->redirect($this->generateUrl('home'));
     }
@@ -80,13 +82,17 @@ class RestaurantController extends Controller
     {	
     	$restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
     	$restaurant = $restaurantRepository->findOneBy(array('idRestaurant' => $id ));	
-    	$form=$this->createForm(new RestaurantType(),$restaurant);
-
+    	$form = $this->createForm(new RestaurantType(),$restaurant, array(
+																		'em' => $this->getDoctrine()->getManager(),
+																	));
 		$form->handleRequest($this->getRequest());
 
 		if ($form->isValid()) {
 			$restaurant = $form->getData();
-			$form = $this->createForm(new ConfirmRestaurantType(), $restaurant, array( 'action' => '/Restaurant/Update'));
+			$form = $this->createForm(new ConfirmRestaurantType(), $restaurant, array( 
+																					'action' => '/Restaurant/Update/'.$id,
+																					'em' => $this->getDoctrine()->getManager(),
+																				));
 		}
         $params['form'] = $form->createView();
         return $this->render('AppBundle:Restaurant:Registration.html.twig', $params);
@@ -103,7 +109,6 @@ class RestaurantController extends Controller
 		if ($this->get('security.authorization_checker')->isGranted('ROLE_ENT'))
 		{
 			$option=array('idEntrepreneur'=>$user->getIdEntrepreneur());
-			
 		}
 		else
 		{
@@ -115,15 +120,19 @@ class RestaurantController extends Controller
     }
 
     	/**
-     * @Route("/Update", name="update_restaurant")
+     * @Route("/Update/{id}", name="update_restaurant")
 	 * @Security("has_role('ROLE_ENT')")
 	 * @Method("POST")
      */
-    public function updateAction()
+    public function updateAction($id)
     {
-		$form = $this->createForm(new ConfirmRestaurantType());
+		$form = $this->createForm(new ConfirmRestaurantType(), null, array(
+																		'em' => $this->getDoctrine()->getManager(),
+																	));
 		$form->handleRequest($this->getRequest());
-		$restaurant = new Restaurant();
+
+		$restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+    	$restaurant = $restaurantRepository->findOneBy(array('idRestaurant' => $id ));
 		if ($form->isValid()) {
 			$restaurant_edit = $form->getData();
 			
@@ -135,7 +144,7 @@ class RestaurantController extends Controller
 			$em->persist($restaurant);
 			$em->flush();
 		}
-        return $this->redirect($this->generateUrl('home'));
+        return $this->redirect($this->generateUrl('show_restaurants'));
     }
 
 
@@ -148,7 +157,9 @@ class RestaurantController extends Controller
     {
 		$restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
 		$restaurant = $restaurantRepository->findOneBy(array('idRestaurant' => $id));
-		$form = $this->createForm(new RestaurantType(), $restaurant);
+		$form = $this->createForm(new RestaurantType(), $restaurant, array(
+																			'em' => $this->getDoctrine()->getManager(),
+																		));
 		//$form->remove('courriel');
 		$form->add('nom', 'hidden');
 		$form->add('adresse', 'hidden');
@@ -156,7 +167,10 @@ class RestaurantController extends Controller
 
 		if ($form->isValid()) {
 			$restaurant = $form->getData();
-			$form = $this->createForm(new ConfirmRestaurantType(), $restaurant, array( 'action' => '/Restaurant/SuppConfirmation/'.$id.' '));
+			$form = $this->createForm(new ConfirmRestaurantType(), $restaurant, array( 
+																					'em' => $this->getDoctrine()->getManager(),
+																					'action' => '/Restaurant/SuppConfirmation/'.$id.' '
+																				));
 			$form->remove('nom');
 		}
 		$message = "** Voulez-vous vraiment supprimer ce restaurant? **";
@@ -175,7 +189,9 @@ class RestaurantController extends Controller
     {
     	$restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
     	$restaurant = $restaurantRepository->findOneBy(array('idRestaurant' => $id));
-		$form = $this->createForm(new ConfirmRestaurantType());
+		$form = $this->createForm(new ConfirmRestaurantType(), null, array( 
+																			'em' => $this->getDoctrine()->getManager(),
+																		));
 		$form->handleRequest($this->getRequest());
 
 		if ($form->isValid()) {
