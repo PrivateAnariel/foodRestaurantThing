@@ -31,7 +31,7 @@ class RestaurantController extends Controller
 		$restaurantRepo = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
 		$ent = $this->get('security.context')->getToken()->getUser();
 
-		$form = $this->createForm(new RestaurantType(), $restaurantarray, array(
+		$form = $this->createForm(new RestaurantType(), $restaurant, array(
 																			'em' => $this->getDoctrine()->getManager(),
 																			));
 		
