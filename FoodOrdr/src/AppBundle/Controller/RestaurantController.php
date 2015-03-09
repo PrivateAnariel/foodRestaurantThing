@@ -31,7 +31,7 @@ class RestaurantController extends Controller
 		$restaurantRepo = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
 		$ent = $this->get('security.context')->getToken()->getUser();
 
-		$form = $this->createForm(new RestaurantType(), $restaurantarray, array(
+		$form = $this->createForm(new RestaurantType(), $restaurant, array(
 																			'em' => $this->getDoctrine()->getManager(),
 																			));
 		
@@ -68,10 +68,11 @@ class RestaurantController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			
 			$em->persist($restaurant);
-			
+			echo $restaurant->getAdresse();
 			$em->flush();
 		}
-        return $this->redirect($this->generateUrl('home'));
+        // return $this->redirect($this->generateUrl('home'));
+        return null;
     }
 
 	/**
