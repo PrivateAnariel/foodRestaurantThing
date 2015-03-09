@@ -20,10 +20,10 @@ use AppBundle\Form\Type\ConfirmRestaurantType;
 class RestaurantController extends Controller
 {
     /**
-     * @Route("/Inscription", name="register_restaurant")
+     * @Route("/Inscription", name="ajouter_restaurant")
      * @Security("has_role('ROLE_ENT')")
      */
-    public function registerAction()
+    public function ajouterAction()
     {
 		$params = array();
 		$restaurant = new Restaurant();

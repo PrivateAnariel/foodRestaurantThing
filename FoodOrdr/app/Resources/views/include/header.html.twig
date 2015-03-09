@@ -26,7 +26,7 @@
 			{% if is_granted('ROLE_ENT') %}
 				<a href="{{ path('register_restaurateur') }}"> Ajouter restaurateur </a>
 				<a href="{{ path('show_restaurateurs') }}"> Modifier restaurateur </a>
-				<a href="{{ path('register_restaurant') }}"> Ajouter restaurant </a>
+				<a href="{{ path('ajouter_restaurant') }}"> Ajouter restaurant </a>
 				<a href="{{ path('show_restaurants') }}"> Modifier restaurant </a>
 			{% elseif is_granted('ROLE_REST') %}
 
