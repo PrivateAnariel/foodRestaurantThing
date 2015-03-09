@@ -21,7 +21,7 @@ class DefaultController extends Controller
         return $this->render('default/index.html.twig', $params);
     }
     /**
-     * @Route("/NouveauMdp", name="client_mdp")
+     * @Route("/NouveauMdp", name="nouveau_mdp")
      * @Security("has_role('ROLE_USER')")
      */
     public function newMdpAction() {
