@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
@@ -29,7 +30,7 @@ class DefaultController extends Controller
     public function newMdpAction() {
         $data = array();
         $form = $this->createFormBuilder($data)
-            ->add('mdp', 'password', array(
+            ->add('vieux_mdp', 'password', array(
                 'constraints' => array(
                     new NotBlank(),
                     new UserPassword(),
@@ -43,13 +44,22 @@ class DefaultController extends Controller
                     new NotBlank(),
                 ),
             ))
+            ->add('confirmer', 'submit')
             ->getForm();
         $form->handleRequest($this->getRequest());
         if ($form->isValid()) {
-            
             $data = $form->getData();
+            $user = $this->get('security.context')->getToken()->getUser();
+            $user->setMdp($data['nouveauMdp']);
+
+            $em = $this->getDoctrine()->getManager();   
+            $em->persist($user);
+            $em->flush();
+            
+            $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+            $this->get('security.token_storage')->setToken($token);
         }
-        $params = array("hello" => "test");
-        return $this->render('default/index.html.twig', $params);
+        $params = array("form" => $form->createView());
+        return $this->render('AppBundle:Client:Registration.html.twig', $params);
     }
 }
