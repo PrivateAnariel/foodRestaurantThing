@@ -68,11 +68,9 @@ class RestaurantController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			
 			$em->persist($restaurant);
-			echo $restaurant->getAdresse();
 			$em->flush();
 		}
-        // return $this->redirect($this->generateUrl('home'));
-        return null;
+        return $this->redirect($this->generateUrl('home'));
     }
 
 	/**
