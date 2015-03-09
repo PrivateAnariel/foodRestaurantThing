@@ -13,6 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Restaurant
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="ID_RESTAURANT", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idRestaurant;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="NOM", type="string", length=25, nullable=false)
@@ -34,18 +43,9 @@ class Restaurant
     private $adresse;
 
     /**
-     * @var integer
+     * @var \Entrepreneur
      *
-     * @ORM\Column(name="ID_RESTAURANT", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idRestaurant;
-
-    /**
-     * @var \AppBundle\Entity\Entrepreneur
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Entrepreneur")
+     * @ORM\ManyToOne(targetEntity="Entrepreneur")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ID_ENTREPRENEUR", referencedColumnName="ID_ENTREPRENEUR")
      * })
@@ -53,6 +53,16 @@ class Restaurant
     private $idEntrepreneur;
 
 
+
+    /**
+     * Get idRestaurant
+     *
+     * @return integer 
+     */
+    public function getIdRestaurant()
+    {
+        return $this->idRestaurant;
+    }
 
     /**
      * Set nom
@@ -124,16 +134,6 @@ class Restaurant
     }
 
     /**
-     * Get idRestaurant
-     *
-     * @return integer 
-     */
-    public function getIdRestaurant()
-    {
-        return $this->idRestaurant;
-    }
-
-    /**
      * Set idEntrepreneur
      *
      * @param \AppBundle\Entity\Entrepreneur $idEntrepreneur
@@ -154,14 +154,5 @@ class Restaurant
     public function getIdEntrepreneur()
     {
         return $this->idEntrepreneur;
-    }
-
-           /**
-     * Override toString() method to return the name of the restaurant
-     * @return string name
-     */
-    public function __toString()
-    {
-        return $this->nom;
     }
 }

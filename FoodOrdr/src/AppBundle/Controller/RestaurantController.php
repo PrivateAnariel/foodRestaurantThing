@@ -115,7 +115,7 @@ class RestaurantController extends Controller
 		}
 
 		$restaurants = $restaurantRepository->findBy($option);	
-		 return $this->render('AppBundle:Restaurant:Listrestaurant.html.twig',  array('ListeRestaurant' =>$restaurants) );
+		return $this->render('AppBundle:Restaurant:Listrestaurant.html.twig',  array('ListeRestaurant' =>$restaurants) );
     }
 
     	/**
@@ -131,13 +131,15 @@ class RestaurantController extends Controller
 		$form->handleRequest($this->getRequest());
 
 		$restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
-    	$restaurant = $restaurantRepository->findOneBy(array('idRestaurant' => $id ));
+    	
 		if ($form->isValid()) {
+			$restaurant = $restaurantRepository->findOneBy(array('idRestaurant' => $id ));
 			$restaurant_edit = $form->getData();
 			
 			$restaurant->setNom($restaurant_edit->getNom())
 					 ->setAdresse($restaurant_edit->getAdresse())
 					 ->setTelephone($restaurant_edit->getTelephone());
+			
 			//  $restaurant->setAdresse('Adresse modifié');
 			$em = $this->getDoctrine()->getManager();	
 			$em->persist($restaurant);

@@ -17,10 +17,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-		$clientRepository = $this->get('doctrine')->getRepository('AppBundle:Client');
-		$clients = $clientRepository->findAll();
-		$name = $clients[0]->getCourriel()." ".$clients[0]->getMdp();
-		$params = array("hello" => $name);
+		$params = array("hello" => "test");
         return $this->render('default/index.html.twig', $params);
     }
     /**
