@@ -139,7 +139,7 @@ class RestaurantController extends Controller
 			$restaurant->setNom($restaurant_edit->getNom())
 					 ->setAdresse($restaurant_edit->getAdresse())
 					 ->setTelephone($restaurant_edit->getTelephone());
-			
+			//  $restaurant->setAdresse('Adresse modifié');
 			$em = $this->getDoctrine()->getManager();	
 			$em->persist($restaurant);
 			$em->flush();
