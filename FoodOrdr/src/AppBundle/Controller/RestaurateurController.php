@@ -112,12 +112,15 @@ class RestaurateurController extends Controller
 		$form->add('mdp', 'hidden');
 		$form->handleRequest($this->getRequest());
 
+		$message = "";
 		if ($form->isValid()) {
 			$restaurateur = $form->getData();
 			$form = $this->createForm(new ConfirmRestaurateurType(), $restaurateur, array( 'action' => '/Restaurateur/Update/'.$id.' '));
 			$form->remove('courriel');
+			if ($restaurateur->getIdRestaurant() == null){
+				$message = "** Le restaurateur n'a pas de restaurant associé **";
+			}
 		}
-		$message = "**  **";
 		$params['message'] = $message;
         $params['form'] = $form->createView();
         return $this->render('AppBundle:Restaurateur:Registration.html.twig', $params);

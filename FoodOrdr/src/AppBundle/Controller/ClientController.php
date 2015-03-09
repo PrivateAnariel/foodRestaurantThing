@@ -79,16 +79,17 @@ class ClientController extends Controller
 		$client = $this->get('security.context')->getToken()->getUser();
 		$form = $this->createForm(new ClientType(), $client);
 		$form->remove('courriel');
-		$form->add('courriel', 'hidden');
+		$form->remove('mdp');
 		$form->handleRequest($this->getRequest());
 
 		if ($form->isValid()) {
 			$client = $form->getData();
 			$form = $this->createForm(new ConfirmClientType(), $client, array( 'action' => '/Client/Update'));
 			$form->remove('courriel');
+			$form->remove('mdp');
 		}
         $params['form'] = $form->createView();
-        return $this->render('AppBundle:Client:Registration.html.twig', $params);
+        return $this->render('AppBundle::modif.html.twig', $params);
     }
 	
 	/**
@@ -109,8 +110,7 @@ class ClientController extends Controller
 					 ->setPrenom($client_edit->getPrenom())
 					 ->setDatenaissance($client_edit->getDatenaissance())
 					 ->setAdresse($client_edit->getAdresse())
-					 ->setTelephone($client_edit->getTelephone())
-					 ->setMdp($client_edit->getMdp());
+					 ->setTelephone($client_edit->getTelephone());
 			
 			$em = $this->getDoctrine()->getManager();	
 			$em->persist($client);
