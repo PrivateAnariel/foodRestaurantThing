@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Commande" table="COMMANDE">
+    <indexes>
+      <index name="FK_ID_ADRESSE" columns="ID_ADRESSE"/>
+      <index name="FK_ID_LIVREUR" columns="ID_LIVREUR"/>
+      <index name="FK_ID_CLIENT" columns="ID_CLIENT"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="ID_COMMANDE" columns="ID_COMMANDE"/>
+    </unique-constraints>
+    <id name="idCommande" type="integer" column="ID_COMMANDE">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="statut" type="string" column="STATUT" length="10" nullable="false"/>
+    <many-to-one field="idClient" target-entity="Client">
+      <join-columns>
+        <join-column name="ID_CLIENT" referenced-column-name="ID_CLIENT"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idLivreur" target-entity="Livreur">
+      <join-columns>
+        <join-column name="ID_LIVREUR" referenced-column-name="ID_LIVREUR"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idAdresse" target-entity="Adresse">
+      <join-columns>
+        <join-column name="ID_ADRESSE" referenced-column-name="ID_ADRESSE"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

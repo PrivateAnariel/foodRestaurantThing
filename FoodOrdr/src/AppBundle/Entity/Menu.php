@@ -13,6 +13,20 @@ use Doctrine\ORM\Mapping as ORM;
 class Menu
 {
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="DATE_LIVRAISON", type="date", nullable=false)
+     */
+    private $dateLivraison;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ADRESSE", type="string", length=50, nullable=true)
+     */
+    private $adresse;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="ID_MENU", type="integer")
@@ -32,6 +46,52 @@ class Menu
     private $idRestaurant;
 
 
+
+    /**
+     * Set dateLivraison
+     *
+     * @param \DateTime $dateLivraison
+     * @return Menu
+     */
+    public function setDateLivraison($dateLivraison)
+    {
+        $this->dateLivraison = $dateLivraison;
+
+        return $this;
+    }
+
+    /**
+     * Get dateLivraison
+     *
+     * @return \DateTime 
+     */
+    public function getDateLivraison()
+    {
+        return $this->dateLivraison;
+    }
+
+    /**
+     * Set adresse
+     *
+     * @param string $adresse
+     * @return Menu
+     */
+    public function setAdresse($adresse)
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * Get adresse
+     *
+     * @return string 
+     */
+    public function getAdresse()
+    {
+        return $this->adresse;
+    }
 
     /**
      * Get idMenu

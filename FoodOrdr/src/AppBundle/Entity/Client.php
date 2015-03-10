@@ -38,13 +38,6 @@ class Client implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="ADRESSE", type="string", length=75, nullable=false)
-     */
-    private $adresse;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="TELEPHONE", type="string", length=25, nullable=false)
      */
     private $telephone;
@@ -72,6 +65,15 @@ class Client implements UserInterface, \Serializable
      */
     private $idClient;
 
+      /**
+     * @var \AppBundle\Entity\Adresse
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Adresse")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ID_ADRESSE_MAIN", referencedColumnName="ID_ADRESSE")
+     * })
+     */
+    private $idAdresseMain;
 
 
     /**
@@ -141,29 +143,6 @@ class Client implements UserInterface, \Serializable
     public function getDatenaissance()
     {
         return $this->datenaissance;
-    }
-
-    /**
-     * Set adresse
-     *
-     * @param string $adresse
-     * @return Client
-     */
-    public function setAdresse($adresse)
-    {
-        $this->adresse = $adresse;
-
-        return $this;
-    }
-
-    /**
-     * Get adresse
-     *
-     * @return string 
-     */
-    public function getAdresse()
-    {
-        return $this->adresse;
     }
 
     /**
@@ -245,7 +224,31 @@ class Client implements UserInterface, \Serializable
         return $this->idClient;
     }
 
-                        /**
+
+    /**
+     * Set idAdresseMain
+     *
+     * @param \AppBundle\Entity\Adresse $idAdresseMain
+     * @return Client
+     */
+    public function setIdAdresseMain(\AppBundle\Entity\Adresse $idAdresseMain = null)
+    {
+        $this->idAdresseMain = $idAdresseMain;
+
+        return $this;
+    }
+
+    /**
+     * Get idAdresseMain
+     *
+     * @return \AppBundle\Entity\Adresse 
+     */
+    public function getIdAdresseMain()
+    {
+        return $this->idAdresseMain;
+    }
+
+    /**
      * @inheritDoc
      */
     public function getUsername()

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Livreur" table="LIVREUR">
+    <unique-constraints>
+      <unique-constraint name="COURRIEL" columns="COURRIEL"/>
+      <unique-constraint name="ID_LIVREUR" columns="ID_LIVREUR"/>
+    </unique-constraints>
+    <id name="idLivreur" type="integer" column="ID_LIVREUR">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nom" type="string" column="NOM" length="25" nullable="true"/>
+    <field name="prenom" type="string" column="PRENOM" length="25" nullable="true"/>
+    <field name="telephone" type="string" column="TELEPHONE" length="25" nullable="true"/>
+    <field name="courriel" type="string" column="COURRIEL" length="75" nullable="false"/>
+    <field name="mdp" type="string" column="MDP" length="100" nullable="false"/>
+  </entity>
+</doctrine-mapping>
