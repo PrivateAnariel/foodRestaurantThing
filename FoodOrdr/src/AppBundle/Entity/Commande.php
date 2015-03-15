@@ -7,11 +7,18 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Commande
  *
- * @ORM\Table(name="COMMANDE", uniqueConstraints={@ORM\UniqueConstraint(name="ID_COMMANDE", columns={"ID_COMMANDE"})}, indexes={@ORM\Index(name="FK_ID_ADRESSE", columns={"ID_ADRESSE"}), @ORM\Index(name="FK_ID_LIVREUR", columns={"ID_LIVREUR"}), @ORM\Index(name="FK_ID_CLIENT", columns={"ID_CLIENT"})})
+ * @ORM\Table(name="COMMANDE", uniqueConstraints={@ORM\UniqueConstraint(name="ID_COMMANDE", columns={"ID_COMMANDE"})}, indexes={@ORM\Index(name="FK_ID_ADRESSE", columns={"ID_ADRESSE"}), @ORM\Index(name="FK_ID_RESTAURANT", columns={"ID_RESTAURANT"}), @ORM\Index(name="FK_ID_LIVREUR", columns={"ID_LIVREUR"}), @ORM\Index(name="FK_ID_CLIENT", columns={"ID_CLIENT"})})
  * @ORM\Entity
  */
 class Commande
 {
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="DATE_LIVRAISON", type="date", nullable=false)
+     */
+    private $dateLivraison;
+
     /**
      * @var string
      *
@@ -49,6 +56,16 @@ class Commande
     private $idLivreur;
 
     /**
+     * @var \AppBundle\Entity\Restaurant
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Restaurant")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ID_RESTAURANT", referencedColumnName="ID_RESTAURANT")
+     * })
+     */
+    private $idRestaurant;
+
+    /**
      * @var \AppBundle\Entity\Adresse
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Adresse")
@@ -59,6 +76,29 @@ class Commande
     private $idAdresse;
 
 
+
+    /**
+     * Set dateLivraison
+     *
+     * @param \DateTime $dateLivraison
+     * @return Commande
+     */
+    public function setDateLivraison($dateLivraison)
+    {
+        $this->dateLivraison = $dateLivraison;
+
+        return $this;
+    }
+
+    /**
+     * Get dateLivraison
+     *
+     * @return \DateTime 
+     */
+    public function getDateLivraison()
+    {
+        return $this->dateLivraison;
+    }
 
     /**
      * Set statut
@@ -137,6 +177,29 @@ class Commande
     public function getIdLivreur()
     {
         return $this->idLivreur;
+    }
+
+    /**
+     * Set idRestaurant
+     *
+     * @param \AppBundle\Entity\Restaurant $idRestaurant
+     * @return Commande
+     */
+    public function setIdRestaurant(\AppBundle\Entity\Restaurant $idRestaurant = null)
+    {
+        $this->idRestaurant = $idRestaurant;
+
+        return $this;
+    }
+
+    /**
+     * Get idRestaurant
+     *
+     * @return \AppBundle\Entity\Restaurant 
+     */
+    public function getIdRestaurant()
+    {
+        return $this->idRestaurant;
     }
 
     /**

@@ -13,11 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Menu
 {
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="DATE_LIVRAISON", type="date", nullable=false)
+     * @ORM\Column(name="NOM", type="string", length=25, nullable=false)
      */
-    private $dateLivraison;
+    private $nom;
 
     /**
      * @var string
@@ -48,26 +48,26 @@ class Menu
 
 
     /**
-     * Set dateLivraison
+     * Set nom
      *
-     * @param \DateTime $dateLivraison
+     * @param string $nom
      * @return Menu
      */
-    public function setDateLivraison($dateLivraison)
+    public function setNom($nom)
     {
-        $this->dateLivraison = $dateLivraison;
+        $this->nom = $nom;
 
         return $this;
     }
 
     /**
-     * Get dateLivraison
+     * Get nom
      *
-     * @return \DateTime 
+     * @return string 
      */
-    public function getDateLivraison()
+    public function getNom()
     {
-        return $this->dateLivraison;
+        return $this->nom;
     }
 
     /**

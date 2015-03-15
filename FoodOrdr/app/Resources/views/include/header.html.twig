@@ -29,7 +29,7 @@
 				<a href="{{ path('ajouter_restaurant') }}"> Ajouter restaurant </a>
 				<a href="{{ path('show_restaurants') }}"> Modifier restaurant </a>
 			{% elseif is_granted('ROLE_REST') %}
-
+				<a href="{{ path('show_menu') }}">Menu </a> 
 			{% elseif is_granted('ROLE_USER') %}
 				<a href="{{ path('edit_client') }}"> Modifier client </a>
 			{% else %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+	{% for restaurant in restaurant %}
+       	<h2> {{restaurant.nom}} </h2>
+       	{% if menu %}
+       		{% for menu in menu %}
+       		<h3> {{menu.nom}} </h3>
+       		{% endfor %}
+       	{% endif %}
+       	<a href="{{path('gerer_menu',{'id':restaurant.idRestaurant})}}"> Gerer le menu </a>
+     {% endfor %}
+{% endblock %}
