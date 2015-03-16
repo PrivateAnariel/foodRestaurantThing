@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use AppBundle\Form\Type\ItemType;
 use AppBundle\Form\Type\ConfirmItemType;
 use AppBundle\Form\Type\MenuType;
+use AppBundle\Form\Type\ConfirmMenuType;
 use AppBundle\Entity\Restaurateur;
 use AppBundle\Entity\Restaurant;
 use AppBundle\Entity\Menu;
@@ -24,38 +25,58 @@ use AppBundle\Entity\Item;
 class MenuController extends Controller
 {	
 	/**
-     * @Route("/Creer", name="creer_menu")
+     * @Route("/Nouveau", name="ajouter_menu")
 	 * @Security("has_role('ROLE_REST')")
      */
-    public function createMenu()
-    {
+    public function registerMenu()
+    {	
 		$params = array();
 		$menu = new Menu();
 		
 		$restaurantRepo = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
 		$restaurateur = $this->get('security.context')->getToken()->getUser();
 		$restaurant = $restaurantRepo->findBy(array('idRestaurant'=>$restaurateur->getIdRestaurant()));
-		$form = $this->createForm(new MenuType(), $restaurant, array(
-																			'em' => $this->getDoctrine()->getManager(),
-																			));
+		$form = $this->createForm(new MenuType(), $menu);
 		
 		$form->handleRequest($this->getRequest());
 
 		if ($form->isValid()) {
 			$menu = $form->getData();
 
-			$menu->setIdRestaurant($restaurant);
+			$form = $this->createForm(new ConfirmMenuType(), $menu, array('action' => '/Menu/Creer',));
+		}
+		$params['message'] = "";
+		$params['form'] = $form->createView();
+        return $this->render('AppBundle:Menu:Registration.html.twig', $params);
+        
+    }
+
+     /**
+     * @Route("/Creer", name="creer_menu")
+	 * @Method("POST")
+     */
+    public function createMenu()
+    {
+		$menu = new Menu();
+		$form = $this->createForm(new ConfirmMenuType(), $menu);
+		$form->handleRequest($this->getRequest());
+
+		if ($form->isValid()) {
+			$menu = $form->getData();
+			$restaurantRepo = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+			$restaurateur = $this->get('security.context')->getToken()->getUser();
+			$restaurant = $restaurantRepo->findBy(array('idRestaurant'=>$restaurateur->getIdRestaurant()));
+			$menu->setIdRestaurant($restaurant[0]);
 			$em = $this->getDoctrine()->getManager();
 			
 			$em->persist($menu);
 			$em->flush();
 		}
-		 return $this->redirect($this->generateUrl('show_menu'));
-        
+        return $this->redirect($this->generateUrl('show_menu'));
     }
 
     /**
-     * @Route("/Menu", name="show_menu")
+     * @Route("/Show", name="show_menu")
 	 * @Security("has_role('ROLE_REST')")
      */
     public function showMenu()
@@ -114,7 +135,7 @@ class MenuController extends Controller
      * @Route("/Create", name="create_item")
 	 * @Method("POST")
      */
-    public function createAction()
+    public function createItem()
     {
 		$item = new Item();
 		$form = $this->createForm(new ConfirmItemType(), $item);

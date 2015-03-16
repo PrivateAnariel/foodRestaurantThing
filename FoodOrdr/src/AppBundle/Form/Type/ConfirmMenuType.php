@@ -8,15 +8,15 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use AppBundle\Form\DataTransformer\EntToIdTransformer;
 
-class MenuType extends AbstractType
+class ConfirmMenuType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-        $builder->add('nom','text',array('max_length'=>20));      
+      
 		
-		$builder->add('submit', 'submit');
+        $builder->add('nom','text',array('max_length'=>20));      
+		$builder->add('Confirmer', 'submit');
    
 	}
 
@@ -27,8 +27,9 @@ class MenuType extends AbstractType
         ));
     }
 
-    public function getName()
+     public function getName()
     {
         return 'menu';
     }
+
 }
