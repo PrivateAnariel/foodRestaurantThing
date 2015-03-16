@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{{message}}
+Nom: {{item.nom}}<br/>
+Description: {{item.description}} <br/>
+Prix: {{item.prix}}<br/>
+
+
+{{ form_start(form) }}
+<div style="visibility:hidden;">
+	{{ form_widget(form) }}
+</div>
+<input type="submit" value="Confirm">
+{{ form_end(form) }}
+
+{% endblock %}

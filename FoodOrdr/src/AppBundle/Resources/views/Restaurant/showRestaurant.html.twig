@@ -5,11 +5,28 @@
 
 	{% for restaurant in restaurant %}
        	<h2> {{restaurant.nom}} </h2>
-       	{% if menu %}
+       	{% if menu is defined %}
        		{% for menu in menu %}
-       		<h3> {{menu.nom}} </h3>
-       		{% endfor %}
-       	{% endif %}
-       	<a href="{{path('gerer_menu',{'id':restaurant.idRestaurant})}}"> Gerer le menu </a>
+    	   		<h3> {{menu.nom}} </h3>
+    	  		<table>
+    	  			<tr>
+						<th>Nom</th>
+						<th> Prix </th>
+						<th>Description </th>
+					</tr>
+    			{% for item in items %}
+	    			<tr>
+	       				<td> {{item.nom}}   </td>
+	       				<td> {{item.prix}}   </td>
+						<td> {{item.description}}   </td>
+	       			</tr>
+    			{% endfor %}
+    			</table>
+    			<a href="{{path('ajouter_item',{'id':menu.idMenu})}}"> Ajouter un item </a>
+    		{% endfor %}
+    		{% if menu is empty %}
+       				<a href="{{path('creer_menu')}}"> Créer le menu </a>
+   			{% endif %}
+   		{% endif %}
      {% endfor %}
 {% endblock %}
