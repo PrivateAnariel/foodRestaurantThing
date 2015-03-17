@@ -19,6 +19,8 @@
 	       				<td> {{item.nom}}   </td>
 	       				<td> {{item.prix}}   </td>
 						<td> {{item.description}}   </td>
+						<td><a href="{{path("edit_item",{'id':item.idItem})}}"> Modifier</a></td>
+						<td><a href="{{path("delete_item",{'id':item.idItem})}}"> Supprimer</a></td>
 	       			</tr>
     			{% endfor %}
     			</table>

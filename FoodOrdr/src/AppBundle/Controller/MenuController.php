@@ -160,4 +160,97 @@ class MenuController extends Controller
 		}
         return $this->redirect($this->generateUrl('home'));
     }
+
+     /**
+     * @Route("/Edit/{id}", name="edit_item")
+     */
+    public function editItem($id)
+    {
+		$itemRepository = $this->get('doctrine')->getRepository('AppBundle:Item');
+    	$item = $itemRepository->findOneBy(array('idItem' => $id ));	
+    	$form = $this->createForm(new ItemType(),$item);
+		$form->handleRequest($this->getRequest());
+
+		if ($form->isValid()) {
+			$item = $form->getData();
+			$form = $this->createForm(new ConfirmItemType(), $item, array( 
+																					'action' => '/Menu/Update/'.$id,
+																				));
+		}
+        $params['form'] = $form->createView();
+        $params['message'] = "";
+        return $this->render('AppBundle:Menu:Registration.html.twig', $params);
+    }
+
+    	/**
+     * @Route("/Update/{id}", name="update_item")
+	 * @Security("has_role('ROLE_REST')")
+	 * @Method("POST")
+     */
+    public function updateAction($id)
+    {
+		$form = $this->createForm(new ConfirmItemType(), null);
+		$form->handleRequest($this->getRequest());
+
+		$restaurateurRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurateur');
+		$restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+		$itemRepository = $this->get('doctrine')->getRepository('AppBundle:Item');
+		$user = $this->get('security.context')->getToken()->getUser();
+		if ($form->isValid()) {
+			$item = $itemRepository->findOneBy(array('idItem' => $id ));
+			$item_edit = $form->getData();
+			
+			$item ->setNom($item_edit->getNom())
+					 ->setPrix($item_edit->getPrix())
+					 ->setDescription($item_edit->getDescription());
+			
+			$em = $this->getDoctrine()->getManager();	
+			$em->persist($item);
+			$em->flush();
+		}
+        return $this->redirect($this->generateUrl('show_menu'));
+    }
+
+
+     /**
+     * @Route("/Delete/{id}", name="delete_item")
+     */
+    public function supprimerItem($id)
+    {
+		$itemRepository = $this->get('doctrine')->getRepository('AppBundle:Item');
+		$item = $itemRepository->findOneBy(array('idItem' => $id));
+		$form = $this->createForm(new ConfirmItemType(), $item, array('action' => '/Menu/SuppConfirmation/'.$id,
+																		));
+
+		$message = "** Voulez-vous vraiment supprimer cet item? **";
+		$params['message'] = $message;
+        $params['form'] = $form->createView();
+        return $this->render('AppBundle:Menu:Registration.html.twig', $params);
+    }
+
+     /**
+     * @Route("/SuppConfirmation/{id}", name="deleteConf_menu")
+	 * @Security("has_role('ROLE_REST')")
+     */
+    public function deleteConfAction($id)
+    {
+    	$itemRepository = $this->get('doctrine')->getRepository('AppBundle:Item');
+    	$item = $itemRepository->findOneBy(array('idItem' => $id));
+		$form = $this->createForm(new ConfirmItemType(), null);
+		$form->handleRequest($this->getRequest());
+
+		if ($form->isValid()) {
+			$item_edit = $form->getData();
+			
+			$itemRepository = $this->get('doctrine')->getRepository('AppBundle:Item');
+			$item = $itemRepository->findOneBy(array('idItem' => $id));
+			
+			
+			$em = $this->getDoctrine()->getManager();	
+			$em->remove($item);
+			$em->flush();
+		}
+
+        return $this->redirect($this->generateUrl('show_menu'));
+    }
 }
