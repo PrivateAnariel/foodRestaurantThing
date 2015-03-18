@@ -33,7 +33,7 @@
 			{% elseif is_granted('ROLE_USER') %}
 				<a href="{{ path('edit_client') }}"> Modifier client </a>
 			{% else %}
-				<a href="{{ path('client_registration') }}"> Inscrivez-vous!!!! :D </a>
+				<a href="{{ path('client_registration') }}"> {{ 'inscription'| trans}} </a>
 			{% endif %}
 	</div>
 	<div id="main">

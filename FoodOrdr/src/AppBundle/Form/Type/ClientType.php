@@ -11,7 +11,8 @@ class ClientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('courriel', 'email', array(
-            'label' => 'courriel'));
+            'label' => 'label.email'
+            ));
         $builder->add('mdp', 'repeated', array(
            'first_name' => 'mdp',
            'second_name' => 'confirm_mdp',
@@ -19,14 +20,14 @@ class ClientType extends AbstractType
         ));
         $builder->add('prenom','text',array(
             'max_length'=>20,
-            'label' => 'prenom'
+            'label' => 'label.firstname'
             ));
         $builder->add('nom','text',array(
             'max_length'=>20,
-            'label' => 'nom'
+            'label' => 'label.name'
                ));
         $builder->add('datenaissance','birthday',array( 
-            'label' => 'datenaissance'
+            'label' => 'birthday',
             'widget' => 'single_text',
             'format' => 'yyyy-MM-dd',
             'attr' => array('value' => '2000-01-01'),

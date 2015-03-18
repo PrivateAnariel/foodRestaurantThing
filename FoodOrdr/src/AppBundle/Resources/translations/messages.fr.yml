@@ -1,14 +1,13 @@
 #formulaires
-form:
-	label : 
-		courriel : Courriel
-		prenom : Prénom
-		nom: Nom
-		datenaissance: Date de naissance
-
+# label :
+# 	email : Courriel
+# 	firstname : Prénom
+# 	name : Nom
+# 	birthday : Date de naissance
+inscription : Inscrivez-vous
 logout : Déconnecter
 # les menus principaux
 ajouter_restaurateur : Ajouter Restaurauteur 
-modifier_restaurateur : Modofier Restaurateur
+modifier_restaurateur : Modifier Restaurateur
 ajouter_restaurant : Ajouter Restaurant
 modifier_restaurant : Modifier Restaurant
