@@ -1,1 +1,14 @@
+#formulaires
+form :
+	label : 
+		courriel : E-mail
+		prenom : First Name
+		nom: Last Name
+		datenaissance: Birthday
+
+logout : Logout
+# les menus principaux
 ajouter_restaurateur : Add restaurant owner
+modifier_restaurateur : Edit restaurant's owner
+ajouter_restaurant : Add restaurant
+modifier_restaurant : Edit restaurant

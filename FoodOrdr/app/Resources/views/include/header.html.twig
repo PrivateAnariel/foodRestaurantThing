@@ -25,9 +25,9 @@
 	<div class="menu">
 			{% if is_granted('ROLE_ENT') %}
 				<a href="{{ path('register_restaurateur') }}">  {{ 'ajouter_restaurateur'| trans}} </a>
-				<a href="{{ path('show_restaurateurs') }}"> Modifier restaurateur </a>
-				<a href="{{ path('ajouter_restaurant') }}"> Ajouter restaurant </a>
-				<a href="{{ path('show_restaurants') }}"> Modifier restaurant </a>
+				<a href="{{ path('show_restaurateurs') }}">  {{ 'modifier_restaurateur'| trans}}  </a>
+				<a href="{{ path('ajouter_restaurant') }}">  {{ 'ajouter_restaurant'| trans}} </a>
+				<a href="{{ path('show_restaurants') }}">  {{ 'modifier_restaurant'| trans}}  </a>
 			{% elseif is_granted('ROLE_REST') %}
 				<a href="{{ path('show_menu') }}">Menu </a> 
 			{% elseif is_granted('ROLE_USER') %}

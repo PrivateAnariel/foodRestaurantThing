@@ -7,7 +7,7 @@
 
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 	Logged in as {{ app.user.username }}</br>
-	<a href="{{ path('logout') }}">logout</a>
+	<a href="{{ path('logout') }}">{{'logout' | trans}}</a>
 {% else %}
 	<form action="{{ path('login_check') }}" method="post">
 		<label for="user">Authentification</label>

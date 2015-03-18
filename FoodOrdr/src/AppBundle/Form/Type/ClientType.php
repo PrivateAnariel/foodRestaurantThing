@@ -10,24 +10,30 @@ class ClientType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-     
-        $builder->add('courriel', 'email');
+        $builder->add('courriel', 'email', array(
+            'label' => 'courriel'));
         $builder->add('mdp', 'repeated', array(
            'first_name' => 'mdp',
            'second_name' => 'confirm_mdp',
            'type' => 'password'
         ));
-		$builder->add('prenom','text',array('max_length'=>20));
-		$builder->add('nom','text',array('max_length'=>20));
-		$builder->add('datenaissance','birthday',array( 
-			'widget' => 'single_text',
-			'format' => 'yyyy-MM-dd',
-			'attr' => array('value' => '2000-01-01'),
-		));
-		$builder->add('telephone','text', array('max_length'=>10));
-		$builder->add('adresse', 'text',array('max_length'=>30));
-		$builder->add('submit', 'submit');
+        $builder->add('prenom','text',array(
+            'max_length'=>20,
+            'label' => 'prenom'
+            ));
+        $builder->add('nom','text',array(
+            'max_length'=>20,
+            'label' => 'nom'
+               ));
+        $builder->add('datenaissance','birthday',array( 
+            'label' => 'datenaissance'
+            'widget' => 'single_text',
+            'format' => 'yyyy-MM-dd',
+            'attr' => array('value' => '2000-01-01'),
+        ));
+        $builder->add('telephone','text', array('max_length'=>10));
+        $builder->add('adresse', 'text',array('max_length'=>30));
+        $builder->add('submit', 'submit');
 	}
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
