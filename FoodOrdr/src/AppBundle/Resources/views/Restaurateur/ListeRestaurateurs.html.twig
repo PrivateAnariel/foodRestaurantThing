@@ -12,8 +12,8 @@
        <tr>
        		<td> {{restaurateur.prenom}}   </td>
 			<td> {{restaurateur.nom}}   </td>
-			<td><a href="{{path("edit_restaurateur",{'id':restaurateur.idRestaurateur})}}"> Modifier</a></td>
-			<td><a href="{{path("delete_restaurateur",{'id':restaurateur.idRestaurateur})}}"> Supprimer</a></td>
+			<td><a href="{{path("edit_restaurateur",{'id':restaurateur.idRestaurateur})}}">{{ 'edit' | trans}}</a></td>
+			<td><a href="{{path("delete_restaurateur",{'id':restaurateur.idRestaurateur})}}">{{'delete'| trans}}</a></td>
        </tr>
 
     {% endfor %}

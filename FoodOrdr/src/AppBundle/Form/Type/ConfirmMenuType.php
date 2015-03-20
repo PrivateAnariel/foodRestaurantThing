@@ -15,8 +15,8 @@ class ConfirmMenuType extends AbstractType
     {
       
 		
-        $builder->add('nom','text',array('max_length'=>20));      
-		$builder->add('Confirmer', 'submit');
+        $builder->add('nom','text',array('max_length'=>20, 'label' => 'lastname'));      
+		$builder->add('Confirmer', 'submit',array('label' => 'confirm'));
    
 	}
 

@@ -11,17 +11,22 @@ class RestaurateurType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('courriel', 'email');
+        $builder->add('courriel', 'email',array(
+          'label' => 'email'
+         ));
         $builder->add('mdp', 'repeated', array(
            'first_name' => 'mdp',
            'second_name' => 'confirm_mdp',
-           'type' => 'password'
+           'type' => 'password',
         ));
-		$builder->add('prenom','text',array('max_length'=>20));
-		$builder->add('nom','text',array('max_length'=>20));
-		$builder->add('telephone','text', array('max_length'=>10));
+		$builder->add('prenom','text',array(
+            'max_length'=>20,
+            'label' => 'firstname'
+            ));
+		$builder->add('nom','text',array('max_length'=>20, 'label' => 'lastname'));
+		$builder->add('telephone','text', array('max_length'=>10, 'label' => 'telephone'));
         $builder->add('idRestaurant', 'entity', array( 'class' => 'AppBundle:Restaurant', 'empty_value' => ' ','required' => false));
-		$builder->add('submit', 'submit');
+		$builder->add('submit', 'submit', array('label' => 'submit'));
 	}
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

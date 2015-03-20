@@ -16,12 +16,12 @@ class RestaurantType extends AbstractType
         $entityManager = $options['em'];
         $transformer = new EntToIdTransformer($entityManager);
 		
-        $builder->add('nom','text',array('max_length'=>20));      
-		$builder->add('telephone','text', array('max_length'=>10));
-        $builder->add('adresse','text',array('max_length'=>100));
+        $builder->add('nom','text',array('max_length'=>20, 'label' => 'firstname'));      
+		$builder->add('telephone','text', array('max_length'=>10, 'label' => 'telephone'));
+        $builder->add('adresse','text',array('max_length'=>100, 'label'=>'address'));
         $builder->add($builder->create('idEntrepreneur','hidden')
                               ->addModelTransformer($transformer));
-		$builder->add('submit', 'submit');
+		$builder->add('submit', 'submit', array('label'=>'submit'));
    
 	}
 

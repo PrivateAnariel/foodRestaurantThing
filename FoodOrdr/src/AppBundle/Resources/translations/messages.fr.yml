@@ -1,13 +1,27 @@
 #formulaires
-# label :
-# 	email : Courriel
-# 	firstname : Prénom
-# 	name : Nom
-# 	birthday : Date de naissance
+label :
+email : Courriel11111
+firstname : Prénom
+lastname : Nom
+birthday : Date de naissance
+address : Adresse
+telephone : Téléphone
+price : Prix
+password : Mot de passe
+
+#boutons
+submit : Soumettre
+confirm : Confirmer
+
+#bouton pour s'inscrire
 inscription : Inscrivez-vous
+#bouton déconnection 
 logout : Déconnecter
 # les menus principaux
 ajouter_restaurateur : Ajouter Restaurauteur 
 modifier_restaurateur : Modifier Restaurateur
 ajouter_restaurant : Ajouter Restaurant
 modifier_restaurant : Modifier Restaurant
+
+edit : Modifier
+delete : Supprimer

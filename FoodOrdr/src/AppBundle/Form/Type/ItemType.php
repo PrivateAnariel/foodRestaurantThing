@@ -15,10 +15,10 @@ class ItemType extends AbstractType
     {
       
 		
-        $builder->add('nom','text',array('max_length'=>20));      
-		$builder->add('prix','text', array('max_length'=>10));
+        $builder->add('nom','text',array('max_length'=>20,'label' => 'lastname'));      
+		$builder->add('prix','text', array('max_length'=>10, 'label' => 'price'));
         $builder->add('description','text',array('max_length'=>200, 'required' => false));
-		$builder->add('submit', 'submit');
+		$builder->add('submit', 'submit', array('label' => 'submit'));
    
 	}
 

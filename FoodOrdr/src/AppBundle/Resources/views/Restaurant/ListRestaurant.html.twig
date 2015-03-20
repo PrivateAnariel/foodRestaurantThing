@@ -14,10 +14,10 @@
        		<td> {{restaurant.nom}}   </td>
 			<td> {{restaurant.telephone}}   </td>
 			<td> {{restaurant.adresse}}   </td>
-			<td><a href="{{path("edit_restaurant",{'id':restaurant.idRestaurant})}}"> Modifier</a></td>
+			<td><a href="{{path("edit_restaurant",{'id':restaurant.idRestaurant})}}">{{'edit' | trans}}</a></td>
 
 
-			<td><a href="{{path("delete_restaurant",{'id':restaurant.idRestaurant})}}"> Supprimer</a></td>
+			<td><a href="{{path("delete_restaurant",{'id':restaurant.idRestaurant})}}">{{'delete' | trans}}</a></td>
 
        </tr>
 

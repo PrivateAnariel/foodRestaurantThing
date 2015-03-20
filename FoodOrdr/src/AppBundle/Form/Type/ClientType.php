@@ -11,7 +11,7 @@ class ClientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('courriel', 'email', array(
-            'label' => 'label.email'
+            'label' => 'email'
             ));
         $builder->add('mdp', 'repeated', array(
            'first_name' => 'mdp',
@@ -20,11 +20,11 @@ class ClientType extends AbstractType
         ));
         $builder->add('prenom','text',array(
             'max_length'=>20,
-            'label' => 'label.firstname'
+            'label' => 'firstname'
             ));
         $builder->add('nom','text',array(
             'max_length'=>20,
-            'label' => 'label.name'
+            'label' => 'lastname'
                ));
         $builder->add('datenaissance','birthday',array( 
             'label' => 'birthday',
@@ -32,9 +32,9 @@ class ClientType extends AbstractType
             'format' => 'yyyy-MM-dd',
             'attr' => array('value' => '2000-01-01'),
         ));
-        $builder->add('telephone','text', array('max_length'=>10));
-        $builder->add('adresse', 'text',array('max_length'=>30));
-        $builder->add('submit', 'submit');
+        $builder->add('telephone','text', array('max_length'=>10,'label' => 'telephone'));
+        $builder->add('adresse', 'text',array('max_length'=>30, 'label' => 'address'));
+        $builder->add('submit', 'submit', array('label' => 'submit'));
 	}
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -15,12 +15,12 @@ class ConfirmRestaurantType extends AbstractType
         $entityManager = $options['em'];
         $transformer = new EntToIdTransformer($entityManager);
         
-		$builder->add('nom','text',array('read_only' => true));
-		$builder->add('telephone','text', array('read_only' => true));
-        $builder->add('adresse','text',array('read_only' => true));
+		$builder->add('nom','text',array('read_only' => true, array('label' => 'lastname')));
+		$builder->add('telephone','text', array('read_only' => true, 'label' => 'telephone'));
+        $builder->add('adresse','text',array('read_only' => true, 'label' => 'address'));
         $builder->add($builder->create('idEntrepreneur','hidden')
                               ->addModelTransformer($transformer));
-		$builder->add('Confirmer', 'submit');
+		$builder->add('Confirmer', 'submit', array('label' => 'confirm'));
 	}
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

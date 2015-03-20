@@ -10,18 +10,19 @@ class ConfirmClientType extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('courriel', 'email', array('read_only' => true));
-		$builder->add('prenom','text',array('read_only' => true));
-		$builder->add('nom','text',array('read_only' => true));
+        $builder->add('courriel', 'email', array('read_only' => true, 'label' => 'email'));
+		$builder->add('prenom','text',array('read_only' => true, 'label' => 'firstname'));
+		$builder->add('nom','text',array('read_only' => true,'label' => 'lastname'));
 		$builder->add('datenaissance','birthday',array( 
 			'read_only' => true,
 			'widget' => 'single_text',
-			'format' => 'yyyy-MM-dd'
+			'format' => 'yyyy-MM-dd',
+			'label' => 'birthday'
 		));
-		$builder->add('telephone','text', array('read_only' => true));
-		$builder->add('adresse', 'text',array('read_only' => true));
-		$builder->add('mdp','hidden');
-		$builder->add('Confirmer', 'submit');
+		$builder->add('telephone','text', array('read_only' => true, 'label' => 'telephone'));
+		$builder->add('adresse', 'text',array('read_only' => true, 'label' => 'address'));
+		$builder->add('mdp','hidden', array('label' => 'password'));
+		$builder->add('Confirmer', 'submit', array('label' => 'confirm'));
 	}
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

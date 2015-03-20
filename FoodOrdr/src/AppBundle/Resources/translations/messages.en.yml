@@ -1,9 +1,19 @@
 #formulaires
-# label :
-# 	email: E-mail
-# 	firstname: First Name
-# 	name: Last Name
-# 	birthday: Birthday
+label :
+email: E-mail
+firstname: First Name
+lastname : Last Name
+name: Last Name
+birthday: Birthday
+address : Address
+telephone : Telephone
+price : Price
+password : Password
+
+#boutons
+submit : Submit
+confirm : Confirm 
+
 inscription : Sign-up
 logout : Logout
 # les menus principaux
@@ -11,3 +21,6 @@ ajouter_restaurateur : Add restaurant owner
 modifier_restaurateur : Edit restaurant's owner
 ajouter_restaurant : Add restaurant
 modifier_restaurant : Edit restaurant
+
+edit : Edit
+delete : Delete
