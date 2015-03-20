@@ -118,4 +118,16 @@ class ClientController extends Controller
 		}
         return $this->redirect($this->generateUrl('home'));
     }
+
+    /**
+     * @Route("/Edit", name="passer_commande")
+	 * @Security("has_role('ROLE_USER')")
+     */
+    public function showRestaurant()
+    {
+		$restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+		$user = $this->get('security.context')->getToken()->getUser();
+	
+		return $this->render('AppBundle:Restaurant:ListRestaurant.html.twig',  array('ListeRestaurant' =>$restaurantRepository) );
+    }
 }
