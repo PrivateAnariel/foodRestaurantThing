@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+<a href="{{path('nouveau_mdp')}}"> Changer de mot de passe</a>
+{{ render(controller('AppBundle:Adresse:Show')) }}
+{% endblock %}

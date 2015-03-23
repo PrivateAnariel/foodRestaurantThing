@@ -10,6 +10,7 @@ class ConfirmClientType extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
     {
+    	$entityManager = $options['em'];
         $builder->add('courriel', 'email', array('read_only' => true, 'label' => 'email'));
 		$builder->add('prenom','text',array('read_only' => true, 'label' => 'firstname'));
 		$builder->add('nom','text',array('read_only' => true,'label' => 'lastname'));
@@ -20,7 +21,13 @@ class ConfirmClientType extends AbstractType
 			'label' => 'birthday'
 		));
 		$builder->add('telephone','text', array('read_only' => true, 'label' => 'telephone'));
-		$builder->add('adresse', 'text',array('read_only' => true, 'label' => 'address'));
+		$builder->add('adresses', 'collection', array('type' => new AdresseType(), 
+                                                    	'read_only' => true, 
+                                                        'allow_add' => true,
+                                                        'by_reference' => false,
+                                                        'options'  => array(
+                                                            'em' => $entityManager,
+                                                        )));
 		$builder->add('mdp','hidden', array('label' => 'password'));
 		$builder->add('Confirmer', 'submit', array('label' => 'confirm'));
 	}
@@ -29,11 +36,17 @@ class ConfirmClientType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Client',
+        ))
+        ->setRequired(array(
+            'em',
+        ))
+        ->setAllowedTypes(array(
+            'em' => 'Doctrine\Common\Persistence\ObjectManager',
         ));
     }
 
     public function getName()
     {
-        return 'client';
+        return 'confirm_client';
     }
 }

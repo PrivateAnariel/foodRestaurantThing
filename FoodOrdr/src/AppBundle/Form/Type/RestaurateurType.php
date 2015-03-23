@@ -25,7 +25,7 @@ class RestaurateurType extends AbstractType
             ));
 		$builder->add('nom','text',array('max_length'=>20, 'label' => 'lastname'));
 		$builder->add('telephone','text', array('max_length'=>10, 'label' => 'telephone'));
-        $builder->add('idRestaurant', 'entity', array( 'class' => 'AppBundle:Restaurant', 'empty_value' => ' ','required' => false));
+    $builder->add('idRestaurant', 'entity', array( 'class' => 'AppBundle:Restaurant', 'empty_value' => ' ','required' => false));
 		$builder->add('submit', 'submit', array('label' => 'submit'));
 	}
 

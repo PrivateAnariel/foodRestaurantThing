@@ -10,6 +10,7 @@ class ClientType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $entityManager = $options['em'];
         $builder->add('courriel', 'email', array(
             'label' => 'email'
             ));
@@ -33,7 +34,18 @@ class ClientType extends AbstractType
             'attr' => array('value' => '2000-01-01'),
         ));
         $builder->add('telephone','text', array('max_length'=>10,'label' => 'telephone'));
-        $builder->add('adresse', 'text',array('max_length'=>30, 'label' => 'address'));
+        $builder->add('adresses', 'collection', array('type' => new AdresseType(), 
+                                                        'allow_add' => true,
+                                                        'by_reference' => false,
+                                                        'options'  => array(
+                                                            'em' => $entityManager,
+                                                        )));
+        /*
+        if(array_key_exists('full_address', $options) && $options["full_address"]){
+            $builder->add('adresse', 'collection',array('type' => new AddresseType()));
+        } else {
+            $builder->add('idRestaurant', 'entity', array( 'class' => 'AppBundle:Addresse', 'empty_value' => ' ','required' => false));
+        }*/
         $builder->add('submit', 'submit', array('label' => 'submit'));
 	}
 
@@ -41,11 +53,17 @@ class ClientType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Client',
+        ))
+        ->setRequired(array(
+            'em',
+        ))
+        ->setAllowedTypes(array(
+            'em' => 'Doctrine\Common\Persistence\ObjectManager',
         ));
     }
 
     public function getName()
     {
-        return 'confirm_client';
+        return 'client';
     }
 }

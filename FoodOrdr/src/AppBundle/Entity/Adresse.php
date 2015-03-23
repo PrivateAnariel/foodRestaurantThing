@@ -52,14 +52,10 @@ class Adresse
     /**
      * @var \AppBundle\Entity\Client
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Client")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ID_CLIENT", referencedColumnName="ID_CLIENT")
-     * })
-     */
-    private $idClient;
-
-
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="adresses")
+     * @ORM\JoinColumn(name="ID_CLIENT", referencedColumnName="ID_CLIENT")
+     **/
+    private $client;
 
     /**
      * Set numero
@@ -164,25 +160,25 @@ class Adresse
     }
 
     /**
-     * Set idClient
+     * Set client
      *
-     * @param \AppBundle\Entity\Client $idClient
+     * @param \AppBundle\Entity\Client $client
      * @return Adresse
      */
-    public function setIdClient(\AppBundle\Entity\Client $idClient = null)
+    public function setClient(\AppBundle\Entity\Client $client = null)
     {
-        $this->idClient = $idClient;
+        $this->client = $client;
 
         return $this;
     }
 
     /**
-     * Get idClient
+     * Get client
      *
      * @return \AppBundle\Entity\Client 
      */
-    public function getIdClient()
+    public function getClient()
     {
-        return $this->idClient;
+        return $this->client;
     }
 }

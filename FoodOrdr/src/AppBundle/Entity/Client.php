@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Client
@@ -36,7 +37,7 @@ class Client implements UserInterface, \Serializable
     private $datenaissance;
 
     /**
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(name="TELEPHONE", type="string", length=25, nullable=false)
      */
@@ -65,6 +66,11 @@ class Client implements UserInterface, \Serializable
      */
     private $idClient;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Adresse", mappedBy="client", cascade={"all"})
+     **/
+    private $adresses;
+
       /**
      * @var \AppBundle\Entity\Adresse
      *
@@ -75,6 +81,10 @@ class Client implements UserInterface, \Serializable
      */
     private $idAdresseMain;
 
+
+    public function __construct() {
+        $this->adresses = new ArrayCollection();
+    }
 
     /**
      * Set nom
@@ -128,7 +138,7 @@ class Client implements UserInterface, \Serializable
      * @param \DateTime $datenaissance
      * @return Client
      */
-    public function setDatenaissance($datenaissance)
+    public function setDatenaissance(\DateTime $datenaissance)
     {
         $this->datenaissance = $datenaissance;
 
@@ -236,6 +246,53 @@ class Client implements UserInterface, \Serializable
         $this->idAdresseMain = $idAdresseMain;
 
         return $this;
+    }
+
+    /**
+     * Get Adresses
+     *
+     * @return collection
+     */
+    public function getAdresses()
+    {
+        return $this->adresses;
+    }
+
+    /**
+     * Set Adresses
+     *
+     * @return Client
+     */
+    public function setAdresses($adresses)
+    {
+
+        $this->adresses = $adresses;
+
+        return $this;
+    }
+
+    /**
+     * add Adress
+     *
+     * @param \AppBundle\Entity\Adresse $adresse
+     * @return Client
+     * Should be addAddresse, but the symfony language recognition thinks "Adresses" is english
+     */
+    public function addAdress(\AppBundle\Entity\Adresse $adresse)
+    {
+        $adresse->setClient($this);
+        $this->adresses->add($adresse);
+        return $this;
+    }
+
+    /**
+     * remove Adress
+     *
+     * Should be removeAddresse, but the symfony language recognition thinks "Adresses" is english
+     */
+    public function removeAdress()
+    {
+        //$this->Adresses->add($Adresse);
     }
 
     /**

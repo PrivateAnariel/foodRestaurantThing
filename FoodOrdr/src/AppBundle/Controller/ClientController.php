@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 use AppBundle\Entity\Client;
-use AppBundle\Entity\Compte;
+use AppBundle\Entity\Adresse;
 use AppBundle\Form\Type\ClientType;
 use AppBundle\Form\Type\ConfirmClientType;
 
@@ -27,16 +27,19 @@ class ClientController extends Controller
     {
 		$params = array();
 		$client = new Client();
+		$client->addAdress(new Adresse());
 		
 		$clientRepo = $this->get('doctrine')->getRepository('AppBundle:Client');
 
-		$form = $this->createForm(new ClientType(), $client);
-
+		$form = $this->createForm(new ClientType(), $client, array(
+																'em' => $this->getDoctrine()->getManager(),
+															));
 		$form->handleRequest($this->getRequest());
 
 		if ($form->isValid()) {
 			$client = $form->getData();
-			$form = $this->createForm(new ConfirmClientType(), $client, array( 'action' => '/Client/Create'));
+			$form = $this->createForm(new ConfirmClientType(), $client, array( 'em' => $this->getDoctrine()->getManager(),
+																				'action' => '/Client/Create'));
 		}
         $params['form'] = $form->createView();
         return $this->render('AppBundle:Client:Registration.html.twig', $params);
@@ -54,13 +57,10 @@ class ClientController extends Controller
 
 		if ($form->isValid()) {
 			$client = $form->getData();
-			//$compte = new Compte();
 			
 			$em = $this->getDoctrine()->getManager();
 			
 			$em->persist($client);
-			//$compte->setIdClient($client);
-			//$em->persist($compte);
 			
 			$em->flush();
 			
@@ -77,19 +77,25 @@ class ClientController extends Controller
     public function editAction()
     {
 		$client = $this->get('security.context')->getToken()->getUser();
-		$form = $this->createForm(new ClientType(), $client);
+		$form = $this->createForm(new ClientType(), $client, array(
+																'em' => $this->getDoctrine()->getManager(),
+															));
 		$form->remove('courriel');
 		$form->remove('mdp');
+		$form->remove('adresses');
 		$form->handleRequest($this->getRequest());
 
 		if ($form->isValid()) {
 			$client = $form->getData();
-			$form = $this->createForm(new ConfirmClientType(), $client, array( 'action' => '/Client/Update'));
+			$form = $this->createForm(new ConfirmClientType(), $client, array( 'action' => '/Client/Update',
+																				'em' => $this->getDoctrine()->getManager(),
+																			));
 			$form->remove('courriel');
 			$form->remove('mdp');
+			$form->remove('adresses');
 		}
         $params['form'] = $form->createView();
-        return $this->render('AppBundle::modif.html.twig', $params);
+        return $this->render('AppBundle:Client:modif.html.twig', $params);
     }
 	
 	/**
@@ -100,19 +106,19 @@ class ClientController extends Controller
     public function updateAction()
     {
 		$client = $this->get('security.context')->getToken()->getUser();
-		$form = $this->createForm(new ConfirmClientType());
+		$form = $this->createForm(new ConfirmClientType(), null, array( 'action' => '/Client/Update',
+																				'em' => $this->getDoctrine()->getManager(),
+																			));
 		$form->handleRequest($this->getRequest());
 
 		if ($form->isValid()) {
 			$client_edit = $form->getData();
-			
+			//print_r(var_dump($client_edit)); die;
 			$client->setNom($client_edit->getNom())
 					 ->setPrenom($client_edit->getPrenom())
 					 ->setDatenaissance($client_edit->getDatenaissance())
-					 ->setAdresse($client_edit->getAdresse())
 					 ->setTelephone($client_edit->getTelephone());
-			
-			$em = $this->getDoctrine()->getManager();	
+			$em = $this->getDoctrine()->getManager();
 			$em->persist($client);
 			$em->flush();
 		}
