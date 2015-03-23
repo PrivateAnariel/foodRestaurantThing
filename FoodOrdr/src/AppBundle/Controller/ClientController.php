@@ -52,7 +52,7 @@ class ClientController extends Controller
     public function createAction()
     {
 		$client = new Client();
-		$form = $this->createForm(new ConfirmClientType(), $client);
+		$form = $this->createForm(new ConfirmClientType(), $client, array( 'em' => $this->getDoctrine()->getManager()));
 		$form->handleRequest($this->getRequest());
 
 		if ($form->isValid()) {

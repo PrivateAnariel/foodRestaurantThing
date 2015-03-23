@@ -265,7 +265,9 @@ class Client implements UserInterface, \Serializable
      */
     public function setAdresses($adresses)
     {
-
+        foreach($adresses as $adresse) {
+            $adresse->setClient($this);
+        }
         $this->adresses = $adresses;
 
         return $this;
