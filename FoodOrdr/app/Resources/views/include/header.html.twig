@@ -38,7 +38,7 @@
 				<a href="{{ path('show_menu') }}">Menu </a> 
 			{% elseif is_granted('ROLE_USER') %}
 				<a href="{{ path('edit_client') }}"> Modifier client </a>
-				<a href="{{ path('passer_commande') }}"> Passer commande </a>
+				<a href="{{ path('choisir_resto') }}"> Passer commande </a>
 			{% else %}
 				<a href="{{ path('client_registration') }}"> {{ 'inscription'| trans}} </a>
 			{% endif %}

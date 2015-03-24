@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{{message}}
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+<script>
+var $collectionHolder;
+
+// setup an "add a tag" link
+var $addItemButton = $('<button id="boutonAjout" disabled> Ajouter un item </button>');
+//http://symfony.com/doc/current/cookbook/form/form_collections.html#cookbook-form-collections-new-prototype
+jQuery(document).ready(function() {
+
+	$("button#menu_items_0_confirmer_item").click(function(e) {
+    	e.preventDefault();
+    	confirmerItem();
+    });
+    $collectionHolder = $('div#menu_items');
+
+    $collectionHolder.append($addItemButton);
+
+    // count the current form inputs we have (e.g. 2), use that as the new
+    // index when inserting a new item (e.g. 2)
+    $collectionHolder.data('index', $collectionHolder.find('> div').length);
+
+    $addItemButton.click(function(e) {
+    	e.preventDefault();
+        // add a new tag form (see next code block)
+        $("button#boutonAjout").attr("disabled",true);
+        addTagForm($collectionHolder, $addItemButton);
+    });
+});
+
+
+function addTagForm($collectionHolder, $addItemButton) {
+
+    // Get the data-prototype explained earlier
+    var prototype = $collectionHolder.data('prototype');
+    // get the new index
+    var index = $collectionHolder.data('index');
+
+    // Replace '__name__' in the prototype's HTML to
+    // instead be a number based on how many items we have
+    var newForm = prototype.replace(/__name__label__/g, index);
+    newForm = newForm.replace(/__name__/g, index);
+
+    // increase the index with one for the next item
+    $collectionHolder.data('index', index + 1);
+
+    // Display the form in the page, before addItemButton
+    $addItemButton.before(newForm);
+
+    $bouton = $("button#menu_items_"+(index)+"_confirmer_item");
+    $bouton.click(function(e) {
+    	e.preventDefault();
+    	confirmerItem(index);
+    });
+
+}
+
+function confirmerItem(index){
+	$("button#boutonAjout").removeAttr("disabled");
+	
+	$enfants = $("menu_items_"+(index)).children();
+
+	foreach ($enfant in $enfants){
+		if ($enfant.tagName=="button")
+			$enfant.readOnly = false;
+		else
+			$enfant.readOnly = false;
+	}
+
+
+</script>
+{% endblock %}

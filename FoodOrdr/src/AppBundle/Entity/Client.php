@@ -71,15 +71,6 @@ class Client implements UserInterface, \Serializable
      **/
     private $adresses;
 
-      /**
-     * @var \AppBundle\Entity\Adresse
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Adresse")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ID_ADRESSE_MAIN", referencedColumnName="ID_ADRESSE")
-     * })
-     */
-    private $idAdresseMain;
 
 
     public function __construct() {
@@ -235,18 +226,6 @@ class Client implements UserInterface, \Serializable
     }
 
 
-    /**
-     * Set idAdresseMain
-     *
-     * @param \AppBundle\Entity\Adresse $idAdresseMain
-     * @return Client
-     */
-    public function setIdAdresseMain(\AppBundle\Entity\Adresse $idAdresseMain = null)
-    {
-        $this->idAdresseMain = $idAdresseMain;
-
-        return $this;
-    }
 
     /**
      * Get Adresses
@@ -297,15 +276,6 @@ class Client implements UserInterface, \Serializable
         //$this->Adresses->add($Adresse);
     }
 
-    /**
-     * Get idAdresseMain
-     *
-     * @return \AppBundle\Entity\Adresse 
-     */
-    public function getIdAdresseMain()
-    {
-        return $this->idAdresseMain;
-    }
 
     /**
      * @inheritDoc

@@ -12,6 +12,10 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 use AppBundle\Entity\Client;
 use AppBundle\Entity\Adresse;
+use AppBundle\Entity\Commande;
+use AppBundle\Entity\LigneCommande;
+use AppBundle\Form\Type\CommandeType;
+use AppBundle\Form\Type\ConfirmCommandeType;
 use AppBundle\Form\Type\ClientType;
 use AppBundle\Form\Type\ConfirmClientType;
 
@@ -126,14 +130,39 @@ class ClientController extends Controller
     }
 
     /**
-     * @Route("/Edit", name="passer_commande")
+     * @Route("/Commande", name="choisir_resto")
 	 * @Security("has_role('ROLE_USER')")
      */
-    public function showRestaurant()
+    public function choisirResto()
     {
 		$restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
-		$user = $this->get('security.context')->getToken()->getUser();
-	
-		return $this->render('AppBundle:Restaurant:ListRestaurant.html.twig',  array('ListeRestaurant' =>$restaurantRepository) );
+		$restaurants = $restaurantRepository->findAll();
+		return $this->render('AppBundle:client:showRestaurant.html.twig',  array('ListeRestaurant' =>$restaurants));
+    }
+
+      /**
+     * @Route("/Commande/Restaurant/{id}", name="commander")
+	 * @Security("has_role('ROLE_USER')")
+     */
+    public function passerCommande($id)
+    {
+		$params = array();
+		$commande = new Commande();
+		$lignecommande = new LigneCommande();
+		
+		$clientRepo = $this->get('doctrine')->getRepository('AppBundle:Client');
+
+		$form = $this->createForm(new CommandeType(), $commande, array(
+																'em' => $this->getDoctrine()->getManager(),
+															));
+		$form->handleRequest($this->getRequest());
+
+		if ($form->isValid()) {
+			$client = $form->getData();
+			$form = $this->createForm(new ConfirmCommandeType(), $client, array( 'em' => $this->getDoctrine()->getManager(),
+																				'action' => '/Commande/Create'));
+		}
+        $params['form'] = $form->createView();
+        return $this->render('AppBundle:Client:Commande.html.twig', $params);
     }
 }

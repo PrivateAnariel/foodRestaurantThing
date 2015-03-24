@@ -3,15 +3,25 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Commande
  *
- * @ORM\Table(name="COMMANDE", uniqueConstraints={@ORM\UniqueConstraint(name="ID_COMMANDE", columns={"ID_COMMANDE"})}, indexes={@ORM\Index(name="FK_ID_ADRESSE", columns={"ID_ADRESSE"}), @ORM\Index(name="FK_ID_RESTAURANT", columns={"ID_RESTAURANT"}), @ORM\Index(name="FK_ID_LIVREUR", columns={"ID_LIVREUR"}), @ORM\Index(name="FK_ID_CLIENT", columns={"ID_CLIENT"})})
+ * @ORM\Table(name="COMMANDE", uniqueConstraints={@ORM\UniqueConstraint(name="ID_COMMANDE", columns={"ID_COMMANDE"})}, indexes={@ORM\Index(name="FK_ID_STATUT", columns={"ID_STATUT"}), @ORM\Index(name="FK_ID_ADRESSE", columns={"ID_ADRESSE"}), @ORM\Index(name="FK_ID_RESTAURANT", columns={"ID_RESTAURANT"}), @ORM\Index(name="FK_ID_LIVREUR", columns={"ID_LIVREUR"}), @ORM\Index(name="FK_ID_CLIENT", columns={"ID_CLIENT"})})
  * @ORM\Entity
  */
 class Commande
 {
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ID_COMMANDE", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idCommande;
+
     /**
      * @var \DateTime
      *
@@ -20,45 +30,29 @@ class Commande
     private $dateLivraison;
 
     /**
-     * @var string
+     * @var \Statut
      *
-     * @ORM\Column(name="STATUT", type="string", length=10, nullable=false)
-     */
-    private $statut;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="ID_COMMANDE", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idCommande;
-
-    /**
-     * @var \AppBundle\Entity\Client
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Client")
+     * @ORM\ManyToOne(targetEntity="Statut")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ID_CLIENT", referencedColumnName="ID_CLIENT")
+     *   @ORM\JoinColumn(name="ID_STATUT", referencedColumnName="ID_STATUT")
      * })
      */
-    private $idClient;
+    private $idStatut;
 
     /**
-     * @var \AppBundle\Entity\Livreur
+     * @var \Adresse
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Livreur")
+     * @ORM\ManyToOne(targetEntity="Adresse")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ID_LIVREUR", referencedColumnName="ID_LIVREUR")
+     *   @ORM\JoinColumn(name="ID_ADRESSE", referencedColumnName="ID_ADRESSE")
      * })
      */
-    private $idLivreur;
+    private $idAdresse;
 
     /**
-     * @var \AppBundle\Entity\Restaurant
+     * @var \Restaurant
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Restaurant")
+     * @ORM\ManyToOne(targetEntity="Restaurant")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ID_RESTAURANT", referencedColumnName="ID_RESTAURANT")
      * })
@@ -66,16 +60,46 @@ class Commande
     private $idRestaurant;
 
     /**
-     * @var \AppBundle\Entity\Adresse
+     * @var \Livreur
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Adresse")
+     * @ORM\ManyToOne(targetEntity="Livreur")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ID_ADRESSE", referencedColumnName="ID_ADRESSE")
+     *   @ORM\JoinColumn(name="ID_LIVREUR", referencedColumnName="ID_LIVREUR")
      * })
      */
-    private $idAdresse;
+    private $idLivreur;
+
+    /**
+     * @var \Client
+     *
+     * @ORM\ManyToOne(targetEntity="Client")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ID_CLIENT", referencedColumnName="ID_CLIENT")
+     * })
+     */
+    private $idClient;
+
+      /**
+     * @ORM\OneToMany(targetEntity="LigneCommande", mappedBy="commande", cascade={"all"})
+     **/
+    public $lignecommandes;
 
 
+
+    public function __construct() {
+        $this->lignecommandes = new ArrayCollection();
+    }
+
+
+    /**
+     * Get idCommande
+     *
+     * @return integer 
+     */
+    public function getIdCommande()
+    {
+        return $this->idCommande;
+    }
 
     /**
      * Set dateLivraison
@@ -101,82 +125,49 @@ class Commande
     }
 
     /**
-     * Set statut
+     * Set idStatut
      *
-     * @param string $statut
+     * @param \AppBundle\Entity\Statut $idStatut
      * @return Commande
      */
-    public function setStatut($statut)
+    public function setIdStatut(\AppBundle\Entity\Statut $idStatut = null)
     {
-        $this->statut = $statut;
+        $this->idStatut = $idStatut;
 
         return $this;
     }
 
     /**
-     * Get statut
+     * Get idStatut
      *
-     * @return string 
+     * @return \AppBundle\Entity\Statut 
      */
-    public function getStatut()
+    public function getIdStatut()
     {
-        return $this->statut;
+        return $this->idStatut;
     }
 
     /**
-     * Get idCommande
+     * Set idAdresse
      *
-     * @return integer 
-     */
-    public function getIdCommande()
-    {
-        return $this->idCommande;
-    }
-
-    /**
-     * Set idClient
-     *
-     * @param \AppBundle\Entity\Client $idClient
+     * @param \AppBundle\Entity\Adresse $idAdresse
      * @return Commande
      */
-    public function setIdClient(\AppBundle\Entity\Client $idClient = null)
+    public function setIdAdresse(\AppBundle\Entity\Adresse $idAdresse = null)
     {
-        $this->idClient = $idClient;
+        $this->idAdresse = $idAdresse;
 
         return $this;
     }
 
     /**
-     * Get idClient
+     * Get idAdresse
      *
-     * @return \AppBundle\Entity\Client 
+     * @return \AppBundle\Entity\Adresse 
      */
-    public function getIdClient()
+    public function getIdAdresse()
     {
-        return $this->idClient;
-    }
-
-    /**
-     * Set idLivreur
-     *
-     * @param \AppBundle\Entity\Livreur $idLivreur
-     * @return Commande
-     */
-    public function setIdLivreur(\AppBundle\Entity\Livreur $idLivreur = null)
-    {
-        $this->idLivreur = $idLivreur;
-
-        return $this;
-    }
-
-    /**
-     * Get idLivreur
-     *
-     * @return \AppBundle\Entity\Livreur 
-     */
-    public function getIdLivreur()
-    {
-        return $this->idLivreur;
+        return $this->idAdresse;
     }
 
     /**
@@ -203,25 +194,49 @@ class Commande
     }
 
     /**
-     * Set idAdresse
+     * Set idLivreur
      *
-     * @param \AppBundle\Entity\Adresse $idAdresse
+     * @param \AppBundle\Entity\Livreur $idLivreur
      * @return Commande
      */
-    public function setIdAdresse(\AppBundle\Entity\Adresse $idAdresse = null)
+    public function setIdLivreur(\AppBundle\Entity\Livreur $idLivreur = null)
     {
-        $this->idAdresse = $idAdresse;
+        $this->idLivreur = $idLivreur;
 
         return $this;
     }
 
     /**
-     * Get idAdresse
+     * Get idLivreur
      *
-     * @return \AppBundle\Entity\Adresse 
+     * @return \AppBundle\Entity\Livreur 
      */
-    public function getIdAdresse()
+    public function getIdLivreur()
     {
-        return $this->idAdresse;
+        return $this->idLivreur;
     }
+
+    /**
+     * Set idClient
+     *
+     * @param \AppBundle\Entity\Client $idClient
+     * @return Commande
+     */
+    public function setIdClient(\AppBundle\Entity\Client $idClient = null)
+    {
+        $this->idClient = $idClient;
+
+        return $this;
+    }
+
+    /**
+     * Get idClient
+     *
+     * @return \AppBundle\Entity\Client 
+     */
+    public function getIdClient()
+    {
+        return $this->idClient;
+    }
+
 }

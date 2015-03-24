@@ -13,6 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Item
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="ID_ITEM", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idItem;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="NOM", type="string", length=25, nullable=false)
@@ -34,18 +43,9 @@ class Item
     private $prix;
 
     /**
-     * @var integer
+     * @var \Menu
      *
-     * @ORM\Column(name="ID_ITEM", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idItem;
-
-    /**
-     * @var \AppBundle\Entity\Menu
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Menu")
+     * @ORM\ManyToOne(targetEntity="Menu",inversedBy="adresses")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ID_MENU", referencedColumnName="ID_MENU")
      * })
@@ -53,6 +53,16 @@ class Item
     private $idMenu;
 
 
+
+    /**
+     * Get idItem
+     *
+     * @return integer 
+     */
+    public function getIdItem()
+    {
+        return $this->idItem;
+    }
 
     /**
      * Set nom
@@ -124,16 +134,6 @@ class Item
     }
 
     /**
-     * Get idItem
-     *
-     * @return integer 
-     */
-    public function getIdItem()
-    {
-        return $this->idItem;
-    }
-
-    /**
      * Set idMenu
      *
      * @param \AppBundle\Entity\Menu $idMenu
@@ -155,4 +155,14 @@ class Item
     {
         return $this->idMenu;
     }
+    
+    /**
+     * Override toString() method to return the name of the restaurant
+     * @return string name
+     */
+    public function __toString()
+    {
+        return $this->nom;
+    }
+
 }

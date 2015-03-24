@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
  * Menu
@@ -13,6 +15,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Menu
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="ID_MENU", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idMenu;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="NOM", type="string", length=25, nullable=false)
@@ -20,32 +31,60 @@ class Menu
     private $nom;
 
     /**
-     * @var string
+     * @var \Restaurant
      *
-     * @ORM\Column(name="ADRESSE", type="string", length=50, nullable=true)
-     */
-    private $adresse;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="ID_MENU", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idMenu;
-
-    /**
-     * @var \AppBundle\Entity\Restaurant
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Restaurant")
+     * @ORM\ManyToOne(targetEntity="Restaurant")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ID_RESTAURANT", referencedColumnName="ID_RESTAURANT")
      * })
      */
     private $idRestaurant;
 
+     /**
+     * @ORM\OneToMany(targetEntity="Item", mappedBy="idMenu", cascade={"all"})
+     **/
+    private $items;
 
+
+
+    public function __construct() {
+        $this->items = new ArrayCollection();
+    }
+
+    /**
+     * Get Items
+     *
+     * @return collection
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * Set Adresses
+     *
+     * @return Menu
+     */
+    public function setItems($items)
+    {
+        foreach($items as $item) {
+            $item->setIdMenu($this);
+        }
+        $this->items = $items;
+
+        return $this;
+    }
+
+    /**
+     * Get idMenu
+     *
+     * @return integer 
+     */
+    public function getIdMenu()
+    {
+        return $this->idMenu;
+    }
 
     /**
      * Set nom
@@ -71,39 +110,6 @@ class Menu
     }
 
     /**
-     * Set adresse
-     *
-     * @param string $adresse
-     * @return Menu
-     */
-    public function setAdresse($adresse)
-    {
-        $this->adresse = $adresse;
-
-        return $this;
-    }
-
-    /**
-     * Get adresse
-     *
-     * @return string 
-     */
-    public function getAdresse()
-    {
-        return $this->adresse;
-    }
-
-    /**
-     * Get idMenu
-     *
-     * @return integer 
-     */
-    public function getIdMenu()
-    {
-        return $this->idMenu;
-    }
-
-    /**
      * Set idRestaurant
      *
      * @param \AppBundle\Entity\Restaurant $idRestaurant
@@ -125,4 +131,18 @@ class Menu
     {
         return $this->idRestaurant;
     }
+       /**
+     * add Item
+     *
+     * @param \AppBundle\Entity\Item $item
+     * @return Menu
+     * 
+     */
+    public function addItem(\AppBundle\Entity\Item $item)
+    {
+        $item->setIdMenu($this);
+        $this->items->add($item);
+        return $this;
+    }
+
 }

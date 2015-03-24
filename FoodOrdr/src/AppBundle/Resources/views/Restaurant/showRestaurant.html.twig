@@ -2,7 +2,6 @@
 
 {% block body %}
 
-
 	{% for restaurant in restaurant %}
        	<h2> {{restaurant.nom}} </h2>
        	{% if menu is defined %}
@@ -19,16 +18,15 @@
 	       				<td> {{item.nom}}   </td>
 	       				<td> {{item.prix}}   </td>
 						<td> {{item.description}}   </td>
-						<td><a href="{{path("edit_item",{'id':item.idItem})}}">{{'edit' | trans}}</a></td>
-						<td><a href="{{path("delete_item",{'id':item.idItem})}}">{{'delete' | trans}}</a></td>
 	       			</tr>
     			{% endfor %}
     			</table>
-    			<a href="{{path('ajouter_item',{'id':menu.idMenu})}}"> Ajouter un item </a>
     		{% endfor %}
     		{% if menu is empty %}
-       				<a href="{{path('ajouter_menu')}}"> Créer le menu </a>
-   			{% endif %}
+          {% if is_granted('ROLE_REST') %}
+         				<a href="{{path('ajouter_menu')}}"> Créer le menu </a>
+     			{% endif %}
+        {% endif %}
    		{% endif %}
      {% endfor %}
 {% endblock %}

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * LigneCommande
  *
- * @ORM\Table(name="LIGNE_COMMANDE", uniqueConstraints={@ORM\UniqueConstraint(name="ID_LIGNE_COMMANDE", columns={"ID_LIGNE_COMMANDE"})}, indexes={@ORM\Index(name="FK_ID_COMMANDE", columns={"ID_COMMANDE"})})
+ * @ORM\Table(name="LIGNE_COMMANDE", uniqueConstraints={@ORM\UniqueConstraint(name="ID_LIGNE_COMMANDE", columns={"ID_LIGNE_COMMANDE"})}, indexes={@ORM\Index(name="FK_ID_COMMANDE", columns={"ID_COMMANDE"}), @ORM\Index(name="FK_ID_ITEM", columns={"ID_ITEM"})})
  * @ORM\Entity
  */
 class LigneCommande
@@ -15,9 +15,11 @@ class LigneCommande
     /**
      * @var integer
      *
-     * @ORM\Column(name="ID_ITEM", type="integer", nullable=false)
+     * @ORM\Column(name="ID_LIGNE_COMMANDE", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idItem;
+    private $idLigneCommande;
 
     /**
      * @var integer
@@ -27,47 +29,35 @@ class LigneCommande
     private $quantite;
 
     /**
-     * @var integer
+     * @var \Commande
      *
-     * @ORM\Column(name="ID_LIGNE_COMMANDE", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idLigneCommande;
-
-    /**
-     * @var \AppBundle\Entity\Commande
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Commande")
+     * @ORM\ManyToOne(targetEntity="Commande")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ID_COMMANDE", referencedColumnName="ID_COMMANDE")
      * })
      */
     private $idCommande;
 
-
-
     /**
-     * Set idItem
+     * @var \Item
      *
-     * @param integer $idItem
-     * @return LigneCommande
+     * @ORM\ManyToOne(targetEntity="Item")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ID_ITEM", referencedColumnName="ID_ITEM")
+     * })
      */
-    public function setIdItem($idItem)
-    {
-        $this->idItem = $idItem;
+    private $idItem;
 
-        return $this;
-    }
+
 
     /**
-     * Get idItem
+     * Get idLigneCommande
      *
      * @return integer 
      */
-    public function getIdItem()
+    public function getIdLigneCommande()
     {
-        return $this->idItem;
+        return $this->idLigneCommande;
     }
 
     /**
@@ -94,16 +84,6 @@ class LigneCommande
     }
 
     /**
-     * Get idLigneCommande
-     *
-     * @return integer 
-     */
-    public function getIdLigneCommande()
-    {
-        return $this->idLigneCommande;
-    }
-
-    /**
      * Set idCommande
      *
      * @param \AppBundle\Entity\Commande $idCommande
@@ -124,5 +104,28 @@ class LigneCommande
     public function getIdCommande()
     {
         return $this->idCommande;
+    }
+
+    /**
+     * Set idItem
+     *
+     * @param \AppBundle\Entity\Item $idItem
+     * @return LigneCommande
+     */
+    public function setIdItem(\AppBundle\Entity\Item $idItem = null)
+    {
+        $this->idItem = $idItem;
+
+        return $this;
+    }
+
+    /**
+     * Get idItem
+     *
+     * @return \AppBundle\Entity\Item 
+     */
+    public function getIdItem()
+    {
+        return $this->idItem;
     }
 }

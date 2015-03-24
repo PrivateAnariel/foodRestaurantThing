@@ -31,9 +31,7 @@ class RestaurantController extends Controller
 		$restaurantRepo = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
 		$ent = $this->get('security.context')->getToken()->getUser();
 
-		$form = $this->createForm(new RestaurantType(), $restaurant, array(
-																			'em' => $this->getDoctrine()->getManager(),
-																			));
+		$form = $this->createForm(new RestaurantType(), $restaurant, array('em' => $this->getDoctrine()->getManager()));
 		
 		$form->handleRequest($this->getRequest());
 
@@ -41,7 +39,7 @@ class RestaurantController extends Controller
 			$restaurant = $form->getData();
 			$form = $this->createForm(new ConfirmRestaurantType(), $restaurant, array( 
 																					'action' => '/Restaurant/Create',
-																					'em' => $this->getDoctrine()->getManager(),
+																					'em' => $this->getDoctrine()->getManager()
 																				));
 		}
 		$params['message'] = "";

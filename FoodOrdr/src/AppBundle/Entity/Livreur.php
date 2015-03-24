@@ -13,6 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Livreur
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="ID_LIVREUR", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idLivreur;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="NOM", type="string", length=25, nullable=true)
@@ -47,16 +56,17 @@ class Livreur
      */
     private $mdp;
 
+
+
     /**
-     * @var integer
+     * Get idLivreur
      *
-     * @ORM\Column(name="ID_LIVREUR", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @return integer 
      */
-    private $idLivreur;
-
-
+    public function getIdLivreur()
+    {
+        return $this->idLivreur;
+    }
 
     /**
      * Set nom
@@ -171,15 +181,5 @@ class Livreur
     public function getMdp()
     {
         return $this->mdp;
-    }
-
-    /**
-     * Get idLivreur
-     *
-     * @return integer 
-     */
-    public function getIdLivreur()
-    {
-        return $this->idLivreur;
     }
 }
