@@ -41,7 +41,7 @@ class Menu
     private $idRestaurant;
 
      /**
-     * @ORM\OneToMany(targetEntity="Item", mappedBy="idMenu", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Item", mappedBy="idMenu", cascade={"all"}, cascade={"persist"})
      **/
     private $items;
 
@@ -69,7 +69,7 @@ class Menu
     public function setItems($items)
     {
         foreach($items as $item) {
-            $item->setIdMenu($this);
+            $item->setMenu($this);
         }
         $this->items = $items;
 
@@ -140,7 +140,7 @@ class Menu
      */
     public function addItem(\AppBundle\Entity\Item $item)
     {
-        $item->setIdMenu($this);
+        $item->setMenu($this);
         $this->items->add($item);
         return $this;
     }

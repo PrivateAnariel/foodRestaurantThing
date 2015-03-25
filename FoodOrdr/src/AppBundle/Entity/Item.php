@@ -50,7 +50,7 @@ class Item
      *   @ORM\JoinColumn(name="ID_MENU", referencedColumnName="ID_MENU")
      * })
      */
-    private $idMenu;
+    private $menu;
 
 
 
@@ -136,24 +136,26 @@ class Item
     /**
      * Set idMenu
      *
-     * @param \AppBundle\Entity\Menu $idMenu
+     * @param \AppBundle\Entity\Menu $menu
      * @return Item
      */
-    public function setIdMenu(\AppBundle\Entity\Menu $idMenu = null)
+    public function setMenu(\AppBundle\Entity\Menu $menu = null)
     {
-        $this->idMenu = $idMenu;
+        $this->menu = $menu;
 
         return $this;
     }
 
+
+
     /**
-     * Get idMenu
+     * Get menu
      *
      * @return \AppBundle\Entity\Menu 
      */
-    public function getIdMenu()
+    public function getMenu()
     {
-        return $this->idMenu;
+        return $this->menu;
     }
     
     /**
@@ -164,5 +166,4 @@ class Item
     {
         return $this->nom;
     }
-
 }

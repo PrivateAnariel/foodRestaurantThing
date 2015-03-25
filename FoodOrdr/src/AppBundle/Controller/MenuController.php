@@ -45,8 +45,9 @@ class MenuController extends Controller
 
 		if ($form->isValid()) {
 			$menu = $form->getData();
-
-			$form = $this->createForm(new ConfirmMenuType(), $menu, array('action' => '/Menu/Creer',));
+			$form = $this->createForm(new ConfirmMenuType(), $menu, array( 'em' => $this->getDoctrine()->getManager(),
+																				'action' => '/Menu/Creer'));
+		
 		}
 		$params['message'] = "";
 		$params['form'] = $form->createView();
@@ -61,7 +62,8 @@ class MenuController extends Controller
     public function createMenu()
     {
 		$menu = new Menu();
-		$form = $this->createForm(new ConfirmMenuType(), $menu);
+		$form = $this->createForm(new ConfirmMenuType(), $menu, array( 'em' => $this->getDoctrine()->getManager(),
+																				'action' => '/Menu/Creer'));
 		$form->handleRequest($this->getRequest());
 
 		if ($form->isValid()) {
@@ -103,7 +105,7 @@ class MenuController extends Controller
 		$menu = $menuRepository->findBy(array('idRestaurant'=>$user->getIdRestaurant()));
 		$items = null;
 		if(isset($menu[0])){
-			$items = $itemRepository->findBy(array('idMenu'=>$menu[0]->getIdMenu()));
+			$items = $itemRepository->findBy(array('menu'=>$menu[0]->getIdMenu()));
 		}
 		return $this->render('AppBundle:Restaurant:showRestaurant.html.twig',  array('restaurant' =>$restaurant,'menu' =>$menu,'items' =>$items) );
     }

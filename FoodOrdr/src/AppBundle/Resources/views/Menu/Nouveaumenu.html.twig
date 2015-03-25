@@ -9,7 +9,7 @@
 
 <script>
 var $collectionHolder;
-
+var index;
 // setup an "add a tag" link
 var $addItemButton = $('<button id="boutonAjout" disabled> Ajouter un item </button>');
 //http://symfony.com/doc/current/cookbook/form/form_collections.html#cookbook-form-collections-new-prototype
@@ -41,7 +41,7 @@ function addTagForm($collectionHolder, $addItemButton) {
     // Get the data-prototype explained earlier
     var prototype = $collectionHolder.data('prototype');
     // get the new index
-    var index = $collectionHolder.data('index');
+    index = $collectionHolder.data('index');
 
     // Replace '__name__' in the prototype's HTML to
     // instead be a number based on how many items we have
@@ -57,23 +57,57 @@ function addTagForm($collectionHolder, $addItemButton) {
     $bouton = $("button#menu_items_"+(index)+"_confirmer_item");
     $bouton.click(function(e) {
     	e.preventDefault();
-    	confirmerItem(index);
+    	confirmerItem();
     });
 
 }
 
-function confirmerItem(index){
-	$("button#boutonAjout").removeAttr("disabled");
-	
-	$enfants = $("menu_items_"+(index)).children();
-
-	foreach ($enfant in $enfants){
-		if ($enfant.tagName=="button")
-			$enfant.readOnly = false;
-		else
-			$enfant.readOnly = false;
-	}
-
+function confirmerItem(){
+    var valide = validation();
+    if (valide == true){
+    	$("button#boutonAjout").removeAttr("disabled");
+    	if (index == null){
+    		$enfants = $("div#menu_items_0").children();
+    		$grandsenfants = $enfants.children();
+    	}
+    	else {
+    		$enfants = $("div#menu_items_"+index).children();
+    		$grandsenfants = $enfants.children();
+    		}
+    	for($i = 0; $i<$grandsenfants.length;$i++){
+    		if ($grandsenfants[$i].tagName=="BUTTON"){
+    			$grandsenfants[$i].parentNode.removeChild($grandsenfants[$i]);
+    		}
+    		else{
+    			$grandsenfants[$i].readOnly = true;
+    		}
+    	}
+    }
+}
+function validation() {
+    var valide = true;
+    $("button#boutonAjout").removeAttr("disabled");
+    if (index == null){
+        if (document.getElementById("menu_items_0_prix").value == "" || document.getElementById("menu_items_0_nom").value == ""){
+            alert("Vous devez inscrire un prix et un nom pour l'item");
+            valide = false;
+            console.log(document.getElementById("menu_items_0_prix").value);
+        }
+        if (document.getElementById("menu_items_0_description").value == ""){
+            alert("Vous n'avez pas inscrit de description pour l'item");
+        }
+    }
+    else {
+         if (document.getElementById("menu_items_"+index+"_prix").value == "" || document.getElementById("menu_items_"+index+"_nom").value == ""){
+            alert("Vous devez inscrire un prix et un nom pour l'item");
+            valide = false;
+        }
+        if (document.getElementById("menu_items_"+index+"_description").value == ""){
+            alert("Vous n'avez pas inscrit de description pour l'item");
+        }
+    }
+    return valide;
+}
 
 </script>
 {% endblock %}
