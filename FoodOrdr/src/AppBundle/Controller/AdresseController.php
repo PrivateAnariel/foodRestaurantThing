@@ -49,7 +49,16 @@ class AdresseController extends Controller
      */
     public function widgetAction()
     {
-		return $this->render('AppBundle:Adresse:AdresseBlock.html.twig');
+        $params = array();
+        $params['allow_add'] = $this->getRequest()->get('allow_add');
+        if($params['allow_add'] === null){
+            $params['allow_add'] = true;
+        }
+        $params['allow_select'] = $this->getRequest()->get('allow_add');
+        if($params['allow_select'] === null){
+            $params['allow_select'] = false;
+        }
+		return $this->render('AppBundle:Adresse:AdresseBlock.html.twig', $params);
     }
 
 	/**
@@ -60,7 +69,11 @@ class AdresseController extends Controller
     {
 		$user = $this->get('security.context')->getToken()->getUser();
 		$adresses = $user->getAdresses();
-        $params = array('ListeAdresses' => $adresses);
+        $params = array('ListeAdresses' => $adresses,
+                        'allow_select' => $this->getRequest()->get('allow_select'));
+        if($params['allow_select'] === null){
+            $params['allow_select'] = false;
+        }
 		return $this->render('AppBundle:Adresse:Listadresses.html.twig', $params);
     }
 

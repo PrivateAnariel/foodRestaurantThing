@@ -1,7 +1,7 @@
 <table id="liste-adresses">
     {% for adresse in ListeAdresses %}
        <tr id="adresse-{{adresse.idAdresse}}">
-       		{% if selectable is defined %}
+       		{% if allow_select %}
 				<td><input id='select-adresse-{{adresse.idAdresse}}' type="radio" name="adresse" value="{{adresse.idAdresse}}"/></td>
 			{% endif %}
        		<td> {{adresse.numero}} {{adresse.rue}}, {{adresse.ville}} {{adresse.codePostal}}</td>
