@@ -10,28 +10,46 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
+use AppBundle\Entity\Adresse;
+use AppBundle\Form\Type\AdresseType;
+
 /**
  * @Route("/Adresse", name="adresse_controller")
  */
 class AdresseController extends Controller
 {
     /**
-     * @Route("/Inscription", name="ajouter_adresse")
+     * @Route("/Nouvelle", name="ajouter_adresse")
      * @Security("has_role('ROLE_USER')")
      */
     public function ajouterAction()
     {
-		
+        $params = array();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $adresse = new Adresse();
+        $adresse->setClient($user);
+        $form = $this->createForm(new AdresseType(), $adresse, array('action' => $this->generateUrl('ajouter_adresse'),
+                                                                        'em' => $this->getDoctrine()->getManager()));
+        $form->handleRequest($this->getRequest());
+        if ($form->isValid()) {
+            $adresse = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($adresse);
+            $em->flush();
+        } elseif(!$this->getRequest()->get('displayButton')) {
+            $form->add('save','submit');
+            $params['form'] = $form->createView();
+        }
+        return $this->render('AppBundle:Adresse:NouvelleAdresse.html.twig', $params);
     }
 
 
     /**
-     * @Route("/Create", name="create_adresse")
-	 * @Method("POST")
+     * @Route("/Widget", name="adresse_widget")
      */
-    public function createAction()
+    public function widgetAction()
     {
-		
+		return $this->render('AppBundle:Adresse:AdresseBlock.html.twig');
     }
 
 	/**
@@ -42,7 +60,8 @@ class AdresseController extends Controller
     {
 		$user = $this->get('security.context')->getToken()->getUser();
 		$adresses = $user->getAdresses();
-		return $this->render('AppBundle:Adresse:Listadresses.html.twig',  array('ListeAdresses' => $adresses) );
+        $params = array('ListeAdresses' => $adresses);
+		return $this->render('AppBundle:Adresse:Listadresses.html.twig', $params);
     }
 
      /**
