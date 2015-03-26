@@ -1,15 +1,11 @@
 <?php
-
 namespace AppBundle\Controller;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-
 use AppBundle\Entity\Client;
 use AppBundle\Entity\Adresse;
 use AppBundle\Entity\Commande;
@@ -18,7 +14,6 @@ use AppBundle\Form\Type\CommandeType;
 use AppBundle\Form\Type\ConfirmCommandeType;
 use AppBundle\Form\Type\ClientType;
 use AppBundle\Form\Type\ConfirmClientType;
-
 /**
  * @Route("/Client", name="client_controller")
  */
@@ -34,12 +29,10 @@ class ClientController extends Controller
 		$client->addAdress(new Adresse());
 		
 		$clientRepo = $this->get('doctrine')->getRepository('AppBundle:Client');
-
 		$form = $this->createForm(new ClientType(), $client, array(
 																'em' => $this->getDoctrine()->getManager(),
 															));
 		$form->handleRequest($this->getRequest());
-
 		if ($form->isValid()) {
 			$client = $form->getData();
 			$form = $this->createForm(new ConfirmClientType(), $client, array( 'em' => $this->getDoctrine()->getManager(),
@@ -58,7 +51,6 @@ class ClientController extends Controller
 		$client = new Client();
 		$form = $this->createForm(new ConfirmClientType(), $client, array( 'em' => $this->getDoctrine()->getManager()));
 		$form->handleRequest($this->getRequest());
-
 		if ($form->isValid()) {
 			$client = $form->getData();
 			
@@ -88,7 +80,6 @@ class ClientController extends Controller
 		$form->remove('mdp');
 		$form->remove('adresses');
 		$form->handleRequest($this->getRequest());
-
 		if ($form->isValid()) {
 			$client = $form->getData();
 			$form = $this->createForm(new ConfirmClientType(), $client, array( 'action' => '/Client/Update',
@@ -114,7 +105,6 @@ class ClientController extends Controller
 																				'em' => $this->getDoctrine()->getManager(),
 																			));
 		$form->handleRequest($this->getRequest());
-
 		if ($form->isValid()) {
 			$client_edit = $form->getData();
 			//print_r(var_dump($client_edit)); die;
@@ -128,7 +118,6 @@ class ClientController extends Controller
 		}
         return $this->redirect($this->generateUrl('home'));
     }
-
     /**
      * @Route("/Commande", name="choisir_resto")
 	 * @Security("has_role('ROLE_USER')")
@@ -139,7 +128,6 @@ class ClientController extends Controller
 		$restaurants = $restaurantRepository->findAll();
 		return $this->render('AppBundle:client:showRestaurant.html.twig',  array('ListeRestaurant' =>$restaurants));
     }
-
       /**
      * @Route("/Commande/Restaurant/{id}", name="commander")
 	 * @Security("has_role('ROLE_USER')")
@@ -151,12 +139,10 @@ class ClientController extends Controller
 		$lignecommande = new LigneCommande();
 		
 		$clientRepo = $this->get('doctrine')->getRepository('AppBundle:Client');
-
 		$form = $this->createForm(new CommandeType(), $commande, array(
 																'em' => $this->getDoctrine()->getManager(),
 															));
 		$form->handleRequest($this->getRequest());
-
 		if ($form->isValid()) {
 			$client = $form->getData();
 			$form = $this->createForm(new ConfirmCommandeType(), $client, array( 'em' => $this->getDoctrine()->getManager(),
