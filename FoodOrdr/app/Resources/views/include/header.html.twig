@@ -1,46 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Accueil</title>
-	<meta charset="utf-8" />  
-	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-	{% block stylesheets %}
-		 <link rel="stylesheet" href="{{ asset('bundles/framework/css/index.css') }}" />
-    {% endblock %}
-</head>
-<body>
-	<header>
-		<div id="titre">
-			<h1> Pret-a-livrer </h1>
-		</div>
-	
-		<div id="login">
-			<!-- appelle le template LOGIN -->
-			{{ render(controller('AppBundle:Security:login')) }}
-		</div>
-		<ul class="lang-menu">
-		  <li><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'fr'})) }}">Francais</a></li>
-		  <li><a href="{{  path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'}))}}">English</a></li>
-		</ul>
-		<?php 
-			}
-			 ?>
-		<div class="clearboth"></div>
-	</header>
-	<div class="menu">
-			{% if is_granted('ROLE_ENT') %}
-				<a href="{{ path('register_restaurateur') }}">  {{ 'ajouter_restaurateur'| trans}} </a>
-				<a href="{{ path('show_restaurateurs') }}">  {{ 'modifier_restaurateur'| trans}}  </a>
-				<a href="{{ path('ajouter_restaurant') }}">  {{ 'ajouter_restaurant'| trans}} </a>
-				<a href="{{ path('show_restaurants') }}">  {{ 'modifier_restaurant'| trans}}  </a>
-			{% elseif is_granted('ROLE_REST') %}
-				<a href="{{ path('show_menu') }}">Menu </a> 
-			{% elseif is_granted('ROLE_USER') %}
-				<a href="{{ path('edit_client') }}"> Modifier client </a>
-				<a href="{{ path('choisir_resto') }}"> Passer commande </a>
-			{% else %}
-				<a href="{{ path('client_registration') }}"> {{ 'inscription'| trans}} </a>
-			{% endif %}
-	</div>
-	<div id="main">
+
+<div id="titre">
+	<h1> Pret-a-livrer </h1>
+</div>
+<div id="login">
+	<!-- appelle le template LOGIN -->
+	{{ render(controller('AppBundle:Security:login')) }}
+</div>
+<ul class="lang-menu">
+	 <li><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'fr'})) }}">Francais</a></li>
+	 <li><a href="{{  path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'}))}}">English</a></li>
+</ul>
+<?php 
+	}
+	 ?>
+<div class="clearboth"></div>
