@@ -57,16 +57,6 @@ class Restaurateur implements UserInterface, \Serializable
     private $idRestaurateur;
 
     /**
-     * @var \AppBundle\Entity\Restaurant
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Restaurant")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ID_RESTAURANT", referencedColumnName="ID_RESTAURANT")
-     * })
-     */
-    private $idRestaurant;
-
-    /**
      * @var \AppBundle\Entity\Entrepreneur
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Entrepreneur")
@@ -76,7 +66,39 @@ class Restaurateur implements UserInterface, \Serializable
      */
     private $idEntrepreneur;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Restaurant", mappedBy="idRestaurant", cascade={"all"}, cascade={"persist"})
+     **/
+    private $restaurants;
 
+    public function __construct() {
+        $this->restaurants = new ArrayCollection();
+    }
+
+    /**
+     * Get Restaurants
+     *
+     * @return collection
+     */
+    public function getRestaurants()
+    {
+        return $this->restaurants;
+    }
+
+      /**
+     * Set Restaurants
+     *
+     * @return Restaurateur
+     */
+    public function setRestaurants($restaurants)
+    {
+        foreach($restaurants as $retaurant) {
+            $restaurant->setRestaurateur($this);
+        }
+        $this->restaurateurs = $restaurateurs;
+
+        return $this;
+    }
 
     /**
      * Set nom
@@ -201,29 +223,6 @@ class Restaurateur implements UserInterface, \Serializable
     public function getIdRestaurateur()
     {
         return $this->idRestaurateur;
-    }
-
-    /**
-     * Set idRestaurant
-     *
-     * @param \AppBundle\Entity\Restaurant $idRestaurant
-     * @return Restaurateur
-     */
-    public function setIdRestaurant(\AppBundle\Entity\Restaurant $idRestaurant = null)
-    {
-        $this->idRestaurant = $idRestaurant;
-
-        return $this;
-    }
-
-    /**
-     * Get idRestaurant
-     *
-     * @return \AppBundle\Entity\Restaurant 
-     */
-    public function getIdRestaurant()
-    {
-        return $this->idRestaurant;
     }
 
     /**

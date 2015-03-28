@@ -21,6 +21,16 @@ class Restaurant
      */
     private $idRestaurant;
 
+      /**
+     * @var integer
+     *
+     *  @ORM\ManyToOne(targetEntity="Restaurateur")
+     *  @ORM\JoinColumns({
+     *  @ORM\JoinColumn(name="ID_RESTAURATEUR", referencedColumnName="ID_RESTAURATEUR")
+     * })
+     */
+    private $idRestaurateur;
+
     /**
      * @var string
      *
@@ -41,6 +51,16 @@ class Restaurant
      * @ORM\Column(name="ADRESSE", type="string", length=50, nullable=false)
      */
     private $adresse;
+
+        /**
+     * @var \Menu
+     *
+     * @ORM\ManyToOne(targetEntity="Menu")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ID_MENU", referencedColumnName="ID_MENU")
+     * })
+     */
+    private $idMenu;
 
     /**
      * @var \Entrepreneur
@@ -156,12 +176,68 @@ class Restaurant
         return $this->idEntrepreneur;
     }
 
-           /**
+        /**
+     * Set idRestaurateur
+     *
+     * @param \AppBundle\Entity\Restaurateur $idRestaurateur
+     * @return Restaurant
+     */
+    public function setIdRestaurateur(\AppBundle\Entity\Restaurateur $idRestaurateur = null)
+    {
+        $this->idRestaurateur = $idRestaurateur;
+
+        return $this;
+    }
+
+    /**
+     * Get idRestaurateur
+     *
+     * @return \AppBundle\Entity\Restaurateur 
+     */
+    public function getIdRestaurateur()
+    {
+        return $this->idRestaurateur;
+    }
+
+
+    /**
      * Override toString() method to return the name of the restaurant
      * @return string name
      */
     public function __toString()
     {
         return $this->nom;
+    }
+
+     /**
+     * Get id
+     *
+     * @return \AppBundle\Entity\Restaurant
+     */
+    public function getId()
+    {
+        return $this->idRestaurant;
+    }
+        /**
+     * Set idMenu
+     *
+     * @param \AppBundle\Entity\Menu $idMenu
+     * @return Menu
+     */
+    public function setIdMenu(\AppBundle\Entity\Menu $idMenu = null)
+    {
+        $this->idMenu = $idMenu;
+
+        return $this;
+    }
+
+    /**
+     * Get idMenu
+     *
+     * @return \AppBundle\Entity\Menu
+     */
+    public function getIdMenu()
+    {
+        return $this->idMenu;
     }
 }
