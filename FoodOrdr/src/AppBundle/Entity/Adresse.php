@@ -181,4 +181,12 @@ class Adresse
     {
         return $this->client;
     }
+
+    /**
+     * @return adresse string
+     */
+    public function toString()
+    {
+        return $this->numero." ".$this->rue.", ".$this->ville." ".$this->codePostal;
+    }
 }

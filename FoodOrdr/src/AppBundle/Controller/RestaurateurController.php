@@ -156,9 +156,6 @@ class RestaurateurController extends Controller
         return $this->redirect($this->generateUrl('home'));
     }
 
-    // ==================================================================================
-    // --------------------------------SUPPRESSION---------------------------------------
-
      /**
      * @Route("/Suppression/{id}", name="delete_restaurateur")
 	 * @Security("has_role('ROLE_ENT')")
@@ -186,11 +183,11 @@ class RestaurateurController extends Controller
     }
 
     /**
-     * @Route("/SuppConfirmation/{id}", name="deleteC_restaurateur")
+     * @Route("/SuppConfirmation/{id}", name="confirm_delete_restaurateur")
 	 * @Security("has_role('ROLE_ENT')")
 	 * @Method("POST")
      */
-    public function deleteCAction($id)
+    public function confirmDeleteAction($id)
     {
     	$restaurateurRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurateur');
     	$restaurateur = $restaurateurRepository->findOneBy(array('idRestaurateur' => $id));
