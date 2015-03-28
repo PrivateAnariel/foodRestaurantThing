@@ -1,7 +1,46 @@
-{% include("include/header.html.twig") %}
-    <div class=''>{% block body %}{% endblock %}</div>
-{% block javascripts %}{% endblock %}
-
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Accueil</title>
+	<meta charset="utf-8" />  
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	{% block stylesheets %}
+		 <link rel="stylesheet" href="{{ asset('bundles/framework/css/index.css') }}" />
+    {% endblock %}
+</head>
+<body>
+	<header>
+		{% include("include/header.html.twig") %}
+    
+		{% block javascripts %}{% endblock %}
+	</header>
+	<div class="menu">
+			{% if is_granted('ROLE_ENT') %}
+				<a href="{{ path('register_restaurateur') }}">  {{ 'ajouter_restaurateur'| trans}} </a>
+				<a href="{{ path('show_restaurateurs') }}">  {{ 'modifier_restaurateur'| trans}}  </a>
+				<a href="{{ path('ajouter_restaurant') }}">  {{ 'ajouter_restaurant'| trans}} </a>
+				<a href="{{ path('show_restaurants') }}">  {{ 'modifier_restaurant'| trans}}  </a>
+			{% elseif is_granted('ROLE_REST') %}
+				<a href="{{ path('show_menu') }}">Menu </a> 
+			{% elseif is_granted('ROLE_USER') %}
+				<a href="{{ path('edit_client') }}"> Modifier client </a>
+				<a href="{{ path('choisir_resto') }}"> Passer commande </a>
+			{% else %}
+				<a href="{{ path('client_registration') }}"> {{ 'inscription'| trans}} </a>
+			{% endif %}
+	</div>
+	<div id="main">
+	</div>
+  </body>
+</html>
 
 {% include("include/footer.html.twig") %}
+
+
+
+
+
+
+
         
