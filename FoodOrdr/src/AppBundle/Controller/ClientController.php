@@ -151,11 +151,18 @@ class ClientController extends Controller
 		$lignecommande = new LigneCommande();
 		
 		$clientRepo = $this->get('doctrine')->getRepository('AppBundle:Client');
+		$restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+		$menuRepository = $this->get('doctrine')->getRepository('AppBundle:Menu');
+		$itemRepository = $this->get('doctrine')->getRepository('AppBundle:Item');
+		$restaurant = $restaurantRepository->findBy(array('idRestaurant'=>$id));
+		$menu = $menuRepository->findBy(array('idRestaurant'=>$id));
+		$items = $itemRepository->findBy(array('menu'=>$menu[0]->getIdMenu()));
 
-		$form = $this->createForm(new CommandeType(), $commande, array(
-																'em' => $this->getDoctrine()->getManager(),
-															));
-		$form->handleRequest($this->getRequest());
+
+		$form = $this->createFormBuilder($lc)
+			->add('item', 'submit')
+            ->add('Enregistrer', 'submit')
+            ->getForm();
 
 		if ($form->isValid()) {
 			$client = $form->getData();
@@ -163,6 +170,7 @@ class ClientController extends Controller
 																				'action' => '/Commande/Create'));
 		}
         $params['form'] = $form->createView();
+        $params['items'] = $items;
         return $this->render('AppBundle:Client:Commande.html.twig', $params);
     }
 }

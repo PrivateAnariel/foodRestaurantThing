@@ -35,7 +35,8 @@
 				<a href="{{ path('ajouter_restaurant') }}">  {{ 'ajouter_restaurant'| trans}} </a>
 				<a href="{{ path('show_restaurants') }}">  {{ 'modifier_restaurant'| trans}}  </a>
 			{% elseif is_granted('ROLE_REST') %}
-				<a href="{{ path('show_menu') }}">Menu </a> 
+				<a href="{{ path('show_menu') }}">Menu </a>
+				<a href="{{ path('show_commande') }}"> Préparer une commande </a> 
 			{% elseif is_granted('ROLE_USER') %}
 				<a href="{{ path('edit_client') }}"> Modifier client </a>
 				<a href="{{ path('choisir_resto') }}"> Passer commande </a>
