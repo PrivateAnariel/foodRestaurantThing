@@ -1,0 +1,39 @@
+{% if form is defined %}
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	{{ form_end(form) }}
+	<script>
+		$(document).ready(function(){
+			var form = $('form[name="{{ form.vars.full_name }}"]');
+				$(form).submit(function(e){
+					$(this).attr("disabled", true);
+					e.preventDefault();
+					postForm($(this), function(response){});
+					return false;
+				});
+			});
+		
+			function postForm( $form, response )
+			{
+				var data={};
+				$.each($form.serializeArray(), function(i,field){
+				data[field.name]=field.value;
+			});
+			$('div#add-adress-block').load($form.attr('action'), data);
+			$("div#list-adress-block").load("{{url('show_adresses')}}");
+		}
+	</script>
+{% else %}
+	<button id="new-adresse">Nouvelle Adresse</button>
+	<script>
+		jQuery(document).ready(function() 
+		{
+			$("button#new-adresse").on('click', function(e) 
+			{
+				$(this).attr("disabled", true);
+				e.preventDefault()
+				$("div#add-adress-block").load("{{url('ajouter_adresse')}}");
+			});
+		});
+	</script>
+{% endif %}

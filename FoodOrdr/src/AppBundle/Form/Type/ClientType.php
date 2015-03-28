@@ -40,12 +40,6 @@ class ClientType extends AbstractType
                                                         'options'  => array(
                                                             'em' => $entityManager,
                                                         )));
-        /*
-        if(array_key_exists('full_address', $options) && $options["full_address"]){
-            $builder->add('adresse', 'collection',array('type' => new AddresseType()));
-        } else {
-            $builder->add('idRestaurant', 'entity', array( 'class' => 'AppBundle:Addresse', 'empty_value' => ' ','required' => false));
-        }*/
         $builder->add('submit', 'submit', array('label' => 'submit'));
 	}
 

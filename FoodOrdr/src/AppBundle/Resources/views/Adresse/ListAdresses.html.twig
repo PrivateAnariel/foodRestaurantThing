@@ -1,14 +1,16 @@
-<table id="client_adresses">
+<table id="liste-adresses">
     {% for adresse in ListeAdresses %}
        <tr id="adresse-{{adresse.idAdresse}}">
+       		{% if allow_select %}
+				<td><input id='select-adresse-{{adresse.idAdresse}}' type="radio" name="adresse" value="{{adresse.idAdresse}}"/></td>
+			{% endif %}
        		<td> {{adresse.numero}} {{adresse.rue}}, {{adresse.ville}} {{adresse.codePostal}}</td>
-
-			<td><a href="#" id="delete-{{adresse.idAdresse}}" name="{{adresse.idAdresse}}">{{'delete' | trans}}</a></td>
-
+       		{% if ListeAdresses.count > 1 %}
+				<td><a href="#" id="delete-{{adresse.idAdresse}}" name="{{adresse.idAdresse}}">{{'delete' | trans}}</a></td>
+			{% endif %}
        </tr>
     {% endfor %}
 </table>
-
 <script>
 	var $adressesTable;
 	var $deleteLink;
@@ -17,7 +19,7 @@
 
 	jQuery(document).ready(function() 
 	{
-	    $adressesTable = $('table#client_adresses');
+	    $adressesTable = $('table#liste-adresses');
 	    $adressesTable.find('tr').each(function (i, row)
 		{
 			var $row = $(row);
@@ -25,15 +27,15 @@
 		    $deleteLink.on('click', function(e) 
 		    {
 		    	var $link = $(this);
+		    	$link.prop("onclick", null);
 		        e.preventDefault();
-		        
 		        $.ajax({
 					method: "POST",
-					url: "{{path("delete_adresse")}}",
+					url: "{{path('delete_adresse')}}",
 					data: { id: $link.attr('name') },
 					success: function(data) 
 					{ 
-						$link.closest('tr').remove();
+						$("div#list-adress-block").load("{{url('show_adresses')}}");
 	                }
 				})
 		    });
