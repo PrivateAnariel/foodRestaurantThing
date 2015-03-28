@@ -239,4 +239,25 @@ class Commande
         return $this->idClient;
     }
 
+        /**
+     * Get statut
+     *
+     * @return \AppBundle\Entity\Statut
+     */
+    public function statut()
+    {
+        return $this->idStatut->getDescription();
+    }
+
+         /**
+     * Get statut
+     *
+     * @return \AppBundle\Entity\Restaurant
+     */
+    public function restaurant()
+    {
+        return $this->idRestaurant->getNom();
+    }
+
+
 }

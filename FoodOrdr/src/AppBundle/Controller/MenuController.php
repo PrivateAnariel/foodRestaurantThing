@@ -25,18 +25,19 @@ use AppBundle\Entity\Item;
 class MenuController extends Controller
 {	
 	/**
-     * @Route("/Nouveau", name="ajouter_menu")
+     * @Route("/Nouveau/{id}", name="ajouter_menu")
 	 * @Security("has_role('ROLE_REST')")
      */
-    public function registerMenu()
+    public function registerMenu($id)
     {	
+    	$response;
 		$params = array();
 		$menu = new Menu();
 		$menu->addItem(new Item());
 		
 		$restaurantRepo = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
 		$restaurateur = $this->get('security.context')->getToken()->getUser();
-		$restaurant = $restaurantRepo->findBy(array('idRestaurant'=>$restaurateur->getIdRestaurant()));
+		$restaurant = $restaurantRepo->findBy(array('idRestaurant'=>$id));
 		$form = $this->createForm(new MenuType(), $menu, array(
 																'em' => $this->getDoctrine()->getManager(),
 															));
@@ -45,40 +46,50 @@ class MenuController extends Controller
 
 		if ($form->isValid()) {
 			$menu = $form->getData();
-			$form = $this->createForm(new ConfirmMenuType(), $menu, array( 'em' => $this->getDoctrine()->getManager(),
-																				'action' => '/Menu/Creer'));
-		
+			$restaurantRepo = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+			$restaurateur = $this->get('security.context')->getToken()->getUser();
+			$restaurant = $restaurantRepo->findOneBy(array('idRestaurant'=>$id));
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($menu);
+			$em->flush();
+
+			$restaurant->setIdMenu($menu->getId());
+
+			$response = $this->redirect($this->generateUrl('show_menu'));
 		}
-		$params['message'] = "";
-		$params['form'] = $form->createView();
-        return $this->render('AppBundle:Menu:Nouveaumenu.html.twig', $params);
+		else {
+			$params['message'] = "";
+			$params['form'] = $form->createView();
+	        $response = $this->render('AppBundle:Menu:Nouveaumenu.html.twig', $params);
+	    }
+	    return $response;
         
     }
 
-     /**
-     * @Route("/Creer", name="creer_menu")
-	 * @Method("POST")
-     */
-    public function createMenu()
-    {
-		$menu = new Menu();
-		$form = $this->createForm(new ConfirmMenuType(), $menu, array( 'em' => $this->getDoctrine()->getManager(),
-																				'action' => '/Menu/Creer'));
-		$form->handleRequest($this->getRequest());
+  //    /**
+  //    * @Route("/Creer", name="creer_menu")
+	 // * @Method("POST")
+  //    */
+  //   public function createMenu()
+  //   {
+		// $menu = new Menu();
+		// $form = $this->createForm(new ConfirmMenuType(), $menu, array( 'em' => $this->getDoctrine()->getManager(),
+		// 																		'action' => '/Menu/Creer'));
+		// $form->handleRequest($this->getRequest());
 
-		if ($form->isValid()) {
-			$menu = $form->getData();
-			$restaurantRepo = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
-			$restaurateur = $this->get('security.context')->getToken()->getUser();
-			$restaurant = $restaurantRepo->findBy(array('idRestaurant'=>$restaurateur->getIdRestaurant()));
-			$menu->setIdRestaurant($restaurant[0]);
-			$em = $this->getDoctrine()->getManager();
+		// if ($form->isValid()) {
+		// 	$menu = $form->getData();
+		// 	$restaurantRepo = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+		// 	$restaurateur = $this->get('security.context')->getToken()->getUser();
+		// 	$restaurant = $restaurantRepo->findBy(array('idRestaurant'=>$restaurateur->getIdRestaurant()));
+		// 	$menu->setIdRestaurant($restaurant[0]);
+		// 	$em = $this->getDoctrine()->getManager();
 			
-			$em->persist($menu);
-			$em->flush();
-		}
-        return $this->redirect($this->generateUrl('show_menu'));
-    }
+		// 	$em->persist($menu);
+		// 	$em->flush();
+		// }
+  //       return $this->redirect($this->generateUrl('show_menu'));
+  //   }
 
     /**
      * @Route("/Show", name="show_menu")
@@ -92,22 +103,27 @@ class MenuController extends Controller
 		$itemRepository = $this->get('doctrine')->getRepository('AppBundle:Item');
 		$user = $this->get('security.context')->getToken()->getUser();
 
-		if ($this->get('security.authorization_checker')->isGranted('ROLE_REST'))
-		{
-			$option = array('idRestaurant'=>$user->getIdRestaurant());
+		$idRestaurateur = $user->getIdRestaurateur();
+		$restaurants =  $restaurantRepository->findBy(array('idRestaurateur'=>$idRestaurateur));
+		$menus = array();
+		foreach ($restaurants as $restaurant) {
+			$menu = $menuRepository->findOneBy(array('idMenu'=>$restaurant->getIdMenu()));
+			if (isset($menu)){
+				array_push($menus, $menu);
+			}
 		}
-		else
-		{
-			$option=array('idRestaurant'=>$user->getIdRestaurant());
+		
+		$items = array();
+		foreach ($menus as $menu) {
+			if(isset($menu)){
+				$item = $itemRepository->findBy(array('menu'=>$menu->getIdMenu()));
+				if (isset($item)){
+					array_push($items, $item);
+				}
+			}
 		}
-
-		$restaurant = $restaurantRepository->findBy($option);
-		$menu = $menuRepository->findBy(array('idRestaurant'=>$user->getIdRestaurant()));
-		$items = null;
-		if(isset($menu[0])){
-			$items = $itemRepository->findBy(array('menu'=>$menu[0]->getIdMenu()));
-		}
-		return $this->render('AppBundle:Restaurant:showRestaurant.html.twig',  array('restaurant' =>$restaurant,'menu' =>$menu,'items' =>$items) );
+		var_dump($item);
+		return $this->render('AppBundle:Restaurant:showRestaurant.html.twig',  array('restaurants' =>$restaurants,'menus' =>$menus) );
     }
 
      /**

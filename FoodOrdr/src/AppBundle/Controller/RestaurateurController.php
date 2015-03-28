@@ -208,4 +208,52 @@ class RestaurateurController extends Controller
 
         return $this->redirect($this->generateUrl('home'));
     }
+
+        /**
+     * @Route("/Commandes", name="show_commande")
+	 * @Security("has_role('ROLE_REST')")
+     */
+    public function showCommandeAction()
+    {	
+    	$user = $this->get('security.context')->getToken()->getUser();
+
+  		$restaurateurRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurateur');
+    	$restaurateur = $restaurateurRepository->findOneBy(array('idRestaurateur' => ($user->getIdRestaurateur())));
+    	$restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+    	$commandeRepository = $this->get('doctrine')->getRepository('AppBundle:Commande');
+    	$commandes = $commandeRepository->findBy(array('idRestaurant' => $restaurateur->getIdRestaurant()));
+    	$params['commandes'] = $commandes;
+    	return $this->render('AppBundle:Commande:showCommande.html.twig', $params);
+    }
+
+          /**
+     * @Route("/Statut/{id}", name="edit_statut")
+	 * @Security("has_role('ROLE_REST')")
+     */
+    public function statutAction($id)
+    {	
+    	$user = $this->get('security.context')->getToken()->getUser();
+    	$commandeRepository = $this->get('doctrine')->getRepository('AppBundle:Commande');
+    	$commandes = $commandeRepository->findBy(array('idRestaurant' => $user->getIdRestaurant()));
+    	$commande = $commandeRepository->findOneBy(array('idCommande' => $id));
+    	$form = $this->createFormBuilder($commande)
+			->add('idStatut', 'entity', array( 'class' => 'AppBundle:Statut','required' => true))
+            ->add('Mettre a jour', 'submit')
+            ->getForm();
+
+        $form->handleRequest($this->getRequest());
+
+		if ($form->isValid()) {
+			$commande_edit = $form->getData();
+			$commande->setIdStatut($commande_edit->getIdStatut());
+			$em = $this->getDoctrine()->getManager();	
+			$em->persist($commande);
+			$em->flush();
+			$params['commandes'] = $commandes;
+			return $this->render('AppBundle:Commande:showCommande.html.twig', $params);
+		}
+        $params['form'] = $form->createView();
+        $params['commande'] = $commande;
+ 		return $this->render('AppBundle:Commande:statutCommande.html.twig', $params);
+    }
  }

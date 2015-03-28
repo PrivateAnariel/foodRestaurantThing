@@ -62,4 +62,12 @@ class Statut
     {
         return $this->description;
     }
+            /**
+     * Override toString() method to return the name of the statut
+     * @return string description
+     */
+    public function __toString()
+    {
+        return $this->description;
+    }
 }

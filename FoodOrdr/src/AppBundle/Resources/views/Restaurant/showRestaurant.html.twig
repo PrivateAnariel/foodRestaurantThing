@@ -2,31 +2,38 @@
 
 {% block body %}
 
-	{% for restaurant in restaurant %}
-       	<h2> {{restaurant.nom}} </h2>
-       	{% if menu is defined %}
-       		{% for menu in menu %}
-    	   		<h3> {{menu.nom}} </h3>
-    	  		<table>
-    	  			<tr>
-						<th>Nom</th>
-						<th> Prix </th>
-						<th>Description </th>
-					</tr>
-    			{% for item in items %}
-	    			<tr>
-	       				<td> {{item.nom}}   </td>
-	       				<td> {{item.prix}}   </td>
-						<td> {{item.description}}   </td>
-	       			</tr>
-    			{% endfor %}
-    			</table>
-    		{% endfor %}
-    		{% if menu is empty %}
-          {% if is_granted('ROLE_REST') %}
-         				<a href="{{path('ajouter_menu')}}"> Créer le menu </a>
-     			{% endif %}
+	{% for restaurant in restaurants %}
+    {% if restaurant.idMenu.idMenu is defined %}
+      <h2> {{restaurant.nom}} </h2>
+   		<h3> {{restaurant.idMenu.nom}} </h3>
+  		<table>
+  			<tr>
+    			<th>Nom</th>
+    			<th> Prix </th>
+    			<th>Description </th>
+        </tr>
+  		  {% for item in restaurant.idMenu.items %}
+    			<tr>
+       			<td> {{item.nom}}   </td>
+       			<td> {{item.prix}}   </td>
+					  <td> {{item.description}}   </td>
+       		</tr>
+  		  {% endfor %}
+  		</table>
+    {% endif %}
+  {% endfor %}
+  {% for restaurant in restaurants %}
+    {% set existe = 0 %}
+    {% for menu in menus %}
+       {% if restaurant.idMenu.idMenu is defined %}
+        {% if (menu.idMenu == restaurant.idMenu.idMenu) and (menu is defined) %}
+          {% set existe = 1 %}
         {% endif %}
-   		{% endif %}
-     {% endfor %}
+      {% endif %}
+    {% endfor %}
+      {% if (is_granted('ROLE_REST')) and (existe == 0) %}
+        <h2> {{restaurant.nom}} </h2>
+        <a href="{{path("ajouter_menu",{'id':restaurant.idRestaurant})}}"> Créer le menu </a>
+     	{% endif %}
+    {% endfor %}
 {% endblock %}

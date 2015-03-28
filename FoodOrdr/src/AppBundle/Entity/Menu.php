@@ -30,18 +30,8 @@ class Menu
      */
     private $nom;
 
-    /**
-     * @var \Restaurant
-     *
-     * @ORM\ManyToOne(targetEntity="Restaurant")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ID_RESTAURANT", referencedColumnName="ID_RESTAURANT")
-     * })
-     */
-    private $idRestaurant;
-
      /**
-     * @ORM\OneToMany(targetEntity="Item", mappedBy="idMenu", cascade={"all"}, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Item", mappedBy="menu", cascade={"all"}, cascade={"persist"})
      **/
     private $items;
 
@@ -62,7 +52,7 @@ class Menu
     }
 
     /**
-     * Set Adresses
+     * Set Items
      *
      * @return Menu
      */
@@ -109,28 +99,6 @@ class Menu
         return $this->nom;
     }
 
-    /**
-     * Set idRestaurant
-     *
-     * @param \AppBundle\Entity\Restaurant $idRestaurant
-     * @return Menu
-     */
-    public function setIdRestaurant(\AppBundle\Entity\Restaurant $idRestaurant = null)
-    {
-        $this->idRestaurant = $idRestaurant;
-
-        return $this;
-    }
-
-    /**
-     * Get idRestaurant
-     *
-     * @return \AppBundle\Entity\Restaurant 
-     */
-    public function getIdRestaurant()
-    {
-        return $this->idRestaurant;
-    }
        /**
      * add Item
      *
@@ -145,4 +113,22 @@ class Menu
         return $this;
     }
 
+      /**
+     * Get id
+     *
+     * @return \AppBundle\Entity\Menu
+     */
+    public function getId()
+    {
+        return $this->idMenu;
+    }
+       /**
+     * Get idMenu
+     *
+     * @return int id
+     */
+    public function idMenu()
+    {
+        return $this->idMenu;
+    }
 }
