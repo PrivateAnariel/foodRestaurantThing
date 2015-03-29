@@ -18,18 +18,21 @@ class CommandeController extends Controller
 {
     /**
      * @Route("/Distance", name="adresse_widget")
+     * @Security("has_role('ROLE_LIVR')")
      */
     public function widgetAction()
     {   
+        $listeCommandes = array();
+        $user = $this->get('security.context')->getToken()->getUser();
         $baseUrl = 'http://maps.googleapis.com/maps/api/directions/json?';  
         $commandeRepository = $this->get('doctrine')->getRepository('AppBundle:Commande');
         $commandes = $commandeRepository->findAll();
         foreach ($commandes as $commande) {
             $query = array(
-                        "origin" => "377 des seigneurs, Montreal, h3j0a9",
-                        "destination" => $commande->getIdAdresse()->toString(),
+                        "origin" => $user->getAdresse(),
+                        "destination" => $commande->getAdresse()->toString(),
                         "durationInTraffic" => true,
-                        "waypoints" => $commande->getIdRestaurant()->getAdresse(),
+                        "waypoints" => $commande->getRestaurant()->getAdresse(),
                         "optimizeWaypoints" => false,
                         "provideRouteAlternatives" => false,
                         "avoidHighways" => false,
@@ -49,27 +52,19 @@ class CommandeController extends Controller
                     $distance += $leg['distance']['value'];
                 }
             }
-            $distance = $distance/1000;
+            array_push($listeCommandes, array(
+                                        'info' => $commande,
+                                        'directions' => $jsonResponse,
+                                        'distance' => $distance/1000
+                                        ));
+        }
+        usort($listeCommandes, function($a,$b){
+                                    if ($a['distance'] == $b['distance']) {
+                                        return 0;
+                                    }
+                                    return ($a['distance'] < $b['distance']) ? -1 : 1;
+                                });
 
-            echo(($distance/1000)." km");
-        }die;
-
-        /**
-
-        */
-        // use key 'http' even if you send the request to https://...
-        $options = array(
-            'http' => array(
-                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method'  => 'GET',
-                'content' => http_build_query($query),
-            ),
-        );
-        $context  = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
-
-        var_dump($result);
-
-        return $this->render('AppBundle:Adresse:AdresseBlock.html.twig', $params);
+        return $this->render('AppBundle:Commande:livrerCommande.html.twig', array('listeCommandes' => $listeCommandes));
     }
 }

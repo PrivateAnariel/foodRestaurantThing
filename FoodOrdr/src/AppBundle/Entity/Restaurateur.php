@@ -247,7 +247,7 @@ class Restaurateur implements UserInterface, \Serializable
     {
         return $this->idEntrepreneur;
     }
-                        /**
+    /**
      * @inheritDoc
      */
     public function getUsername()

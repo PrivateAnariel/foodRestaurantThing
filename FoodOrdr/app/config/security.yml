@@ -9,6 +9,9 @@ security:
         AppBundle\Entity\Entrepreneur: 
             algorithm: plaintext
             ignore_case: false
+        AppBundle\Entity\Livreur: 
+            algorithm: plaintext
+            ignore_case: false
 
     role_hierarchy:
         ROLE_REST:     ROLE_USER
@@ -19,13 +22,15 @@ security:
     providers:
         chain_provider:
             chain:
-                providers: [user_db, rest_db, ent_db]
+                providers: [user_db, rest_db, ent_db, liv_db]
         user_db:
             entity: {class: AppBundle\Entity\Client, property: courriel}
         rest_db:
             entity: {class: AppBundle\Entity\Restaurateur, property: courriel}
         ent_db:
             entity: {class: AppBundle\Entity\Entrepreneur, property: courriel}
+        liv_db:
+            entity: {class: AppBundle\Entity\Livreur, property: courriel}
 
     firewalls:
         default:
