@@ -15,11 +15,10 @@ class ConfirmClientType extends AbstractType
 		$builder->add('prenom','text',array('read_only' => true, 'label' => 'firstname'));
 		$builder->add('nom','text',array('read_only' => true,'label' => 'lastname'));
 		$builder->add('datenaissance','birthday',array( 
-			'read_only' => true,
-			'widget' => 'single_text',
-			'format' => 'yyyy-MM-dd',
-			'label' => 'birthday'
-		));
+            'label' => 'birthday',
+            'widget' => 'choice',
+            'read_only' => true,
+        ));
 		$builder->add('telephone','text', array('read_only' => true, 'label' => 'telephone'));
 		$builder->add('adresses', 'collection', array('type' => new AdresseType(), 
                                                     	'read_only' => true, 

@@ -34,15 +34,18 @@ class RestaurantController extends Controller
 		$form = $this->createForm(new RestaurantType(), $restaurant, array('em' => $this->getDoctrine()->getManager()));
 		
 		$form->handleRequest($this->getRequest());
-
+		$message = '';
 		if ($form->isValid()) {
 			$restaurant = $form->getData();
 			$form = $this->createForm(new ConfirmRestaurantType(), $restaurant, array( 
 																					'action' => '/Restaurant/Create',
 																					'em' => $this->getDoctrine()->getManager()
 																				));
+			if ($restaurant->getIdRestaurateur() == null) {
+				$message = "** Vous n'avez pas associé de restaurateur à ce restaurant **";
+			}
 		}
-		$params['message'] = "";
+		$params['message'] = $message;
         $params['form'] = $form->createView();
         return $this->render('AppBundle:Restaurant:Registration.html.twig', $params);
     }
@@ -65,11 +68,10 @@ class RestaurantController extends Controller
 			$ent = $this->get('security.context')->getToken()->getUser();
 			$restaurant->setIdEntrepreneur($ent);
 			$em = $this->getDoctrine()->getManager();
-			
 			$em->persist($restaurant);
 			$em->flush();
 		}
-        return $this->redirect($this->generateUrl('show_restaurants'));
+       return $this->redirect($this->generateUrl('show_restaurants'));
     }
 
 	/**
@@ -84,16 +86,19 @@ class RestaurantController extends Controller
 																		'em' => $this->getDoctrine()->getManager(),
 																	));
 		$form->handleRequest($this->getRequest());
-
+		$message = "";
 		if ($form->isValid()) {
 			$restaurant = $form->getData();
 			$form = $this->createForm(new ConfirmRestaurantType(), $restaurant, array( 
 																					'action' => '/Restaurant/Update/'.$id,
 																					'em' => $this->getDoctrine()->getManager(),
 																				));
+			if ($restaurant->getIdRestaurateur() == null) {
+				$message = "** Vous n'avez pas associé de restaurateur à ce restaurant **";
+			}
 		}
         $params['form'] = $form->createView();
-        $params['message'] = "";
+        $params['message'] = $message;
         return $this->render('AppBundle:Restaurant:Registration.html.twig', $params);
     }
 
@@ -138,9 +143,8 @@ class RestaurantController extends Controller
 			
 			$restaurant->setNom($restaurant_edit->getNom())
 					 ->setAdresse($restaurant_edit->getAdresse())
-					 ->setTelephone($restaurant_edit->getTelephone());
-			
-			//  $restaurant->setAdresse('Adresse modifié');
+					 ->setTelephone($restaurant_edit->getTelephone())
+					 ->setIdRestaurateur($restaurant_edit->getIdRestaurateur());
 			$em = $this->getDoctrine()->getManager();	
 			$em->persist($restaurant);
 			$em->flush();

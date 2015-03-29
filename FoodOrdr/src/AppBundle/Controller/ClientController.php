@@ -117,7 +117,7 @@ class ClientController extends Controller
 
 		if ($form->isValid()) {
 			$client_edit = $form->getData();
-			//print_r(var_dump($client_edit)); die;
+			var_dump($client_edit);
 			$client->setNom($client_edit->getNom())
 					 ->setPrenom($client_edit->getPrenom())
 					 ->setDatenaissance($client_edit->getDatenaissance())

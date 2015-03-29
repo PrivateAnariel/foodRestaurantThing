@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Restaurateur
@@ -67,7 +68,7 @@ class Restaurateur implements UserInterface, \Serializable
     private $idEntrepreneur;
 
     /**
-     * @ORM\OneToMany(targetEntity="Restaurant", mappedBy="idRestaurant", cascade={"all"}, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Restaurant", mappedBy="idRestaurateur", cascade={"all"})
      **/
     private $restaurants;
 
@@ -91,12 +92,16 @@ class Restaurateur implements UserInterface, \Serializable
      * @return Restaurateur
      */
     public function setRestaurants($restaurants)
-    {
-        foreach($restaurants as $retaurant) {
-            $restaurant->setRestaurateur($this);
+    {   
+        foreach($this->restaurants as $restaurant) {
+                $restaurant->setIdRestaurateur(null);
+            }
+        if (!empty($restaurants)){
+            foreach($restaurants as $restaurant) {
+                $restaurant->setIdRestaurateur($this);
+            }
+            $this->restaurants = $restaurants;
         }
-        $this->restaurateurs = $restaurateurs;
-
         return $this;
     }
 
@@ -309,4 +314,15 @@ class Restaurateur implements UserInterface, \Serializable
             $this->mdp,
         ) = unserialize($serialized);
     }
+
+     /**
+     * Override toString() method to return the name of the restaurant
+     * @return string name
+     */
+    public function __toString()
+    {   
+        $nom = $this->prenom." ".$this->nom;
+        return $nom;
+    }
+
 }

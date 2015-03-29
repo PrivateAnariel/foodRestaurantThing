@@ -20,6 +20,7 @@ class ConfirmRestaurantType extends AbstractType
         $builder->add('adresse','text',array('read_only' => true, 'label' => 'address'));
         $builder->add($builder->create('idEntrepreneur','hidden')
                               ->addModelTransformer($transformer));
+        $builder->add('idRestaurateur', 'entity', array( 'class' => 'AppBundle:Restaurateur', 'empty_value' => ' ','required' => false));
 		$builder->add('Confirmer', 'submit', array('label' => 'confirm'));
 	}
 

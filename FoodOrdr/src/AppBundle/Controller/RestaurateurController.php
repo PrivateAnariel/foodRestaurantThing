@@ -41,7 +41,8 @@ class RestaurateurController extends Controller
 		$message = " ";
 		if ($form->isValid()) {
 			$restaurateur = $form->getData();
-			if ($restaurateur->getIdRestaurant() == null){
+			$resto = $restaurateur->getRestaurants();
+			if ($resto[0] == null){
 				$message = "** Le restaurateur n'a pas de restaurant associé **";
 			}
 			$form = $this->createForm(new ConfirmRestaurateurType, $restaurateur, array( 'action' => '/Restaurateur/Create'));
@@ -68,8 +69,6 @@ class RestaurateurController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			
 			$em->persist($restaurateur);
-			//$compte->setIdRestaurateur($restaurateur);
-			//$em->persist($compte);
 			
 			$em->flush();
 		}
@@ -117,7 +116,8 @@ class RestaurateurController extends Controller
 			$restaurateur = $form->getData();
 			$form = $this->createForm(new ConfirmRestaurateurType(), $restaurateur, array( 'action' => '/Restaurateur/Update/'.$id.' '));
 			$form->remove('courriel');
-			if ($restaurateur->getIdRestaurant() == null){
+			$resto = $restaurateur->getRestaurants();
+			if ($resto[0] == null){
 				$message = "** Le restaurateur n'a pas de restaurant associé **";
 			}
 		}
@@ -134,21 +134,19 @@ class RestaurateurController extends Controller
     public function updateAction($id)
     {
     	$restaurateurRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurateur');
+    	$restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
     	$restaurateur = $restaurateurRepository->findOneBy(array('idRestaurateur' => $id));
 		$form = $this->createForm(new ConfirmRestaurateurType());
 		$form->handleRequest($this->getRequest());
 
 		if ($form->isValid()) {
 			$restaurateur_edit = $form->getData();
-			
-			$restoRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
-			$resto = $restoRepository->findOneBy(array('idRestaurant' => $restaurateur_edit->getIdRestaurant()));
+			$resto = $restaurateur_edit->getRestaurants();
 			$restaurateur->setNom($restaurateur_edit->getNom())
 					 ->setPrenom($restaurateur_edit->getPrenom())
 					 ->setTelephone($restaurateur_edit->getTelephone())
 					 ->setMdp($restaurateur_edit->getMdp())
-					 ->setIdRestaurant($resto);
-			
+					 ->setRestaurants($resto);
 			$em = $this->getDoctrine()->getManager();	
 			$em->persist($restaurateur);
 			$em->flush();
@@ -197,10 +195,6 @@ class RestaurateurController extends Controller
 		if ($form->isValid()) {
 			$restaurateur_edit = $form->getData();
 			
-			$restoRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
-			$resto = $restoRepository->findOneBy(array('idRestaurant' => $restaurateur_edit->getIdRestaurant()));
-			
-			
 			$em = $this->getDoctrine()->getManager();	
 			$em->remove($restaurateur);
 			$em->flush();
@@ -217,12 +211,9 @@ class RestaurateurController extends Controller
     {	
     	$user = $this->get('security.context')->getToken()->getUser();
 
-  		$restaurateurRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurateur');
-    	$restaurateur = $restaurateurRepository->findOneBy(array('idRestaurateur' => ($user->getIdRestaurateur())));
-    	$restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
-    	$commandeRepository = $this->get('doctrine')->getRepository('AppBundle:Commande');
-    	$commandes = $commandeRepository->findBy(array('idRestaurant' => $restaurateur->getIdRestaurant()));
-    	$params['commandes'] = $commandes;
+		$commandeRepository = $this->get('doctrine')->getRepository('AppBundle:Commande');
+    	$restaurants = $user->getRestaurants();
+    	$params['restaurants'] = $restaurants;
     	return $this->render('AppBundle:Commande:showCommande.html.twig', $params);
     }
 
@@ -234,8 +225,9 @@ class RestaurateurController extends Controller
     {	
     	$user = $this->get('security.context')->getToken()->getUser();
     	$commandeRepository = $this->get('doctrine')->getRepository('AppBundle:Commande');
-    	$commandes = $commandeRepository->findBy(array('idRestaurant' => $user->getIdRestaurant()));
     	$commande = $commandeRepository->findOneBy(array('idCommande' => $id));
+    	$restaurants = $user->getRestaurants();
+			
     	$form = $this->createFormBuilder($commande)
 			->add('idStatut', 'entity', array( 'class' => 'AppBundle:Statut','required' => true))
             ->add('Mettre a jour', 'submit')
@@ -249,7 +241,7 @@ class RestaurateurController extends Controller
 			$em = $this->getDoctrine()->getManager();	
 			$em->persist($commande);
 			$em->flush();
-			$params['commandes'] = $commandes;
+			$params['restaurants'] = $restaurants;
 			return $this->render('AppBundle:Commande:showCommande.html.twig', $params);
 		}
         $params['form'] = $form->createView();
