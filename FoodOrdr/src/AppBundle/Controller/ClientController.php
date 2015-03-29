@@ -71,7 +71,9 @@ class ClientController extends Controller
 			$token = new UsernamePasswordToken($client, null, 'main', $client->getRoles());
 			$this->get('security.token_storage')->setToken($token);
 		}
-        return $this->redirect($this->generateUrl('home'));
+       	$params['message'] = "Votre compte a bien été créé avec les informations ci-dessous";
+        $params['client'] = $client;
+        return $this->render('AppBundle:Client:MessageConfirmation.html.twig', $params);
     }
 	
 	/**
@@ -87,6 +89,8 @@ class ClientController extends Controller
 		$form->remove('courriel');
 		$form->remove('mdp');
 		$form->remove('adresses');
+		$form->remove('prenom');
+		$form->remove('nom');
 		$form->handleRequest($this->getRequest());
 
 		if ($form->isValid()) {
@@ -97,8 +101,11 @@ class ClientController extends Controller
 			$form->remove('courriel');
 			$form->remove('mdp');
 			$form->remove('adresses');
+			$form->remove('prenom');
+			$form->remove('nom');
 		}
-        $params['form'] = $form->createView();
+		$params['form'] = $form->createView();
+		$params['client'] = $client;
         return $this->render('AppBundle:Client:modif.html.twig', $params);
     }
 	
@@ -117,16 +124,16 @@ class ClientController extends Controller
 
 		if ($form->isValid()) {
 			$client_edit = $form->getData();
-			var_dump($client_edit);
-			$client->setNom($client_edit->getNom())
-					 ->setPrenom($client_edit->getPrenom())
-					 ->setDatenaissance($client_edit->getDatenaissance())
+			$client->setDatenaissance($client_edit->getDatenaissance())
 					 ->setTelephone($client_edit->getTelephone());
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($client);
 			$em->flush();
 		}
-        return $this->redirect($this->generateUrl('home'));
+		$client = $this->get('security.context')->getToken()->getUser();
+        $params['message'] = "Votre compte a bien été modifié avec les informations ci-dessous";
+        $params['client'] = $client;
+        return $this->render('AppBundle:Client:MessageConfirmation.html.twig', $params);
     }
 
     /**
