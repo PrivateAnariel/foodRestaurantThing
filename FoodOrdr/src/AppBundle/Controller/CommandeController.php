@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 use AppBundle\Entity\Commande;
+use AppBundle\Entity\LigneCommande;
 
 /**
  * @Route("/Commande", name="commande_controller")
@@ -67,4 +68,91 @@ class CommandeController extends Controller
 
         return $this->render('AppBundle:Commande:livrerCommande.html.twig', array('listeCommandes' => $listeCommandes));
     }
+
+    /**
+     * @Route("/Show", name="choisir_resto")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function choisirAction()
+    {
+        $restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+        $restaurants = $restaurantRepository->findAll();
+        return $this->render('AppBundle:client:showRestaurant.html.twig',  array('ListeRestaurant' =>$restaurants));
+    }
+
+      /**
+     * @Route("/Show/Restaurant/{id}", name="commander")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function passerAction($id)
+    {
+        $restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+        $menuRepository = $this->get('doctrine')->getRepository('AppBundle:Menu');
+        $itemRepository = $this->get('doctrine')->getRepository('AppBundle:Item');
+        $restaurant = $restaurantRepository->findOneBy(array('idRestaurant'=>$id));
+        $menu = $menuRepository->findOneBy(array('idMenu'=>$restaurant->getIdMenu()));
+        $items = $itemRepository->findBy(array('menu'=>$menu->getIdMenu()));
+
+
+        $params['restaurant'] = $restaurant;
+
+        //Si la methode de retour est un post
+        $lignescommande = Array();
+         $request = $this->getRequest();
+             if ($request->getMethod() == 'POST'){
+                $datas = $this->getRequest()->request->all();
+                foreach ($datas as $id => $qty) {
+                    if ($qty != 0){
+                        $itemTempo = $itemRepository->findOneBy(array('idItem'=>$id));
+                        $lignecommande = array('nom'=>$itemTempo->getNom(), 
+                            'prix'=>$itemTempo->getPrix(),
+                            'quantite' => $qty);
+                        array_push($lignescommande, $lignecommande);
+                    }
+                }
+                  $params['lignescommande'] = $lignescommande;
+                  return $this->render('AppBundle:Commande:AfficherCommande.html.twig', $params);
+             }
+        $params['items'] = $items;
+        $params['restaurant'] = $restaurant;
+        return $this->render('AppBundle:Client:Commande.html.twig', $params);
+    }
+
+        /**
+     * @Route("/Show/Afficher/{id}", name="afficher_commande")
+     * @Security("has_role('ROLE_USER')")
+     * @Method("POST")
+     */
+    public function afficherAction($id)
+    {
+        $restaurantRepository = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
+        $menuRepository = $this->get('doctrine')->getRepository('AppBundle:Menu');
+        $itemRepository = $this->get('doctrine')->getRepository('AppBundle:Item');
+        $restaurant = $restaurantRepository->findOneBy(array('idRestaurant'=>$id));
+        $menu = $menuRepository->findOneBy(array('idMenu'=>$restaurant->getIdMenu()));
+        $items = $itemRepository->findBy(array('menu'=>$menu->getIdMenu()));
+
+
+        $params['restaurant'] = $restaurant;
+
+        //Si la methode de retour est un post
+        $lignescommande = Array();
+        $request = $this->getRequest();
+        $datas = $this->getRequest()->request->all();
+        $prix = 0;
+            foreach ($datas as $id => $qty) {
+                if ($qty != 0 && $qty != null){
+                    $itemTempo = $itemRepository->findOneBy(array('idItem'=>$id));
+                    $lignecommande = array('nom'=>$itemTempo->getNom(), 
+                        'prix'=>$itemTempo->getPrix(),
+                        'quantite' => intval($qty),
+                        'id' => $id);
+                    array_push($lignescommande, $lignecommande);
+                    $prix += intval($qty) * $itemTempo->getPrix();
+                }
+            }
+        $params['lignescommande'] = $lignescommande;
+        $params['prix'] = $prix;
+        return $this->render('AppBundle:Commande:AfficherCommande.html.twig', $params);
+}
 }

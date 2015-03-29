@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{{restaurant.nom}}
+<form name='commande' id='commande' method='POST'>
+	<table>
+	    <tr>
+			<th> Item </th>
+			<th> Prix($) </th>
+			<th> Quantite </th>
+		</tr>
+		{% for item in lignescommande %}
+		<tr>
+		</tr>
+			<td> {{ item.nom }} <input value = "{{item.quantite}}" name = "{{item.id}}" type = "hidden"/></td>
+			<td> {{ item.prix }} </td>
+			<td> {{ item.quantite }}</td>
+		</tr>
+
+			{% endfor %}
+	</table>
+	<h3> Total de la commande : {{prix}} $</h3>
+	<label> Date de livraison : </label><input type="date" min="2015-03-30" max="2015-12-30" name="dateLivraison"><br>
+	<label> Heure de livraison : </label><input type="time" name="heureLivraison"><br>
+	<input type="submit" value="Confirmer la commande ">
+</form>
+{{ render(controller('AppBundle:Adresse:Widget',{'allow_add':true,'allow_select':true}))}}
+{% endblock %}
+{% block javascripts %}
+	<script type="text/javascript">
+		jQuery(document).ready(function() {
+			$( "input[id|='select-adresse']:first" ).attr('checked', 'checked');
+	});
+	</script>
+{% endblock %}
