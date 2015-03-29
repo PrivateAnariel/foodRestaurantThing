@@ -53,8 +53,9 @@ class MenuController extends Controller
 			$em->persist($menu);
 			$em->flush();
 
-			$restaurant->setIdMenu($menu->getId());
-
+			$restaurant->setIdMenu($menu);
+			$em->persist($restaurant);
+			$em->flush();
 			$response = $this->redirect($this->generateUrl('show_menu'));
 		}
 		else {
@@ -66,30 +67,6 @@ class MenuController extends Controller
         
     }
 
-  //    /**
-  //    * @Route("/Creer", name="creer_menu")
-	 // * @Method("POST")
-  //    */
-  //   public function createMenu()
-  //   {
-		// $menu = new Menu();
-		// $form = $this->createForm(new ConfirmMenuType(), $menu, array( 'em' => $this->getDoctrine()->getManager(),
-		// 																		'action' => '/Menu/Creer'));
-		// $form->handleRequest($this->getRequest());
-
-		// if ($form->isValid()) {
-		// 	$menu = $form->getData();
-		// 	$restaurantRepo = $this->get('doctrine')->getRepository('AppBundle:Restaurant');
-		// 	$restaurateur = $this->get('security.context')->getToken()->getUser();
-		// 	$restaurant = $restaurantRepo->findBy(array('idRestaurant'=>$restaurateur->getIdRestaurant()));
-		// 	$menu->setIdRestaurant($restaurant[0]);
-		// 	$em = $this->getDoctrine()->getManager();
-			
-		// 	$em->persist($menu);
-		// 	$em->flush();
-		// }
-  //       return $this->redirect($this->generateUrl('show_menu'));
-  //   }
 
     /**
      * @Route("/Show", name="show_menu")
@@ -122,7 +99,6 @@ class MenuController extends Controller
 				}
 			}
 		}
-		var_dump($item);
 		return $this->render('AppBundle:Restaurant:showRestaurant.html.twig',  array('restaurants' =>$restaurants,'menus' =>$menus) );
     }
 

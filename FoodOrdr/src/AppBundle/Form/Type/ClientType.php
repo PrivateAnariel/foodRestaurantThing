@@ -29,9 +29,7 @@ class ClientType extends AbstractType
                ));
         $builder->add('datenaissance','birthday',array( 
             'label' => 'birthday',
-            'widget' => 'single_text',
-            'format' => 'yyyy-MM-dd',
-            'attr' => array('value' => '2000-01-01'),
+            'widget' => 'choice',
         ));
         $builder->add('telephone','text', array('max_length'=>10,'label' => 'telephone'));
         $builder->add('adresses', 'collection', array('type' => new AdresseType(), 

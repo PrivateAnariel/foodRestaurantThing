@@ -10,7 +10,6 @@ use AppBundle\Form\DataTransformer\EntToIdTransformer;
 
 class RestaurantType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $entityManager = $options['em'];
@@ -21,6 +20,7 @@ class RestaurantType extends AbstractType
         $builder->add('adresse','text',array('max_length'=>100, 'label'=>'address'));
         $builder->add($builder->create('idEntrepreneur','hidden')
                               ->addModelTransformer($transformer));
+        $builder->add('idRestaurateur', 'entity', array( 'class' => 'AppBundle:Restaurateur', 'empty_value' => ' ','required' => false));
 		$builder->add('submit', 'submit', array('label'=>'submit'));
    
 	}

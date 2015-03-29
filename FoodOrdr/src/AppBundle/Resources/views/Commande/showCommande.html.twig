@@ -8,14 +8,15 @@
 				<th> Statut </th>
 				<th> Modifier le statut </th>
 			</tr>
-		{% for commande in commandes %}
-			<tr>
-				<td> {{commande.idCommande}} </td>
-				<td> {{commande.restaurant}} </td>
-   				<td> {{commande.dateLivraison | date('Y-m-d')}}   </td>
-   				<td> {{commande.statut}} </td>
-   				<td> <a href="{{path("edit_statut",{'id':commande.idCommande})}}"> Modifier le statut </a> </td>
-   			</tr>
+		{% for restaurant in restaurants %}
+			{% for commande in restaurant.commandes %}
+				<tr>
+					<td> {{commande.idCommande}} </td>
+	   				<td> {{commande.dateLivraison | date('Y-m-d')}}   </td>
+	   				<td> {{commande.statut}} </td>
+	   				<td> <a href="{{path("edit_statut",{'id':commande.idCommande})}}"> Modifier le statut </a> </td>
+	   			</tr>
+	   		{% endfor %}
 		{% endfor %}
 		</table>
 {% endblock %}

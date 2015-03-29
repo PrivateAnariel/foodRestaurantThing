@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Restaurant
@@ -72,7 +73,39 @@ class Restaurant
      */
     private $idEntrepreneur;
 
+     /**
+     * @ORM\OneToMany(targetEntity="Commande", mappedBy="idRestaurant", cascade={"all"})
+     **/
+    private $commandes;
 
+     public function __construct() {
+        $this->commandes = new ArrayCollection();
+    }
+
+        /**
+     * Get Commandes
+     *
+     * @return collection
+     */
+    public function getCommandes()
+    {
+        return $this->commandes;
+    }
+
+    /**
+     * Set Commandes
+     *
+     * @return Restaurant
+     */
+    public function setCommandes($commandes)
+    {
+        foreach($commandes as $commande) {
+            $commande->setIdRestaurant($this);
+        }
+        $this->commandes = $commandes;
+
+        return $this;
+    }
 
     /**
      * Get idRestaurant
@@ -209,15 +242,6 @@ class Restaurant
         return $this->nom;
     }
 
-     /**
-     * Get id
-     *
-     * @return \AppBundle\Entity\Restaurant
-     */
-    public function getId()
-    {
-        return $this->idRestaurant;
-    }
         /**
      * Set idMenu
      *
