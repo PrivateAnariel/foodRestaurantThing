@@ -1,7 +1,7 @@
 <?php
 
 namespace AppBundle\Entity;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="LIVREUR", uniqueConstraints={@ORM\UniqueConstraint(name="COURRIEL", columns={"COURRIEL"}), @ORM\UniqueConstraint(name="ID_LIVREUR", columns={"ID_LIVREUR"})})
  * @ORM\Entity
  */
-class Livreur
+class Livreur implements UserInterface, \Serializable
 {
     /**
      * @var integer
@@ -56,7 +56,12 @@ class Livreur
      */
     private $mdp;
 
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ADRESSE", type="string", length=100, nullable=false)
+     */
+    private $adresse;
 
     /**
      * Get idLivreur
@@ -181,5 +186,91 @@ class Livreur
     public function getMdp()
     {
         return $this->mdp;
+    }
+
+    /**
+     * Set adresse
+     *
+     * @param string $adresse
+     * @return Livreur
+     */
+    public function setAdresse($adresse)
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * Get adresse
+     *
+     * @return string 
+     */
+    public function getAdresse()
+    {
+        return $this->adresse;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUsername()
+    {
+        return $this->courriel;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPassword()
+    {
+        return $this->mdp;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRoles()
+    {
+        return array('ROLE_LIVR');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials()
+    {
+    }
+
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->idLivreur,
+            $this->courriel,
+            $this->mdp,
+        ));
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->idLivreur,
+            $this->courriel,
+            $this->mdp,
+        ) = unserialize($serialized);
     }
 }

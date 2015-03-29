@@ -47,7 +47,7 @@ class Commande
      *   @ORM\JoinColumn(name="ID_ADRESSE", referencedColumnName="ID_ADRESSE")
      * })
      */
-    private $idAdresse;
+    private $adresse;
 
     /**
      * @var \Restaurant
@@ -142,32 +142,32 @@ class Commande
      *
      * @return \AppBundle\Entity\Statut 
      */
-    public function getIdStatut()
+    public function getStatut()
     {
         return $this->idStatut;
     }
 
     /**
-     * Set idAdresse
+     * Set adresse
      *
-     * @param \AppBundle\Entity\Adresse $idAdresse
+     * @param \AppBundle\Entity\Adresse $adresse
      * @return Commande
      */
-    public function setIdAdresse(\AppBundle\Entity\Adresse $idAdresse = null)
+    public function setadresse(\AppBundle\Entity\Adresse $adresse = null)
     {
-        $this->idAdresse = $idAdresse;
+        $this->adresse = $adresse;
 
         return $this;
     }
 
     /**
-     * Get idAdresse
+     * Get adresse
      *
      * @return \AppBundle\Entity\Adresse 
      */
-    public function getIdAdresse()
+    public function getAdresse()
     {
-        return $this->idAdresse;
+        return $this->adresse;
     }
 
     /**
@@ -188,7 +188,7 @@ class Commande
      *
      * @return \AppBundle\Entity\Restaurant 
      */
-    public function getIdRestaurant()
+    public function getRestaurant()
     {
         return $this->idRestaurant;
     }
@@ -234,30 +234,8 @@ class Commande
      *
      * @return \AppBundle\Entity\Client 
      */
-    public function getIdClient()
+    public function getClient()
     {
         return $this->idClient;
     }
-
-        /**
-     * Get statut
-     *
-     * @return \AppBundle\Entity\Statut
-     */
-    public function statut()
-    {
-        return $this->idStatut->getDescription();
-    }
-
-         /**
-     * Get statut
-     *
-     * @return \AppBundle\Entity\Restaurant
-     */
-    public function restaurant()
-    {
-        return $this->idRestaurant->getNom();
-    }
-
-
 }
