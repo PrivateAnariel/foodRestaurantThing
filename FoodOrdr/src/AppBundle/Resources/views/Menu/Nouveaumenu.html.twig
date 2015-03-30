@@ -6,13 +6,18 @@
 {{ form_start(form) }}
 {{ form_widget(form) }}
 {{ form_end(form) }}
-
+{# 
+==========================================================
+CODE EMPRUNTÉ
+Les lignes qui suivent on été insipirées d'un exemple tiré du site : http://symfony.com/doc/current/cookbook/form/form_collections.html#cookbook-form-collections-new-prototype
+===========================================================
+ #}
 <script>
 var $collectionHolder;
 var index;
 // setup an "add a tag" link
 var $addItemButton = $('<button id="boutonAjout" disabled> Ajouter un item </button>');
-//http://symfony.com/doc/current/cookbook/form/form_collections.html#cookbook-form-collections-new-prototype
+
 jQuery(document).ready(function() {
 
 	$("button#menu_items_0_confirmer_item").click(function(e) {
@@ -61,7 +66,11 @@ function addTagForm($collectionHolder, $addItemButton) {
     });
 
 }
-
+{# 
+==========================================================
+FIN DU CODE EMPRUNTÉ
+===========================================================
+ #}
 function confirmerItem(){
     var valide = validation();
     if (valide == true){

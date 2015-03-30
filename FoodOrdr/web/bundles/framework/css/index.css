@@ -166,6 +166,13 @@ input.password{
 	float:left;
 }*/
 
+/*==========================================================
+CODE EMPRUNTÉ
+Les lignes qui suivent on été empruntée au site :
+  référence : http://www.menucool.com/horizontal/css-menus
+===========================================================
+ 
+*/
 /************************ barre de menu****************************/
 div.menu
 {
@@ -197,6 +204,8 @@ div.menu a.dummy
     width:2px;
     padding:0 0;
 }
+
+/*================FIN DU CODE EMPRUNTÉ===================================*/
 
 /********************** S L I D E S H O W *****************************/
 @font-face {
