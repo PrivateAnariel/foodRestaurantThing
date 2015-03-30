@@ -45,14 +45,10 @@ class Item
     /**
      * @var \Menu
      *
-     * @ORM\ManyToOne(targetEntity="Menu",inversedBy="adresses")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ID_MENU", referencedColumnName="ID_MENU")
-     * })
+     * @ORM\ManyToOne(targetEntity="Menu",inversedBy="items")
+     * @ORM\JoinColumn(name="ID_MENU", referencedColumnName="ID_MENU")
      */
     private $menu;
-
-
 
     /**
      * Get idItem

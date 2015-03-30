@@ -3,6 +3,6 @@
 {% block body %}
 	{% for restaurant in ListeRestaurant %}
        	<h2> {{restaurant.nom}} </h2>
-         <a href="{{path("commander",{'id':restaurant.idRestaurant})}}"> Commander </a>
+         <a href="{{path("choisir_items",{'id':restaurant.idRestaurant})}}"> Commander </a>
   {% endfor %}
 {% endblock %}

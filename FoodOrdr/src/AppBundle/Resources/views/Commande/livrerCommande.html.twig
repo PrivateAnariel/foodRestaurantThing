@@ -10,8 +10,13 @@
 		}
 		#list-commandes{
 			float:right;
-			text-align:left;
 			width:60%;
+		}
+		.hover {
+			background-color:#B2B2B2;
+		}
+		.selected {
+			background-color:#FFFFFF;
 		}
 	</style>
 {% endblock %}
@@ -26,23 +31,28 @@
 				<th> Destination </th>
 				<th> Date </th>
 				<th> Distance </th>
+				<th> Duration </th>
 			</tr>
 		{% for commande in listeCommandes %}
-			<tr data-diriections="{{commande.directions}}" onclick="displayRoute(this);">
+			<tr id="commande-{{commande.info.idCommande}}" data-adresse-restaurant="{{commande.info.restaurant.adresse}}">
 				<td> {{commande.info.restaurant.nom}} </td>
-				<td> {{commande.info.getAdresse.toString }} </td>
+				<td name='adresse-client'>{{commande.info.getAdresse.toString}}</td>
    				<td> {{commande.info.dateLivraison | date('Y-m-d')}} </td>
    				<td> {{commande.distance}} km </td>
+   				<td> {{commande.duration}}</td>
    			</tr>
 		{% endfor %}
 		</table>
+		<div><button id="accepterCommande" disabled="disabled">Accepter la commande</button></div>
 	</div>
 {% endblock %}
 {% block javascripts %}
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 	<script>
 		var directionsMap;
+		var directionsService = new google.maps.DirectionsService();
 		var map;
+		var selectedCommande;
 		function initialize() {
 			directionsMap = new google.maps.DirectionsRenderer();
 			var montreal = new google.maps.LatLng(45.5017, -73.5673);
@@ -50,18 +60,15 @@
 			directionsMap.setMap(map);
 		}
 
-		function displayRoute(commandRow) {
-			var directions = commandRow.getAttribute('data-diriections');
-			directions = JSON.parse(directions);
-			var directionsService = new google.maps.DirectionsService();
+		function displayRoute(adresseClient, adresseResto) {
 			var request = {
-						origin: "377 des seigneurs, Montreal, h3j0a9",
-						destination: "140 Beaumont Ouest, Saint-Bruno, j3v6h9",
+						origin: "{{adresseLivreur}}",
+						destination: adresseClient,
 						durationInTraffic: true,
 						travelMode: google.maps.TravelMode.DRIVING,
 						waypoints: 
 						[{
-							location:"1100 Rue Notre-Dame Ouest, Montreal, Quebec h3c1k3",
+							location: adresseResto,
 							stopover:true
 						}],
 						provideRouteAlternatives: false,
@@ -74,14 +81,28 @@
 					directionsMap.setDirections(response);
 				}
 			});
-			/*var directions = commandRow.getAttribute('data-diriections');
-			directions = JSON.parse(directions);
-			console.log(directions);
-			directionsMap.setDirections(directions.routes);*/
 		}
 		$('document').ready(function(){
-				initialize();
-				$('#map-container').css({'height':$('#map-container').width()});
+			initialize();
+			$('#map-container').css({'height':$('#map-container').width()});
+			$("tr[id|='commande']").hover(
+				function(){ $(this).addClass('hover') },
+				function(){ $(this).removeClass('hover') }
+			);
+			$("tr[id|='commande']").each(function() {
+				$(this).click(function(e) {
+					$("tr[id|='commande']").removeClass('selected');
+					$(this).addClass('selected');
+			        var adresseClient = $(this).find("td[name='adresse-client']").html();
+			        var adresseResto = $(this).attr("data-adresse-restaurant");
+			        displayRoute(adresseClient, adresseResto);
+			        selectedCommande = $(this).attr('id').split("-")[1];
+			        $("button#accepterCommande").prop('disabled', false);
+			    });
 			});
+			$("button#accepterCommande").click(function(){
+				window.location.href = "/Commande/Accepter/"+selectedCommande;
+			});
+		});
 	</script>
 {% endblock %}

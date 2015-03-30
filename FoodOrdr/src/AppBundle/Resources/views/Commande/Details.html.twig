@@ -1,0 +1,35 @@
+<div>Votre commande est envoyée!</div>
+<table>
+	<tr>
+		<th>Restaurant: </th>
+		<td>{{commande.restaurant.nom}}</td>
+	</tr>
+	<tr>
+		<th>Date: </th>
+		<td>{{ commande.dateLivraison|date('Y-m-d') }}</td>
+	</tr>
+	<tr>
+		<th>Heure de livraison: </th>
+		<td>{{ commande.dateLivraison|date('H:i') }}</td>
+	</tr>
+	<tr>
+		<th>Adresse de livraison: </th>
+		<td>{{ commande.adresse.toString }}</td>
+	</tr>
+</table>
+<table>
+	<tr>
+		<th>Item: </th>
+		<th>Quantité: </th>
+		<th>Prix: </th>
+	</tr>
+	{% for line in commande.lignecommandes %}
+		<tr>
+			<td>{{line.idItem.nom}} </td>
+			<td>{{line.quantite}} </td>
+			<td>{{line.idItem.prix}} </td>
+		</tr>
+  	{% endfor %}
+</table>
+<h3> Total de la commande : {{prix}} $</h3>
+<h3> Numéro de confirmation : {{commande.getConfNo}} </h3>

@@ -25,10 +25,8 @@ class Restaurant
       /**
      * @var integer
      *
-     *  @ORM\ManyToOne(targetEntity="Restaurateur")
-     *  @ORM\JoinColumns({
+     *  @ORM\ManyToOne(targetEntity="Restaurateur", inversedBy="restaurants")
      *  @ORM\JoinColumn(name="ID_RESTAURATEUR", referencedColumnName="ID_RESTAURATEUR")
-     * })
      */
     private $idRestaurateur;
 

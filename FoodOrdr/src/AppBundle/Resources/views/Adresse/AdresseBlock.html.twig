@@ -3,6 +3,6 @@
 </div>
 {% if allow_add %}
 	<div id="add-adress-block">
-		{{ render(controller('AppBundle:Adresse:Ajouter',{'displayButton':true}))}}
+		{{ render(controller('AppBundle:Adresse:Ajouter',{'displayButton':true,'allow_select':allow_select}))}}
 	</div>
 {% endif %}

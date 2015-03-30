@@ -203,21 +203,26 @@ class RestaurateurController extends Controller
         return $this->redirect($this->generateUrl('home'));
     }
 
-        /**
+    /**
      * @Route("/Commandes", name="show_commande")
 	 * @Security("has_role('ROLE_REST')")
      */
     public function showCommandeAction()
     {	
     	$user = $this->get('security.context')->getToken()->getUser();
-
-		$commandeRepository = $this->get('doctrine')->getRepository('AppBundle:Commande');
-    	$restaurants = $user->getRestaurants();
-    	$params['restaurants'] = $restaurants;
+    	$params = array();
+    	$params['commandes'] = array();
+    	foreach($user->getRestaurants() as $restaurant){
+    		foreach($restaurant->getCommandes() as $commande){
+	    		if($commande->getStatut()->getIdStatut() != 4){
+	    			array_push($params['commandes'], $commande);
+	    		}
+			}
+    	}
     	return $this->render('AppBundle:Commande:showCommande.html.twig', $params);
     }
 
-          /**
+    /**
      * @Route("/Statut/{id}", name="edit_statut")
 	 * @Security("has_role('ROLE_REST')")
      */
@@ -229,7 +234,7 @@ class RestaurateurController extends Controller
     	$restaurants = $user->getRestaurants();
 			
     	$form = $this->createFormBuilder($commande)
-			->add('idStatut', 'entity', array( 'class' => 'AppBundle:Statut','required' => true))
+			->add('statut', 'entity', array( 'class' => 'AppBundle:Statut','required' => true))
             ->add('Mettre a jour', 'submit')
             ->getForm();
 
@@ -237,12 +242,12 @@ class RestaurateurController extends Controller
 
 		if ($form->isValid()) {
 			$commande_edit = $form->getData();
-			$commande->setIdStatut($commande_edit->getIdStatut());
+			$commande->setStatut($commande_edit->getStatut());
 			$em = $this->getDoctrine()->getManager();	
 			$em->persist($commande);
 			$em->flush();
 			$params['restaurants'] = $restaurants;
-			return $this->render('AppBundle:Commande:showCommande.html.twig', $params);
+			return $this->redirect($this->generateUrl('show_commande'));
 		}
         $params['form'] = $form->createView();
         $params['commande'] = $commande;

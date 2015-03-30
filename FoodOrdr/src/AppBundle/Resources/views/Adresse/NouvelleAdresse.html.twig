@@ -13,14 +13,22 @@
 				});
 			});
 		
-			function postForm( $form, response )
-			{
-				var data={};
-				$.each($form.serializeArray(), function(i,field){
+		function postForm( $form, response )
+		{
+			var data={};
+			$.each($form.serializeArray(), function(i,field){
 				data[field.name]=field.value;
 			});
+			{%if allow_select %}
+				var allow_select = true;
+				data["allow_select"] = true;
+			{% else %}
+				var allow_select = false;
+			{% endif %}
 			$('div#add-adress-block').load($form.attr('action'), data);
-			$("div#list-adress-block").load("{{url('show_adresses')}}");
+			$("div#list-adress-block").load("{{url('show_adresses')}}", {allow_select:allow_select}, function(){
+				$("tr[id|='adresse']").click();
+			});
 		}
 	</script>
 {% else %}
@@ -29,10 +37,15 @@
 		jQuery(document).ready(function() 
 		{
 			$("button#new-adresse").on('click', function(e) 
-			{
+			{	
+				{%if allow_select %}
+					var allow_select = true;
+				{% else %}
+					var allow_select = false;
+				{% endif %}
 				$(this).attr("disabled", true);
 				e.preventDefault()
-				$("div#add-adress-block").load("{{url('ajouter_adresse')}}");
+				$("div#add-adress-block").load("{{url('ajouter_adresse')}}", {allow_select:allow_select});
 			});
 		});
 	</script>

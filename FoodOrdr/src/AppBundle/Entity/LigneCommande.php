@@ -31,20 +31,16 @@ class LigneCommande
     /**
      * @var \Commande
      *
-     * @ORM\ManyToOne(targetEntity="Commande")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ID_COMMANDE", referencedColumnName="ID_COMMANDE")
-     * })
+     * @ORM\ManyToOne(targetEntity="Commande", inversedBy="ligneCommandes")
+     * @ORM\JoinColumn(name="ID_COMMANDE", referencedColumnName="ID_COMMANDE")
      */
     private $idCommande;
 
     /**
      * @var \Item
      *
-     * @ORM\ManyToOne(targetEntity="Item")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ID_ITEM", referencedColumnName="ID_ITEM")
-     * })
+     * @ORM\OneToOne(targetEntity="Item")
+     * @ORM\JoinColumn(name="ID_ITEM", referencedColumnName="ID_ITEM")
      */
     private $idItem;
 

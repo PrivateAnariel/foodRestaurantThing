@@ -1,9 +1,14 @@
+<style>
+	.hover {
+		background-color:#B2B2B2;
+	}
+	.selected {
+		background-color:#FFFFFF;
+	}
+</style>
 <table id="liste-adresses">
     {% for adresse in ListeAdresses %}
        <tr id="adresse-{{adresse.idAdresse}}">
-       		{% if allow_select %}
-				<td><input id='select-adresse-{{adresse.idAdresse}}' type="radio" name="adresse" value="{{adresse.idAdresse}}"/></td>
-			{% endif %}
        		<td> {{adresse.numero}} {{adresse.rue}}, {{adresse.ville}} {{adresse.codePostal}}</td>
        		{% if ListeAdresses.count > 1 %}
 				<td><a href="#" id="delete-{{adresse.idAdresse}}" name="{{adresse.idAdresse}}">{{'delete' | trans}}</a></td>
@@ -13,19 +18,28 @@
 </table>
 <script>
 	var $adressesTable;
-	var $deleteLink;
-	var $adresseId;
-	var $addLink;
 
 	jQuery(document).ready(function() 
 	{
 	    $adressesTable = $('table#liste-adresses');
 	    $adressesTable.find('tr').each(function (i, row)
 		{
-			var $row = $(row);
-		    $deleteLink = $row.find("a[id|='delete']");
-		    $deleteLink.on('click', function(e) 
-		    {
+			{% if allow_select %}
+				$("tr[id|='adresse']").hover(
+					function(){ $(this).addClass('hover') },
+					function(){ $(this).removeClass('hover') }
+				);
+				$("tr[id|='adresse']").click(function() {
+					$("tr[id|='adresse']").removeClass('selected');
+					$(this).addClass('selected');
+					$("input#adresse").val($(this).attr('id').split("-")[1]);
+				});
+				$("tr[id|='adresse']:first").click();
+			{% endif %}
+			console.log($("a[id|='delete']"));
+		});
+		$("a[id|='delete']").each(function() {
+			$(this).click(function(e) {
 		    	var $link = $(this);
 		    	$link.prop("onclick", null);
 		        e.preventDefault();
@@ -34,10 +48,15 @@
 					url: "{{path('delete_adresse')}}",
 					data: { id: $link.attr('name') },
 					success: function(data) 
-					{ 
-						$("div#list-adress-block").load("{{url('show_adresses')}}");
+					{
+						{%if allow_select %}
+							var allow_select = true;
+						{% else %}
+							var allow_select = false;
+						{% endif %}
+						$("div#list-adress-block").load("{{url('show_adresses')}}",{allow_select:allow_select});
 	                }
-				})
+				});
 		    });
 		});
 	});

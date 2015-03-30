@@ -25,7 +25,7 @@ class Commande
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="DATE_LIVRAISON", type="date", nullable=false)
+     * @ORM\Column(name="DATE_LIVRAISON", type="datetime", nullable=false)
      */
     private $dateLivraison;
 
@@ -52,10 +52,8 @@ class Commande
     /**
      * @var \Restaurant
      *
-     * @ORM\ManyToOne(targetEntity="Restaurant")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ID_RESTAURANT", referencedColumnName="ID_RESTAURANT")
-     * })
+     * @ORM\ManyToOne(targetEntity="Restaurant", inversedBy="commandes")
+     * @ORM\JoinColumn(name="ID_RESTAURANT", referencedColumnName="ID_RESTAURANT")
      */
     private $idRestaurant;
 
@@ -80,14 +78,52 @@ class Commande
     private $idClient;
 
       /**
-     * @ORM\OneToMany(targetEntity="LigneCommande", mappedBy="commande", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="LigneCommande", mappedBy="idCommande", cascade={"all"})
      **/
-    public $lignecommandes;
+    private $ligneCommandes;
 
 
 
     public function __construct() {
-        $this->lignecommandes = new ArrayCollection();
+        $this->ligneCommandes = new ArrayCollection();
+    }
+
+        /**
+     * Get LigneCommandes
+     *
+     * @return collection
+     */
+    public function getLigneCommandes()
+    {
+        return $this->ligneCommandes;
+    }
+
+    /**
+     * Set LigneCommandes
+     *
+     * @return Client
+     */
+    public function setLigneCommandes($ligneCommandes)
+    {
+        foreach($ligneCommandes as $ligneCommande) {
+            $ligneCommande->setIdCommande($this);
+        }
+        $this->ligneCommandes = $ligneCommandes;
+
+        return $this;
+    }
+
+    /**
+     * add LigneCommande
+     *
+     * @param \AppBundle\Entity\LigneCommande $ligneCommande
+     * @return Client
+     */
+    public function addLigneCommande(\AppBundle\Entity\LigneCommande $ligneCommande)
+    {
+        $ligneCommande->setIdCommande($this);
+        $this->ligneCommandes->add($ligneCommande);
+        return $this;
     }
 
 
@@ -130,7 +166,7 @@ class Commande
      * @param \AppBundle\Entity\Statut $idStatut
      * @return Commande
      */
-    public function setIdStatut(\AppBundle\Entity\Statut $idStatut = null)
+    public function setStatut(\AppBundle\Entity\Statut $idStatut = null)
     {
         $this->idStatut = $idStatut;
 
@@ -237,5 +273,15 @@ class Commande
     public function getClient()
     {
         return $this->idClient;
+    }
+
+    /**
+     * Get confNo
+     *
+     * @return computed confNo 
+     */
+    public function getConfNo()
+    {
+        return $this->idCommande."-".$this->idRestaurant->getIdRestaurant()."-".$this->dateLivraison->format('H-i')."-".$this->idClient->getIdClient();
     }
 }

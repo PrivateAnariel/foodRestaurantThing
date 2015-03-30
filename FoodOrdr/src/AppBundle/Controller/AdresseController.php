@@ -40,6 +40,10 @@ class AdresseController extends Controller
             $form->add('save','submit');
             $params['form'] = $form->createView();
         }
+        $params['allow_select'] = $this->getRequest()->get('allow_select');
+        if($params['allow_select'] === null){
+            $params['allow_select'] = false;
+        }
         return $this->render('AppBundle:Adresse:NouvelleAdresse.html.twig', $params);
     }
 
