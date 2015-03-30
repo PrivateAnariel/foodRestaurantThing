@@ -24,11 +24,13 @@ class CommandeController extends Controller
     {   
         $listeCommandes = array();
         $user = $this->get('security.context')->getToken()->getUser();
-        $baseUrl = 'http://maps.googleapis.com/maps/api/directions/json?';  
+        $baseUrl = 'http://maps.googleapis.com/maps/api/distancematrix/json?';  
         $commandeRepository = $this->get('doctrine')->getRepository('AppBundle:Commande');
         $commandes = $commandeRepository->findAll();
         foreach ($commandes as $commande) {
-            $query = array(
+            $query = "origins=".str_replace(' ', '+', $user->getAdresse());
+            $query = $query."&destinations=".str_replace(' ', '+', $commande->getRestaurant()->getAdresse()."|".$commande->getAdresse()->toString());
+           /* $query = array(
                         "origin" => $user->getAdresse(),
                         "destination" => $commande->getAdresse()->toString(),
                         "durationInTraffic" => true,
@@ -38,14 +40,16 @@ class CommandeController extends Controller
                         "avoidHighways" => false,
                         "avoidTolls" => true,
                         "region" => "CA"
-                    );
-            $query = http_build_query($query);
+                    );*/
+            //$query = http_build_query($query);
             $url = $baseUrl.$query;
             $curl = curl_init();
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
             $jsonResponse = curl_exec($curl);
             $response = json_decode($jsonResponse, true);
+
+            var_dump($response);die;
             $distance = 0;
             if($response['status'] != 'NOT_FOUND') {
                 foreach ($response['routes'][0]['legs'] as $leg) {
@@ -55,7 +59,7 @@ class CommandeController extends Controller
             array_push($listeCommandes, array(
                                         'info' => $commande,
                                         'directions' => $jsonResponse,
-                                        'distance' => $distance/1000
+                                        'distance' => round($distance/1000,2)
                                         ));
         }
         usort($listeCommandes, function($a,$b){

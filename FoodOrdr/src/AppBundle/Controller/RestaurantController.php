@@ -113,9 +113,7 @@ class RestaurantController extends Controller
 		if ($this->get('security.authorization_checker')->isGranted('ROLE_ENT'))
 		{
 			$option=array('idEntrepreneur'=>$user->getIdEntrepreneur());
-		}
-		else
-		{
+		} else {
 			$option=array('idRestaurant'=>$user->getIdRestaurant());
 		}
 

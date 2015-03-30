@@ -1,86 +1,87 @@
 {% extends 'base.html.twig' %}
-
+{% block style %}
+	<style>
+		#map-container {
+			float:left;
+			width:40%;
+			height: 0;
+			margin: 0px;
+			padding: 0px
+		}
+		#list-commandes{
+			float:right;
+			text-align:left;
+			width:60%;
+		}
+	</style>
+{% endblock %}
 {% block body %}
-	<div id="map-canvas" style="float:left;width:70%;height:100%;"></div>
-	<div id="control_panel" style="float:right;width:30%;text-align:left;padding-top:20px">
-		<div id="directions_panel" style="margin:20px;background-color:#FFEE77;"></div>
+	<div id="map-container" >
+		
 	</div>
+	<div id="list-commandes">
 		<table>
   			<tr>
   				<th> Restaurant </th>
+				<th> Destination </th>
 				<th> Date </th>
-				<th> Statut </th>
 				<th> Distance </th>
 			</tr>
 		{% for commande in listeCommandes %}
-			<tr data-distance="{{commande.directions}}">
+			<tr data-diriections="{{commande.directions}}" onclick="displayRoute(this);">
 				<td> {{commande.info.restaurant.nom}} </td>
 				<td> {{commande.info.getAdresse.toString }} </td>
    				<td> {{commande.info.dateLivraison | date('Y-m-d')}} </td>
    				<td> {{commande.distance}} km </td>
-   				<td> <button id="button-commande-{{commande.info.idCommande}}"
    			</tr>
 		{% endfor %}
 		</table>
+	</div>
 {% endblock %}
-{% block javascript %}
+{% block javascripts %}
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 	<script>
-		var directionsDisplay;
-		var directionsService = new google.maps.DirectionsService();
+		var directionsMap;
 		var map;
-
 		function initialize() {
-			directionsDisplay = new google.maps.DirectionsRenderer();
-			var chicago = new google.maps.LatLng(41.850033, -87.6500523);
-			var mapOptions = {
-				zoom: 6,
-				center: chicago
-			}
-			map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-			directionsDisplay.setMap(map);
+			directionsMap = new google.maps.DirectionsRenderer();
+			var montreal = new google.maps.LatLng(45.5017, -73.5673);
+			map = new google.maps.Map(document.getElementById('map-container'), {zoom: 12,center: montreal});
+			directionsMap.setMap(map);
 		}
 
-		function calcRoute() {
-
+		function displayRoute(commandRow) {
+			var directions = commandRow.getAttribute('data-diriections');
+			directions = JSON.parse(directions);
+			var directionsService = new google.maps.DirectionsService();
 			var request = {
-					origin: "377 des seigneurs, Montreal, h3j0a9",
-					destination: "140 Beaumont Ouest, Saint-Bruno, j3v6h9",
-					durationInTraffic: true,
-					travelMode: google.maps.TravelMode.DRIVING,
-					waypoints: 
-					[{
-						location:"1100 Rue Notre-Dame Ouest, Montreal, Quebec h3c1k3",
-						stopover:true
-					}],
-					provideRouteAlternatives: false,
-					avoidHighways: false,
-					avoidTolls: true,
-					region: "CA"
-				};
+						origin: "377 des seigneurs, Montreal, h3j0a9",
+						destination: "140 Beaumont Ouest, Saint-Bruno, j3v6h9",
+						durationInTraffic: true,
+						travelMode: google.maps.TravelMode.DRIVING,
+						waypoints: 
+						[{
+							location:"1100 Rue Notre-Dame Ouest, Montreal, Quebec h3c1k3",
+							stopover:true
+						}],
+						provideRouteAlternatives: false,
+						avoidHighways: false,
+						avoidTolls: true,
+						region: "CA"
+					};
 			directionsService.route(request, function(response, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
-					directionsDisplay.setDirections(response);
-					var route = response.routes[0];
-					var summaryPanel = document.getElementById('directions_panel');
-					summaryPanel.innerHTML = '';
-        console.log(route);
-					// For each route, display summary information.
-					for (var i = 0; i < route.legs.length; i++) {
-						var routeSegment = i + 1;
-						summaryPanel.innerHTML += '<b>distance: ' + routeSegment + '</b><br>';
-						summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-						summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-						summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
-					}
+					directionsMap.setDirections(response);
 				}
 			});
+			/*var directions = commandRow.getAttribute('data-diriections');
+			directions = JSON.parse(directions);
+			console.log(directions);
+			directionsMap.setDirections(directions.routes);*/
 		}
-
-		//google.maps.event.addDomListener(window, 'load', initialize);
 		$('document').ready(function(){
 				initialize();
-				calcRoute();
+				$('#map-container').css({'height':$('#map-container').width()});
 			});
 	</script>
 {% endblock %}

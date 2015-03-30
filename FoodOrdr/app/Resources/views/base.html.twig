@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Accueil</title>
-	<meta charset="utf-8" />  
-	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-	<link rel="stylesheet" href="{{ asset('bundles/framework/css/index.css') }}" />
-	{% block style %}
-    {% endblock %}
-</head>
-<body>
-	{% include("include/header.html.twig") %}
-	<div id="main">
-		{% block body %}
-    	{% endblock %}
-	</div>
-	{% include("include/footer.html.twig") %}
-  </body>
-  {% block javascripts %}{% endblock %}
+	<head>
+		<title>Accueil</title>
+		<meta charset="utf-8" />  
+		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		<link rel="stylesheet" href="{{ asset('bundles/framework/css/index.css') }}" />
+		{% block style %}
+	    {% endblock %}
+	</head>
+	<body>
+		{% include("include/header.html.twig") %}
+		<div id="main">
+			{% block body %}
+	    	{% endblock %}
+		</div>
+		{% include("include/footer.html.twig") %}
+	</body>
+	{% block javascripts %}{% endblock %}
 </html>
 
 
