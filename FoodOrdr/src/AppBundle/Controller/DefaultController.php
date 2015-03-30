@@ -25,6 +25,7 @@ class DefaultController extends Controller
      * @Security("has_role('ROLE_USER')")
      */
     public function newMdpAction() {
+        $response;
         $data = array();
         $form = $this->createFormBuilder($data)
             ->add('vieux_mdp', 'password', array(
@@ -55,8 +56,20 @@ class DefaultController extends Controller
             
             $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
             $this->get('security.token_storage')->setToken($token);
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_REST'))
+                {
+                    $response = $this->redirect($this->generateUrl('edit_restaurateur'));
+                }
+            else{
+                    $response = $this->redirect($this->generateUrl('edit_client'));
+            }
+                    
+
         }
-        $params = array("form" => $form->createView());
-        return $this->render('AppBundle:Client:Registration.html.twig', $params);
+        else {
+            $params = array("form" => $form->createView());
+            $response = $this->render('AppBundle:Client:Registration.html.twig', $params);
+        }
+        return $response;
     }
 }

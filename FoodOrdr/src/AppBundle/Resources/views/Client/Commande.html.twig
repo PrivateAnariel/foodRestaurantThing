@@ -2,24 +2,24 @@
 
 {% block body %}
 
-{{ form_start(form) }}
-<table>
-    <tr>
-		<th> Item </th>
-		<th> Prix </th>
-		<th> Quantite </th>
-	</tr>
-	{% for item in items %}
-	<tr>
-	</tr>
-		<td> {{ form_row(form.name, {'label': 'item.nom'}) }} </td>
-		<td> {{ item.prix }} </td>
-		<td> <input> </input> </td>
-	</tr>
+{{restaurant.nom}}
+<form name='commande' id='commande' method='POST' action="{{ path("afficher_commande",{'id':restaurant.idRestaurant})}}">
+	<table>
+	    <tr>
+			<th> Item </th>
+			<th> Prix </th>
+			<th> Quantite </th>
+		</tr>
+		{% for item in items %}
+		<tr>
+		</tr>
+			<td> {{ item.nom }} </td>
+			<td> {{ item.prix }} </td>
+			<td> <input name="{{item.idItem}}" id="{{item.idItem}}" type="number" min="0" step="1"> </input> </td>
+		</tr>
 
-		{% endfor %}
-{{ form_widget(form) }}
-{{ form_end(form) }}
-</table>
-
+			{% endfor %}
+	</table>
+	<input type="submit" value="Commander">
+</form>
 {% endblock %}
